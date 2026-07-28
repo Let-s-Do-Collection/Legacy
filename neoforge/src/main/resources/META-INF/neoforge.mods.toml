@@ -1,0 +1,36 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "Custom"
+
+[[mixins]]
+config = "legacy.neoforge.mixins.json"
+
+[[mods]]
+modId = "legacy"
+version = "${version}"
+displayName = "Let's Do: Legacy"
+authors = "satisfy"
+description = '''
+A purely cosmetic, long-term title system. Unlock titles through your activities and wear one above your name.
+'''
+
+[[dependencies.legacy]]
+modId = "neoforge"
+mandatory = true
+versionRange = "[21.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.legacy]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.legacy]]
+modId = "architectury"
+mandatory = true
+versionRange = "[13.0.0,)"
+ordering = "AFTER"
+side = "BOTH"

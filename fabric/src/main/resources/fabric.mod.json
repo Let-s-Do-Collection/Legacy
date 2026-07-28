@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "legacy",
+  "version": "${version}",
+  "name": "Let's Do: Legacy",
+  "description": "A purely cosmetic, long-term title system. Unlock titles through your activities and wear one above your name.",
+  "authors": [
+    "satisfy"
+  ],
+  "license": "Custom",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.satisfy.legacy.fabric.LegacyFabric"
+    ],
+    "client": [
+      "net.satisfy.legacy.fabric.client.LegacyClientFabric"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.21.1",
+    "architectury": ">=13.0.0"
+  },
+  "mixins": [
+    "legacy.fabric.mixins.json"
+  ]
+}

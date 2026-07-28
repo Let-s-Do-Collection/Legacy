@@ -1,0 +1,1031 @@
+{
+  "titles": [
+    {
+      "id": "farmer",
+      "translation_key": "title.legacy.farmer",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "harvest:crops",
+        "amount": 64
+      },
+      "category": "farming",
+      "series": "farming/harvest",
+      "stage": 1,
+      "display_priority": 10,
+      "icon": "minecraft:wheat",
+      "rarity": "common"
+    },
+    {
+      "id": "grossbauer",
+      "translation_key": "title.legacy.grossbauer",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "harvest:crops",
+        "amount": 512
+      },
+      "category": "farming",
+      "series": "farming/harvest",
+      "stage": 2,
+      "display_priority": 11,
+      "icon": "minecraft:hay_block",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "landwirt",
+      "translation_key": "title.legacy.landwirt",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "harvest:crops",
+        "amount": 2048
+      },
+      "category": "farming",
+      "series": "farming/harvest",
+      "stage": 3,
+      "display_priority": 12,
+      "icon": "minecraft:bread",
+      "rarity": "rare"
+    },
+    {
+      "id": "gruene_hand",
+      "translation_key": "title.legacy.gruene_hand",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "bonemeal:used",
+        "amount": 64
+      },
+      "category": "farming",
+      "series": "farming/bonemeal",
+      "stage": 1,
+      "display_priority": 15,
+      "icon": "minecraft:bone_meal",
+      "rarity": "common"
+    },
+    {
+      "id": "gaertner",
+      "translation_key": "title.legacy.gaertner",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "bonemeal:used",
+        "amount": 512
+      },
+      "category": "farming",
+      "series": "farming/bonemeal",
+      "stage": 2,
+      "display_priority": 16,
+      "icon": "minecraft:fern",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "viehzuechter",
+      "translation_key": "title.legacy.viehzuechter",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:animals_bred",
+        "amount": 20
+      },
+      "category": "farming",
+      "series": "farming/breeding",
+      "stage": 1,
+      "display_priority": 20,
+      "icon": "minecraft:egg",
+      "rarity": "common"
+    },
+    {
+      "id": "schaefer",
+      "translation_key": "title.legacy.schaefer",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:animals_bred",
+        "amount": 100
+      },
+      "category": "farming",
+      "series": "farming/breeding",
+      "stage": 2,
+      "display_priority": 21,
+      "icon": "minecraft:white_wool",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "hirte",
+      "translation_key": "title.legacy.hirte",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:animals_bred",
+        "amount": 500
+      },
+      "category": "farming",
+      "series": "farming/breeding",
+      "stage": 3,
+      "display_priority": 22,
+      "icon": "minecraft:lead",
+      "rarity": "rare"
+    },
+    {
+      "id": "blumenpfluecker",
+      "translation_key": "title.legacy.blumenpfluecker",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#minecraft:small_flowers",
+        "amount": 32
+      },
+      "category": "farming",
+      "series": "farming/flowers",
+      "stage": 1,
+      "display_priority": 25,
+      "icon": "minecraft:poppy",
+      "rarity": "common"
+    },
+    {
+      "id": "blumenmeister",
+      "translation_key": "title.legacy.blumenmeister",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#minecraft:small_flowers",
+        "amount": 256
+      },
+      "category": "farming",
+      "series": "farming/flowers",
+      "stage": 2,
+      "display_priority": 26,
+      "icon": "minecraft:oxeye_daisy",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "holzhacker",
+      "translation_key": "title.legacy.holzhacker",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#minecraft:logs",
+        "amount": 128
+      },
+      "category": "forestry",
+      "series": "forestry/wood",
+      "stage": 1,
+      "display_priority": 50,
+      "icon": "minecraft:wooden_axe",
+      "rarity": "common"
+    },
+    {
+      "id": "holzfaeller",
+      "translation_key": "title.legacy.holzfaeller",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#minecraft:logs",
+        "amount": 1024
+      },
+      "category": "forestry",
+      "series": "forestry/wood",
+      "stage": 2,
+      "display_priority": 51,
+      "icon": "minecraft:oak_log",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "foerster",
+      "translation_key": "title.legacy.foerster",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#minecraft:logs",
+        "amount": 8192
+      },
+      "category": "forestry",
+      "series": "forestry/wood",
+      "stage": 3,
+      "display_priority": 52,
+      "icon": "minecraft:iron_axe",
+      "rarity": "rare"
+    },
+    {
+      "id": "schuerfer",
+      "translation_key": "title.legacy.schuerfer",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#legacy:stones",
+        "amount": 256
+      },
+      "category": "mining",
+      "series": "mining/stone",
+      "stage": 1,
+      "display_priority": 60,
+      "icon": "minecraft:stone",
+      "rarity": "common"
+    },
+    {
+      "id": "bergmann",
+      "translation_key": "title.legacy.bergmann",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#legacy:stones",
+        "amount": 2048
+      },
+      "category": "mining",
+      "series": "mining/stone",
+      "stage": 2,
+      "display_priority": 61,
+      "icon": "minecraft:stone_pickaxe",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "tiefengraeber",
+      "translation_key": "title.legacy.tiefengraeber",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#legacy:stones",
+        "amount": 8192
+      },
+      "category": "mining",
+      "series": "mining/stone",
+      "stage": 3,
+      "display_priority": 62,
+      "icon": "minecraft:deepslate",
+      "rarity": "rare"
+    },
+    {
+      "id": "prospektor",
+      "translation_key": "title.legacy.prospektor",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#legacy:ores",
+        "amount": 64
+      },
+      "category": "mining",
+      "series": "mining/ore",
+      "stage": 1,
+      "display_priority": 65,
+      "icon": "minecraft:raw_iron",
+      "rarity": "common"
+    },
+    {
+      "id": "erzsucher",
+      "translation_key": "title.legacy.erzsucher",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#legacy:ores",
+        "amount": 512
+      },
+      "category": "mining",
+      "series": "mining/ore",
+      "stage": 2,
+      "display_priority": 66,
+      "icon": "minecraft:raw_gold",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "heart_of_the_mountains",
+      "translation_key": "title.legacy.heart_of_the_mountains",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "mine:#legacy:ores",
+        "amount": 2048
+      },
+      "category": "mining",
+      "series": "mining/ore",
+      "stage": 3,
+      "display_priority": 67,
+      "icon": "minecraft:emerald",
+      "rarity": "legendary"
+    },
+    {
+      "id": "fortunes_favorite",
+      "translation_key": "title.legacy.fortunes_favorite",
+      "placement": "suffix",
+      "trigger": "advancement",
+      "requirement": {
+        "advancement": "minecraft:story/mine_diamond"
+      },
+      "category": "mining",
+      "display_priority": 70,
+      "icon": "minecraft:diamond",
+      "rarity": "rare"
+    },
+    {
+      "id": "relic_seeker",
+      "translation_key": "title.legacy.relic_seeker",
+      "placement": "suffix",
+      "trigger": "advancement",
+      "requirement": {
+        "advancement": "minecraft:nether/obtain_ancient_debris"
+      },
+      "category": "mining",
+      "display_priority": 71,
+      "icon": "minecraft:ancient_debris",
+      "rarity": "epic"
+    },
+    {
+      "id": "reisender",
+      "translation_key": "title.legacy.reisender",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biomes_distinct",
+        "amount": 5
+      },
+      "category": "exploration",
+      "series": "exploration/biomes",
+      "stage": 1,
+      "display_priority": 100,
+      "icon": "minecraft:leather_boots",
+      "rarity": "common"
+    },
+    {
+      "id": "pfadfinder",
+      "translation_key": "title.legacy.pfadfinder",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biomes_distinct",
+        "amount": 15
+      },
+      "category": "exploration",
+      "series": "exploration/biomes",
+      "stage": 2,
+      "display_priority": 101,
+      "icon": "minecraft:compass",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "entdecker",
+      "translation_key": "title.legacy.entdecker",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biomes_distinct",
+        "amount": 30
+      },
+      "category": "exploration",
+      "series": "exploration/biomes",
+      "stage": 3,
+      "display_priority": 102,
+      "icon": "minecraft:map",
+      "rarity": "rare"
+    },
+    {
+      "id": "weltenentdecker",
+      "translation_key": "title.legacy.weltenentdecker",
+      "placement": "prefix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biomes_distinct",
+        "amount": 50
+      },
+      "category": "exploration",
+      "series": "exploration/biomes",
+      "stage": 4,
+      "display_priority": 103,
+      "icon": "minecraft:filled_map",
+      "rarity": "epic"
+    },
+    {
+      "id": "deep_roots",
+      "translation_key": "title.legacy.deep_roots",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biome:minecraft:lush_caves",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 110,
+      "icon": "minecraft:glow_berries",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "crimson_wanderer",
+      "translation_key": "title.legacy.crimson_wanderer",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biome:minecraft:crimson_forest",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 111,
+      "icon": "minecraft:crimson_fungus",
+      "rarity": "rare"
+    },
+    {
+      "id": "ashen",
+      "translation_key": "title.legacy.ashen",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biome:minecraft:soul_sand_valley",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 112,
+      "icon": "minecraft:soul_sand",
+      "rarity": "rare"
+    },
+    {
+      "id": "northbound",
+      "translation_key": "title.legacy.northbound",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biome:minecraft:jagged_peaks",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 113,
+      "icon": "minecraft:snow_block",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "shadow_touched",
+      "translation_key": "title.legacy.shadow_touched",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "biome:minecraft:deep_dark",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 114,
+      "hidden": true,
+      "icon": "minecraft:echo_shard",
+      "rarity": "epic"
+    },
+    {
+      "id": "hellwalker",
+      "translation_key": "title.legacy.hellwalker",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "dimension:minecraft:the_nether",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 120,
+      "icon": "minecraft:flint_and_steel",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "beyond_horizon",
+      "translation_key": "title.legacy.beyond_horizon",
+      "placement": "suffix",
+      "trigger": "event",
+      "requirement": {
+        "counter": "dimension:minecraft:the_end",
+        "amount": 1
+      },
+      "category": "exploration",
+      "display_priority": 121,
+      "icon": "minecraft:ender_pearl",
+      "rarity": "rare"
+    },
+    {
+      "id": "long_road",
+      "translation_key": "title.legacy.long_road",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:walk_one_cm",
+        "amount": 2000000
+      },
+      "category": "exploration",
+      "display_priority": 130,
+      "icon": "minecraft:iron_boots",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "skyborne",
+      "translation_key": "title.legacy.skyborne",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:aviate_one_cm",
+        "amount": 500000
+      },
+      "category": "exploration",
+      "display_priority": 131,
+      "icon": "minecraft:elytra",
+      "rarity": "rare"
+    },
+    {
+      "id": "aspirant",
+      "translation_key": "title.legacy.aspirant",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:player_kills",
+        "amount": 1
+      },
+      "category": "pvp",
+      "series": "pvp/duel",
+      "stage": 1,
+      "display_priority": 150,
+      "icon": "minecraft:wooden_sword",
+      "rarity": "common"
+    },
+    {
+      "id": "scout",
+      "translation_key": "title.legacy.scout",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:player_kills",
+        "amount": 5
+      },
+      "category": "pvp",
+      "series": "pvp/duel",
+      "stage": 2,
+      "display_priority": 151,
+      "icon": "minecraft:stone_sword",
+      "rarity": "common"
+    },
+    {
+      "id": "streiter",
+      "translation_key": "title.legacy.streiter",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:player_kills",
+        "amount": 15
+      },
+      "category": "pvp",
+      "series": "pvp/duel",
+      "stage": 3,
+      "display_priority": 152,
+      "icon": "minecraft:iron_sword",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "bezwinger",
+      "translation_key": "title.legacy.bezwinger",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:player_kills",
+        "amount": 50
+      },
+      "category": "pvp",
+      "series": "pvp/duel",
+      "stage": 4,
+      "display_priority": 153,
+      "icon": "minecraft:diamond_sword",
+      "rarity": "rare"
+    },
+    {
+      "id": "eroberer",
+      "translation_key": "title.legacy.eroberer",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:player_kills",
+        "amount": 150
+      },
+      "category": "pvp",
+      "series": "pvp/duel",
+      "stage": 5,
+      "display_priority": 154,
+      "icon": "minecraft:netherite_sword",
+      "rarity": "epic"
+    },
+    {
+      "id": "warbound",
+      "translation_key": "title.legacy.warbound",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:player_kills",
+        "amount": 500
+      },
+      "category": "pvp",
+      "series": "pvp/duel",
+      "stage": 6,
+      "display_priority": 155,
+      "icon": "minecraft:totem_of_undying",
+      "rarity": "legendary"
+    },
+    {
+      "id": "reaper",
+      "translation_key": "title.legacy.reaper",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:mob_kills",
+        "amount": 2500
+      },
+      "category": "combat",
+      "display_priority": 160,
+      "icon": "minecraft:skeleton_skull",
+      "rarity": "rare"
+    },
+    {
+      "id": "endermans_bane",
+      "translation_key": "title.legacy.endermans_bane",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:enderman",
+        "amount": 64
+      },
+      "category": "combat",
+      "display_priority": 161,
+      "icon": "minecraft:ender_eye",
+      "rarity": "rare"
+    },
+    {
+      "id": "emberheart",
+      "translation_key": "title.legacy.emberheart",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:blaze",
+        "amount": 30
+      },
+      "category": "combat",
+      "display_priority": 162,
+      "icon": "minecraft:blaze_rod",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "terror_of_the_seas",
+      "translation_key": "title.legacy.terror_of_the_seas",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:drowned",
+        "amount": 25
+      },
+      "category": "combat",
+      "display_priority": 163,
+      "icon": "minecraft:trident",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "dragonslayer",
+      "translation_key": "title.legacy.dragonslayer",
+      "placement": "suffix",
+      "trigger": "advancement",
+      "requirement": {
+        "advancement": "minecraft:end/kill_dragon"
+      },
+      "category": "combat",
+      "display_priority": 170,
+      "icon": "minecraft:dragon_head",
+      "rarity": "epic"
+    },
+    {
+      "id": "wyrmsbane",
+      "translation_key": "title.legacy.wyrmsbane",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:ender_dragon",
+        "amount": 3
+      },
+      "category": "combat",
+      "display_priority": 171,
+      "icon": "minecraft:end_crystal",
+      "rarity": "legendary"
+    },
+    {
+      "id": "withers_bane",
+      "translation_key": "title.legacy.withers_bane",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:wither",
+        "amount": 1
+      },
+      "category": "combat",
+      "display_priority": 172,
+      "icon": "minecraft:nether_star",
+      "rarity": "epic"
+    },
+    {
+      "id": "tidebreaker",
+      "translation_key": "title.legacy.tidebreaker",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:elder_guardian",
+        "amount": 1
+      },
+      "category": "combat",
+      "display_priority": 173,
+      "icon": "minecraft:prismarine_shard",
+      "rarity": "epic"
+    },
+    {
+      "id": "unseen",
+      "translation_key": "title.legacy.unseen",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:warden",
+        "amount": 1
+      },
+      "category": "combat",
+      "display_priority": 174,
+      "hidden": true,
+      "icon": "minecraft:echo_shard",
+      "rarity": "mythic"
+    },
+    {
+      "id": "pluendererjaeger",
+      "translation_key": "title.legacy.pluendererjaeger",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:killed",
+        "stat": "minecraft:pillager",
+        "amount": 100
+      },
+      "category": "combat",
+      "display_priority": 175,
+      "icon": "minecraft:crossbow",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "haendler",
+      "translation_key": "title.legacy.haendler",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:traded_with_villager",
+        "amount": 50
+      },
+      "category": "trading",
+      "series": "village/trade",
+      "stage": 1,
+      "display_priority": 200,
+      "icon": "minecraft:emerald",
+      "rarity": "common"
+    },
+    {
+      "id": "meisterhaendler",
+      "translation_key": "title.legacy.meisterhaendler",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:traded_with_villager",
+        "amount": 200
+      },
+      "category": "trading",
+      "series": "village/trade",
+      "stage": 2,
+      "display_priority": 201,
+      "icon": "minecraft:emerald_block",
+      "rarity": "rare"
+    },
+    {
+      "id": "protektor",
+      "translation_key": "title.legacy.protektor",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:raid_win",
+        "amount": 1
+      },
+      "category": "village",
+      "series": "village/raid",
+      "stage": 1,
+      "display_priority": 205,
+      "icon": "minecraft:shield",
+      "rarity": "common"
+    },
+    {
+      "id": "beschuetzer",
+      "translation_key": "title.legacy.beschuetzer",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:raid_win",
+        "amount": 5
+      },
+      "category": "village",
+      "series": "village/raid",
+      "stage": 2,
+      "display_priority": 206,
+      "icon": "minecraft:iron_chestplate",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "held_des_dorfes",
+      "translation_key": "title.legacy.held_des_dorfes",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:raid_win",
+        "amount": 25
+      },
+      "category": "village",
+      "series": "village/raid",
+      "stage": 3,
+      "display_priority": 207,
+      "icon": "minecraft:bell",
+      "rarity": "epic"
+    },
+    {
+      "id": "enchanter",
+      "translation_key": "title.legacy.enchanter",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:enchant_item",
+        "amount": 50
+      },
+      "category": "magic",
+      "display_priority": 220,
+      "icon": "minecraft:enchanted_book",
+      "rarity": "rare"
+    },
+    {
+      "id": "schildtraeger",
+      "translation_key": "title.legacy.schildtraeger",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:damage_blocked_by_shield",
+        "amount": 1000
+      },
+      "category": "defense",
+      "series": "defense/block",
+      "stage": 1,
+      "display_priority": 230,
+      "icon": "minecraft:shield",
+      "rarity": "common"
+    },
+    {
+      "id": "bollwerk",
+      "translation_key": "title.legacy.bollwerk",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:damage_blocked_by_shield",
+        "amount": 10000
+      },
+      "category": "defense",
+      "series": "defense/block",
+      "stage": 2,
+      "display_priority": 231,
+      "icon": "minecraft:iron_door",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "unerschuetterlich",
+      "translation_key": "title.legacy.unerschuetterlich",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:damage_blocked_by_shield",
+        "amount": 50000
+      },
+      "category": "defense",
+      "series": "defense/block",
+      "stage": 3,
+      "display_priority": 232,
+      "icon": "minecraft:netherite_chestplate",
+      "rarity": "epic"
+    },
+    {
+      "id": "bootsmann",
+      "translation_key": "title.legacy.bootsmann",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:boat_one_cm",
+        "amount": 100000
+      },
+      "category": "travel",
+      "series": "travel/boat",
+      "stage": 1,
+      "display_priority": 240,
+      "icon": "minecraft:oak_boat",
+      "rarity": "common"
+    },
+    {
+      "id": "seefahrer",
+      "translation_key": "title.legacy.seefahrer",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:boat_one_cm",
+        "amount": 500000
+      },
+      "category": "travel",
+      "series": "travel/boat",
+      "stage": 2,
+      "display_priority": 241,
+      "icon": "minecraft:map",
+      "rarity": "uncommon"
+    },
+    {
+      "id": "navigator",
+      "translation_key": "title.legacy.navigator",
+      "placement": "prefix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:boat_one_cm",
+        "amount": 2000000
+      },
+      "category": "travel",
+      "series": "travel/boat",
+      "stage": 3,
+      "display_priority": 242,
+      "icon": "minecraft:heart_of_the_sea",
+      "rarity": "rare"
+    },
+    {
+      "id": "old_guard",
+      "translation_key": "title.legacy.old_guard",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:play_time",
+        "amount": 1728000
+      },
+      "category": "playtime",
+      "series": "playtime/veteran",
+      "stage": 1,
+      "display_priority": 250,
+      "icon": "minecraft:clock",
+      "rarity": "rare"
+    },
+    {
+      "id": "timeless",
+      "translation_key": "title.legacy.timeless",
+      "placement": "suffix",
+      "trigger": "minecraft_stat",
+      "requirement": {
+        "stat_type": "minecraft:custom",
+        "stat": "minecraft:play_time",
+        "amount": 7200000
+      },
+      "category": "playtime",
+      "series": "playtime/veteran",
+      "stage": 2,
+      "display_priority": 251,
+      "icon": "minecraft:amethyst_cluster",
+      "rarity": "mythic"
+    },
+    {
+      "id": "touched_by_fate",
+      "translation_key": "title.legacy.touched_by_fate",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:fate"
+      },
+      "category": "special",
+      "display_priority": 300,
+      "hidden": true,
+      "icon": "minecraft:nether_star",
+      "rarity": "mythic"
+    }
+  ]
+}
