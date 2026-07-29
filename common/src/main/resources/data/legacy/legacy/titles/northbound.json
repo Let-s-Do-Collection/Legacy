@@ -1,0 +1,12 @@
+{
+  "id": "northbound",
+  "translation_key": "title.legacy.northbound",
+  "category": "exploration",
+  "icon": "minecraft:snow_block",
+  "rarity": "uncommon",
+  "display_priority": 113,
+  "trigger": {
+    "type": "event",
+    "counter": "biome:minecraft:jagged_peaks"
+  }
+}

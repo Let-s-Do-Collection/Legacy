@@ -1,0 +1,16 @@
+{
+  "id": "lumberjack",
+  "translation_key": "title.legacy.lumberjack",
+  "category": "forestry",
+  "icon": "minecraft:oak_log",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "forestry/wood",
+  "stage": 2,
+  "display_priority": 51,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#minecraft:logs",
+    "value": 1024
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "quarrier",
+  "translation_key": "title.legacy.quarrier",
+  "category": "mining",
+  "icon": "minecraft:stone",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "mining/stone",
+  "stage": 1,
+  "display_priority": 60,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#legacy:stones",
+    "value": 256
+  }
+}

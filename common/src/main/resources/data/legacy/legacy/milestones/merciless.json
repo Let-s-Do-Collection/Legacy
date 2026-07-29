@@ -1,0 +1,9 @@
+{
+  "id": "merciless",
+  "icon": "minecraft:iron_sword",
+  "rarity": "rare",
+  "trigger": {
+    "type": "kill",
+    "id": "minecraft:player"
+  }
+}

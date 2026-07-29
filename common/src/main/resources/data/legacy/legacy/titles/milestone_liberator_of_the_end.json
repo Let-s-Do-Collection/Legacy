@@ -1,0 +1,13 @@
+{
+  "id": "milestone_liberator_of_the_end",
+  "translation_key": "milestone.legacy.liberator_of_the_end",
+  "category": "milestone",
+  "icon": "minecraft:dragon_head",
+  "rarity": "legendary",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

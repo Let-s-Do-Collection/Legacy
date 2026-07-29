@@ -1,0 +1,10 @@
+{
+  "id": "hero_of_the_overworld",
+  "icon": "minecraft:bell",
+  "rarity": "epic",
+  "shared": true,
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:adventure/hero_of_the_village"
+  }
+}

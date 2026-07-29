@@ -1,0 +1,14 @@
+{
+  "id": "skyborne",
+  "translation_key": "title.legacy.skyborne",
+  "category": "exploration",
+  "icon": "minecraft:elytra",
+  "rarity": "rare",
+  "display_priority": 131,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:aviate_one_cm",
+    "value": 500000
+  }
+}

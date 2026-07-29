@@ -1,0 +1,10 @@
+{
+  "category": "farming",
+  "icon": "minecraft:cake",
+  "title": "First Cake",
+  "description": "Bake and place a cake.",
+  "trigger": {
+    "type": "counter",
+    "counter": "place:minecraft:cake"
+  }
+}

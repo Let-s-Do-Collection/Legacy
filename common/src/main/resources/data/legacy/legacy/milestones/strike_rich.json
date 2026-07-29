@@ -1,0 +1,9 @@
+{
+  "id": "strike_rich",
+  "icon": "minecraft:diamond",
+  "rarity": "rare",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:story/mine_diamond"
+  }
+}

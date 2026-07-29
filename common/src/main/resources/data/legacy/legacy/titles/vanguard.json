@@ -1,0 +1,17 @@
+{
+  "id": "vanguard",
+  "translation_key": "title.legacy.vanguard",
+  "category": "pvp",
+  "icon": "minecraft:stone_sword",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "pvp/duel",
+  "stage": 2,
+  "display_priority": 151,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:player_kills",
+    "value": 5
+  }
+}

@@ -19,6 +19,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.AbstractBannerBlock;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.CropBlock;
@@ -88,6 +90,12 @@ public final class LegacyCollectors {
                     if (block instanceof CropBlock) {
                         data.addCounter(Counters.PLACE_CROPS, 1);
                     }
+                    if (block instanceof BedBlock) {
+                        data.addCounter(Counters.PLACE_BEDS, 1);
+                    }
+                    if (block instanceof AbstractBannerBlock) {
+                        data.addCounter(Counters.PLACE_BANNERS, 1);
+                    }
                 });
             }
             return EventResult.pass();
@@ -138,6 +146,9 @@ public final class LegacyCollectors {
             if (data.markVisited(Counters.biome(id))) {
                 data.addCounter(Counters.BIOMES_DISTINCT, 1);
             }
+            for (ResourceLocation family : biomeFamilies(id)) {
+                data.markVisited(Counters.biome(family));
+            }
         });
 
         Registry<Structure> structures = level.registryAccess().registryOrThrow(Registries.STRUCTURE);
@@ -147,10 +158,30 @@ public final class LegacyCollectors {
                 continue;
             }
             ResourceLocation id = structures.getKey(structure);
-            if (id != null && data.markVisited(Counters.structure(id))) {
+            if (id == null) {
+                continue;
+            }
+            if (data.markVisited(Counters.structure(id))) {
                 data.addCounter(Counters.STRUCTURES_DISTINCT, 1);
             }
+            // Family alias so "any village" journeys work regardless of village variant.
+            if (id.getPath().startsWith("village_")) {
+                data.markVisited(Counters.structure(ResourceLocation.withDefaultNamespace("village")));
+            }
         }
+    }
+
+    /** Broad biome families so journeys can match "any ocean" / "the snowy peaks" without listing every id. */
+    private static List<ResourceLocation> biomeFamilies(ResourceLocation id) {
+        List<ResourceLocation> families = new java.util.ArrayList<>(2);
+        String path = id.getPath();
+        if (path.endsWith("ocean")) {
+            families.add(ResourceLocation.withDefaultNamespace("ocean"));
+        }
+        if (path.equals("snowy_slopes") || path.equals("jagged_peaks") || path.equals("frozen_peaks")) {
+            families.add(ResourceLocation.withDefaultNamespace("snowy_mountains"));
+        }
+        return families;
     }
 
     private static void recordDimension(PlayerTitleData data, ResourceLocation id) {

@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:sandstone",
+  "title": "First Desert Temple",
+  "description": "Uncover a temple in the sands.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:desert_pyramid"
+  }
+}

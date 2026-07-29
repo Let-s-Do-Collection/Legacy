@@ -1,0 +1,11 @@
+{
+  "category": "villagers",
+  "icon": "minecraft:emerald",
+  "title": "First Trade",
+  "description": "Strike your first bargain.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:traded_with_villager"
+  }
+}

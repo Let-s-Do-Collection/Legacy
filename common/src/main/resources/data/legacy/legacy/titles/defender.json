@@ -1,0 +1,17 @@
+{
+  "id": "defender",
+  "translation_key": "title.legacy.defender",
+  "category": "village",
+  "icon": "minecraft:iron_chestplate",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "village/raid",
+  "stage": 2,
+  "display_priority": 206,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:raid_win",
+    "value": 5
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:trident",
+  "title": "First Trident",
+  "description": "Claim a trident from the deep.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:picked_up",
+    "stat": "minecraft:trident"
+  }
+}

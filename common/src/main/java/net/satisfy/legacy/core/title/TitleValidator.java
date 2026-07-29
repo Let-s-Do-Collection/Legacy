@@ -13,7 +13,8 @@ public final class TitleValidator {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     private static final Set<String> PLACEMENTS = Set.of("prefix", "suffix");
-    private static final Set<String> TRIGGERS = Set.of("minecraft_stat", "event", "advancement", "custom");
+    private static final Set<String> TRIGGERS = Set.of(
+            "minecraft_stat", "statistic", "stat", "event", "counter", "advancement", "custom");
     private static final Set<String> RARITIES = Set.of("common", "uncommon", "rare", "epic", "legendary", "mythic");
 
     private TitleValidator() {
@@ -31,11 +32,19 @@ public final class TitleValidator {
         }
 
         warnUnknownEnum(raw, "placement", PLACEMENTS, id);
-        warnUnknownEnum(raw, "trigger", TRIGGERS, id);
         warnUnknownEnum(raw, "rarity", RARITIES, id);
+        if (raw.has("trigger") && raw.get("trigger").isJsonObject()
+                && raw.getAsJsonObject("trigger").has("type")
+                && raw.getAsJsonObject("trigger").get("type").isJsonPrimitive()) {
+            String type = raw.getAsJsonObject("trigger").get("type").getAsString();
+            if (!TRIGGERS.contains(type.toLowerCase(java.util.Locale.ROOT))) {
+                LOGGER.warn("[{}] Title '{}' has invalid 'trigger.type' = '{}'. Allowed: {}. Using 'custom'.",
+                        Legacy.MOD_ID, id, type, TRIGGERS);
+            }
+        }
 
-        if (!raw.has("translation_key")) {
-            LOGGER.warn("[{}] Title '{}' has no 'translation_key'; defaulting to 'title.legacy.{}'.", Legacy.MOD_ID, id, id);
+        if (!raw.has("translation_key") && (title.literalName() == null)) {
+            LOGGER.warn("[{}] Title '{}' has neither 'translation_key' nor a literal 'title'; defaulting to 'title.legacy.{}'.", Legacy.MOD_ID, id, id);
         }
 
         validateIcon(title, id);
@@ -69,7 +78,7 @@ public final class TitleValidator {
         if (title.milestone) {
             return;
         }
-        TitleRequirement req = title.requirement;
+        TitleRequirement req = title.requirement();
         switch (title.getTrigger()) {
             case MINECRAFT_STAT -> {
                 if (req == null || req.stat == null) {

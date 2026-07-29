@@ -1,0 +1,14 @@
+{
+  "id": "unseen",
+  "translation_key": "title.legacy.unseen",
+  "category": "combat",
+  "icon": "minecraft:echo_shard",
+  "rarity": "mythic",
+  "display_priority": 174,
+  "hidden": true,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:warden"
+  }
+}

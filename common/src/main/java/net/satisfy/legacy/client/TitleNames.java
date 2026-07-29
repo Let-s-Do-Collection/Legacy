@@ -14,20 +14,23 @@ public final class TitleNames {
     }
 
     public static MutableComponent styled(Title title, TitleForm form) {
-        MutableComponent name = Component.translatable(key(title, form));
+        MutableComponent name = base(title, form);
         return LegacyClientConfig.titleColors ? name.withStyle(title.getRarity().getColor()) : name;
     }
 
     public static MutableComponent plain(Title title, TitleForm form) {
-        return Component.translatable(key(title, form));
+        return base(title, form);
     }
 
     public static String string(Title title, TitleForm form) {
-        return I18n.get(key(title, form));
+        return base(title, form).getString();
     }
 
-    private static String key(Title title, TitleForm form) {
+    private static MutableComponent base(Title title, TitleForm form) {
+        if (!title.hasExplicitTranslationKey() && title.literalName() != null) {
+            return Component.literal(title.literalName());
+        }
         String variant = title.getTranslationKey() + form.suffix();
-        return I18n.exists(variant) ? variant : title.getTranslationKey();
+        return Component.translatable(I18n.exists(variant) ? variant : title.getTranslationKey());
     }
 }

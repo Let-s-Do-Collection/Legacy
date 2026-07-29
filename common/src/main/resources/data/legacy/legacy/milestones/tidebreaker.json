@@ -1,0 +1,10 @@
+{
+  "id": "tidebreaker",
+  "icon": "minecraft:prismarine_shard",
+  "rarity": "epic",
+  "shared": true,
+  "trigger": {
+    "type": "kill",
+    "id": "minecraft:elder_guardian"
+  }
+}

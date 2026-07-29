@@ -1,0 +1,12 @@
+{
+  "id": "dragonslayer",
+  "translation_key": "title.legacy.dragonslayer",
+  "category": "combat",
+  "icon": "minecraft:dragon_head",
+  "rarity": "epic",
+  "display_priority": 170,
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:end/kill_dragon"
+  }
+}

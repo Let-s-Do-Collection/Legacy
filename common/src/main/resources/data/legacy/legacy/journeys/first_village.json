@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:bell",
+  "title": "First Village",
+  "description": "Arrive at a village for the first time.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:village"
+  }
+}

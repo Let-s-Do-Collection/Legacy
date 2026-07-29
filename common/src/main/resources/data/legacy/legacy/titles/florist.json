@@ -1,0 +1,16 @@
+{
+  "id": "florist",
+  "translation_key": "title.legacy.florist",
+  "category": "farming",
+  "icon": "minecraft:oxeye_daisy",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "farming/flowers",
+  "stage": 2,
+  "display_priority": 26,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#minecraft:small_flowers",
+    "value": 256
+  }
+}

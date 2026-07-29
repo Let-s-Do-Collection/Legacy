@@ -1,0 +1,16 @@
+{
+  "id": "timeless",
+  "translation_key": "title.legacy.timeless",
+  "category": "playtime",
+  "icon": "minecraft:amethyst_cluster",
+  "rarity": "mythic",
+  "series": "playtime/veteran",
+  "stage": 2,
+  "display_priority": 251,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:play_time",
+    "value": 7200000
+  }
+}

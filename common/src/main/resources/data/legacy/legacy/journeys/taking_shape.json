@@ -1,0 +1,10 @@
+{
+  "category": "misc",
+  "icon": "minecraft:chest",
+  "title": "Taking Shape",
+  "description": "Place your first chest.",
+  "trigger": {
+    "type": "counter",
+    "counter": "place:minecraft:chest"
+  }
+}

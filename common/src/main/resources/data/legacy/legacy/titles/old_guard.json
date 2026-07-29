@@ -1,0 +1,16 @@
+{
+  "id": "old_guard",
+  "translation_key": "title.legacy.old_guard",
+  "category": "playtime",
+  "icon": "minecraft:clock",
+  "rarity": "rare",
+  "series": "playtime/veteran",
+  "stage": 1,
+  "display_priority": 250,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:play_time",
+    "value": 1728000
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "pathfinder",
+  "translation_key": "title.legacy.pathfinder",
+  "category": "exploration",
+  "icon": "minecraft:compass",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "exploration/biomes",
+  "stage": 2,
+  "display_priority": 101,
+  "trigger": {
+    "type": "event",
+    "counter": "biomes_distinct",
+    "value": 15
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "category": "farming",
+  "icon": "minecraft:wheat",
+  "title": "First Crop Harvest",
+  "description": "Reap your first grown crop.",
+  "trigger": {
+    "type": "counter",
+    "counter": "harvest:crops"
+  }
+}

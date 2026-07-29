@@ -1,0 +1,11 @@
+{
+  "category": "farming",
+  "icon": "minecraft:egg",
+  "title": "First Animal Bred",
+  "description": "Bring new life to the farm.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:animals_bred"
+  }
+}

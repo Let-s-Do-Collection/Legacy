@@ -1,0 +1,11 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:crossbow",
+  "title": "First Crossbow",
+  "description": "Assemble your first crossbow.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:crafted",
+    "stat": "minecraft:crossbow"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "milestone_infernal",
+  "translation_key": "milestone.legacy.infernal",
+  "category": "milestone",
+  "icon": "minecraft:flint_and_steel",
+  "rarity": "epic",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

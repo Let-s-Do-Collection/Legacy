@@ -1,0 +1,17 @@
+{
+  "id": "boatman",
+  "translation_key": "title.legacy.boatman",
+  "category": "travel",
+  "icon": "minecraft:oak_boat",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "travel/boat",
+  "stage": 1,
+  "display_priority": 240,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:boat_one_cm",
+    "value": 100000
+  }
+}

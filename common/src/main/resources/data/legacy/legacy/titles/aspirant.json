@@ -1,0 +1,16 @@
+{
+  "id": "aspirant",
+  "translation_key": "title.legacy.aspirant",
+  "category": "pvp",
+  "icon": "minecraft:wooden_sword",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "pvp/duel",
+  "stage": 1,
+  "display_priority": 150,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:player_kills"
+  }
+}

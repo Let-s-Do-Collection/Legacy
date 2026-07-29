@@ -1,0 +1,10 @@
+{
+  "category": "misc",
+  "icon": "minecraft:campfire",
+  "title": "Safe at Last",
+  "description": "Light your first campfire.",
+  "trigger": {
+    "type": "counter",
+    "counter": "place:minecraft:campfire"
+  }
+}

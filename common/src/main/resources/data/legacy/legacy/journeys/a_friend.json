@@ -1,0 +1,10 @@
+{
+  "category": "misc",
+  "icon": "minecraft:bone",
+  "title": "A Friend",
+  "description": "Tame your first companion.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:husbandry/tame_an_animal"
+  }
+}

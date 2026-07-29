@@ -1,0 +1,13 @@
+{
+  "id": "withers_bane",
+  "translation_key": "title.legacy.withers_bane",
+  "category": "combat",
+  "icon": "minecraft:nether_star",
+  "rarity": "epic",
+  "display_priority": 172,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:wither"
+  }
+}

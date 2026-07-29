@@ -1,0 +1,17 @@
+{
+  "id": "hero_of_the_village",
+  "translation_key": "title.legacy.hero_of_the_village",
+  "category": "village",
+  "icon": "minecraft:bell",
+  "rarity": "epic",
+  "placement": "prefix",
+  "series": "village/raid",
+  "stage": 3,
+  "display_priority": 207,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:raid_win",
+    "value": 25
+  }
+}

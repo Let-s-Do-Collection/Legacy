@@ -1,0 +1,13 @@
+{
+  "id": "milestone_strike_rich",
+  "translation_key": "milestone.legacy.strike_rich",
+  "category": "milestone",
+  "icon": "minecraft:diamond",
+  "rarity": "rare",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "wyrmsbane",
+  "translation_key": "title.legacy.wyrmsbane",
+  "category": "combat",
+  "icon": "minecraft:end_crystal",
+  "rarity": "legendary",
+  "display_priority": 171,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:ender_dragon",
+    "value": 3
+  }
+}

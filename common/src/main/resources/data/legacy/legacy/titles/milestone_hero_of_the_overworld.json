@@ -1,0 +1,13 @@
+{
+  "id": "milestone_hero_of_the_overworld",
+  "translation_key": "milestone.legacy.hero_of_the_overworld",
+  "category": "milestone",
+  "icon": "minecraft:bell",
+  "rarity": "epic",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

@@ -10,6 +10,8 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.satisfy.legacy.api.LegacyAPI;
+import net.satisfy.legacy.core.journey.JourneyManager;
+import net.satisfy.legacy.core.milestone.MilestoneManager;
 import net.satisfy.legacy.core.title.TitleManager;
 import net.satisfy.legacy.core.trigger.LegacyCollectors;
 import net.satisfy.legacy.network.LegacyNetworking;
@@ -31,6 +33,8 @@ public final class Legacy {
 
     public static void init() {
         ReloadListenerRegistry.register(PackType.SERVER_DATA, TitleManager.INSTANCE);
+        ReloadListenerRegistry.register(PackType.SERVER_DATA, JourneyManager.INSTANCE);
+        ReloadListenerRegistry.register(PackType.SERVER_DATA, MilestoneManager.INSTANCE);
         LegacyNetworking.init();
 
         PlayerEvent.PLAYER_JOIN.register(TitleService::onJoin);
@@ -46,5 +50,10 @@ public final class Legacy {
     private static void registerBuiltinTriggers() {
         LegacyAPI.registerCustomTrigger("legacy:fate",
                 (player, title) -> player.getInventory().contains(new ItemStack(Items.NETHER_STAR)));
+        // Satisfied while the player is present during the dawn window — "see the sun rise".
+        LegacyAPI.registerCustomTrigger("legacy:sunrise", (player, title) -> {
+            long timeOfDay = player.level().getDayTime() % 24000L;
+            return timeOfDay >= 22000L && timeOfDay <= 23500L;
+        });
     }
 }

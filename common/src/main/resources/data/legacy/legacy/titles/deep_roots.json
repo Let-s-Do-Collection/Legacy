@@ -1,0 +1,12 @@
+{
+  "id": "deep_roots",
+  "translation_key": "title.legacy.deep_roots",
+  "category": "exploration",
+  "icon": "minecraft:glow_berries",
+  "rarity": "uncommon",
+  "display_priority": 110,
+  "trigger": {
+    "type": "event",
+    "counter": "biome:minecraft:lush_caves"
+  }
+}

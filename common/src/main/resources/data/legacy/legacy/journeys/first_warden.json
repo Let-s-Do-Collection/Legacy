@@ -1,0 +1,11 @@
+{
+  "category": "combat",
+  "icon": "minecraft:echo_shard",
+  "title": "First Warden",
+  "description": "Face the Warden.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:warden"
+  }
+}

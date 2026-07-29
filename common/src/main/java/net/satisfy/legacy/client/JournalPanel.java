@@ -3,6 +3,8 @@ package net.satisfy.legacy.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -18,14 +20,23 @@ import net.satisfy.legacy.network.LegacyNetworking;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class JournalPanel {
-    private enum Tab { TITLES, JOURNAL, MILESTONES, HISTORY, OPTIONS }
+    private enum Tab { TITLES, JOURNAL, JOURNEY, MILESTONES, HISTORY, OPTIONS }
+
+    private static final String[] JOURNEY_CATEGORIES = {
+            "equipment", "exploration", "survival", "farming", "villagers", "combat", "magic", "misc"
+    };
+
+    private record JourneyRow(String header, ClientJourneyData.Entry entry) {
+    }
 
     private static final ResourceLocation BUTTON = ResourceLocation.fromNamespaceAndPath("legacy", "widget/journal_button");
     private static final ResourceLocation BUTTON_HL = ResourceLocation.fromNamespaceAndPath("legacy", "widget/journal_button_highlighted");
@@ -68,6 +79,9 @@ public class JournalPanel {
     private int[] historyHeaderY = new int[0];
     private String[] historyOrder = new String[0];
     private int historyContentHeight;
+    private int journeyContentHeight;
+    private static final java.util.Set<String> journeyCollapsed = new java.util.HashSet<>();
+    private final List<JourneyRow> journeyRows = new ArrayList<>();
 
     public boolean isVisible() {
         return visible;
@@ -98,6 +112,7 @@ public class JournalPanel {
         return switch (tab) {
             case MILESTONES -> milestoneContentHeight;
             case HISTORY -> historyContentHeight;
+            case JOURNEY -> journeyContentHeight;
             case OPTIONS -> 0;
             default -> entries.size() * ROW_HEIGHT;
         };
@@ -165,6 +180,8 @@ public class JournalPanel {
             renderTitles(g, font, mouseX, mouseY);
         } else if (tab == Tab.JOURNAL) {
             renderJournal(g, font, mouseX, mouseY);
+        } else if (tab == Tab.JOURNEY) {
+            renderJourney(g, font, mouseX, mouseY);
         } else if (tab == Tab.MILESTONES) {
             renderPageHeader(g, font, Component.translatable("gui.legacy.tab.milestones"));
             renderMilestones(g, font, mouseX, mouseY);
@@ -196,12 +213,12 @@ public class JournalPanel {
     }
 
     private static final String[] TAB_KEYS = {
-            "gui.legacy.tab.titles", "gui.legacy.tab.journal",
+            "gui.legacy.tab.titles", "gui.legacy.tab.journal", "gui.legacy.tab.journey",
             "gui.legacy.tab.milestones", "gui.legacy.tab.history", "gui.legacy.tab.options"
     };
 
     private void renderTabs(GuiGraphics g) {
-        ItemStack[] icons = { new ItemStack(Items.NAME_TAG), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.NETHER_STAR), new ItemStack(Items.CLOCK), new ItemStack(Items.COMPARATOR) };
+        ItemStack[] icons = { new ItemStack(Items.NAME_TAG), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.WRITTEN_BOOK), new ItemStack(Items.NETHER_STAR), new ItemStack(Items.CLOCK), new ItemStack(Items.COMPARATOR) };
         Tab[] tabs = Tab.values();
         for (int i = 0; i < tabs.length; i++) {
             boolean sel = tab == tabs[i];
@@ -308,6 +325,12 @@ public class JournalPanel {
         clampScroll();
         List<Component> tooltip = null;
         int barX = contentRight - BAR_W - 2;
+        Map<String, Integer> seriesCount = new HashMap<>();
+        for (Title a : TitleManager.INSTANCE.all()) {
+            if (a.series != null && !a.series.isEmpty()) {
+                seriesCount.merge(a.series, 1, Integer::sum);
+            }
+        }
         g.enableScissor(contentLeft, listTop, contentRight, listBottom);
         for (int i = 0; i < entries.size(); i++) {
             int rowY = listTop - scrollOffset + i * ROW_HEIGHT;
@@ -340,7 +363,16 @@ public class JournalPanel {
             } else {
                 nameColor = 0xAAAAAA;
             }
-            g.drawString(font, trimToWidth(font, TitleNames.string(t, ClientTitleData.getForm()), nameRight - nameLeft), nameLeft, rowY + 5, nameColor, true);
+            String stageMark = "";
+            if (t.series != null && !t.series.isEmpty() && seriesCount.getOrDefault(t.series, 0) >= 2) {
+                stageMark = toRoman(t.stage);
+            }
+            int markW = stageMark.isEmpty() ? 0 : font.width(stageMark) + 4;
+            String name = trimToWidth(font, TitleNames.string(t, ClientTitleData.getForm()), nameRight - nameLeft - markW);
+            g.drawString(font, name, nameLeft, rowY + 5, nameColor, true);
+            if (!stageMark.isEmpty()) {
+                g.drawString(font, stageMark, nameLeft + font.width(name) + 4, rowY + 5, 0xC8A45A, true);
+            }
 
             int target = Math.max(1, t.syncedTarget);
             int current = e.unlocked ? target : Math.min(ClientTitleData.getProgress(t.getId()), target);
@@ -392,6 +424,20 @@ public class JournalPanel {
             lines.add(TitleNames.styled(t, form).withStyle(ChatFormatting.BOLD));
         }
         return lines;
+    }
+
+    private static String toRoman(int n) {
+        return switch (n) {
+            case 1 -> "I";
+            case 2 -> "II";
+            case 3 -> "III";
+            case 4 -> "IV";
+            case 5 -> "V";
+            case 6 -> "VI";
+            case 7 -> "VII";
+            case 8 -> "VIII";
+            default -> n > 0 ? Integer.toString(n) : "";
+        };
     }
 
     private static String trimToWidth(Font font, String text, int maxWidth) {
@@ -487,6 +533,123 @@ public class JournalPanel {
         if (i != 0) {
             LegacyClientConfig.save();
         }
+    }
+
+    private void renderJourney(GuiGraphics g, Font font, int mouseX, int mouseY) {
+        String name = Minecraft.getInstance().player != null
+                ? Minecraft.getInstance().player.getGameProfile().getName() : "";
+        renderPageHeader(g, font, Component.translatable("gui.legacy.journey.header", name));
+
+        List<JourneyRow> rows = buildJourneyRows();
+        journeyContentHeight = rows.size() * ROW_HEIGHT;
+        clampScroll();
+
+        Map<String, int[]> counts = new HashMap<>();
+        for (ClientJourneyData.Entry e : ClientJourneyData.all()) {
+            String cat = e.category() == null || e.category().isBlank() ? "misc" : e.category();
+            int[] c = counts.computeIfAbsent(cat, k -> new int[2]);
+            c[1]++;
+            if (e.done()) {
+                c[0]++;
+            }
+        }
+
+        List<Component> tooltip = null;
+        g.enableScissor(contentLeft, listTop, contentRight, listBottom);
+        int y = listTop - scrollOffset;
+        for (JourneyRow row : rows) {
+            if (y + ROW_HEIGHT > listTop && y < listBottom) {
+                if (row.header() != null) {
+                    boolean collapsed = journeyCollapsed.contains(row.header());
+                    boolean hov = mouseX >= contentLeft && mouseX < contentRight
+                            && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW_HEIGHT, listBottom);
+                    if (hov) {
+                        g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, 0x22FFFFFF);
+                    }
+                    g.drawString(font, Component.literal(collapsed ? "▸" : "▾"), contentLeft + 2, y + 6, 0xF0C24E, true);
+                    g.drawString(font, categoryLabel(row.header()).copy().withStyle(ChatFormatting.BOLD),
+                            contentLeft + 12, y + 6, 0xC8A45A, true);
+                    int[] c = counts.getOrDefault(row.header(), new int[2]);
+                    String count = c[0] + "/" + c[1];
+                    g.drawString(font, count, contentRight - 2 - font.width(count), y + 6, 0x8A7A55, true);
+                    g.fill(contentLeft, y + ROW_HEIGHT - 1, contentRight, y + ROW_HEIGHT, 0x30201810);
+                } else {
+                    ClientJourneyData.Entry e = row.entry();
+                    boolean hov = mouseX >= contentLeft && mouseX < contentRight
+                            && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW_HEIGHT, listBottom);
+                    if (hov) {
+                        g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, 0x33201810);
+                    }
+                    if (e.done()) {
+                        g.drawString(font, Component.literal("✔"), contentLeft + 4, y + 5, 0x2E8B2E, false);
+                    } else {
+                        g.drawString(font, Component.literal("☐"), contentLeft + 4, y + 5, 0x585858, false);
+                    }
+                    g.renderFakeItem(e.iconStack(), contentLeft + 16, y + 1);
+                    if (!e.done()) {
+                        g.fill(contentLeft + 16, y + 1, contentLeft + 32, y + 17, 0x80101010);
+                    }
+                    int color = e.done() ? 0xE8E8E8 : 0x808080;
+                    g.drawString(font, trimToWidth(font, e.title(), contentRight - 4 - (contentLeft + 36)),
+                            contentLeft + 36, y + 5, color, true);
+                    if (hov) {
+                        tooltip = new ArrayList<>();
+                        tooltip.add(Component.literal(e.title()).withStyle(e.done() ? ChatFormatting.WHITE : ChatFormatting.GRAY));
+                        if (!e.description().isEmpty()) {
+                            tooltip.add(Component.literal(e.description()).withStyle(ChatFormatting.DARK_GRAY));
+                        }
+                        tooltip.add(Component.empty());
+                        tooltip.add(e.done()
+                                ? Component.translatable("gui.legacy.journey.completed", e.day()).withStyle(ChatFormatting.GREEN)
+                                : Component.translatable("gui.legacy.journey.open").withStyle(ChatFormatting.DARK_GRAY));
+                    }
+                }
+            }
+            y += ROW_HEIGHT;
+        }
+        g.disableScissor();
+        if (tooltip != null) {
+            g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
+        }
+    }
+
+    private static Component categoryLabel(String category) {
+        String key = "gui.legacy.journey.category." + category;
+        if (I18n.exists(key)) {
+            return Component.translatable(key);
+        }
+        String pretty = category.isEmpty() ? category
+                : Character.toUpperCase(category.charAt(0)) + category.substring(1);
+        return Component.literal(pretty);
+    }
+
+    private List<JourneyRow> buildJourneyRows() {
+        Map<String, List<ClientJourneyData.Entry>> byCategory = new LinkedHashMap<>();
+        for (String category : JOURNEY_CATEGORIES) {
+            byCategory.put(category, new ArrayList<>());
+        }
+        for (ClientJourneyData.Entry e : ClientJourneyData.all()) {
+            String category = e.category() == null || e.category().isBlank() ? "misc" : e.category();
+            byCategory.computeIfAbsent(category, k -> new ArrayList<>()).add(e);
+        }
+        List<JourneyRow> rows = new ArrayList<>();
+        for (Map.Entry<String, List<ClientJourneyData.Entry>> group : byCategory.entrySet()) {
+            List<ClientJourneyData.Entry> list = group.getValue();
+            if (list.isEmpty()) {
+                continue;
+            }
+            list.sort(Comparator.comparingInt((ClientJourneyData.Entry e) -> e.done() ? 0 : 1)
+                    .thenComparing(ClientJourneyData.Entry::title, String.CASE_INSENSITIVE_ORDER));
+            rows.add(new JourneyRow(group.getKey(), null));
+            if (!journeyCollapsed.contains(group.getKey())) {
+                for (ClientJourneyData.Entry e : list) {
+                    rows.add(new JourneyRow(null, e));
+                }
+            }
+        }
+        journeyRows.clear();
+        journeyRows.addAll(rows);
+        return rows;
     }
 
     private void renderMilestones(GuiGraphics g, Font font, int mouseX, int mouseY) {
@@ -747,6 +910,16 @@ public class JournalPanel {
                         String id = historyOrder[i];
                         expandedHistory = id.equals(expandedHistory) ? null : id;
                         break;
+                    }
+                }
+            } else if (tab == Tab.JOURNEY) {
+                int index = (int) ((mouseY - listTop + scrollOffset) / ROW_HEIGHT);
+                if (index >= 0 && index < journeyRows.size()) {
+                    String header = journeyRows.get(index).header();
+                    if (header != null) {
+                        if (!journeyCollapsed.remove(header)) {
+                            journeyCollapsed.add(header);
+                        }
                     }
                 }
             } else if (tab == Tab.OPTIONS) {

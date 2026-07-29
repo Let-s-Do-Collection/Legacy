@@ -16,8 +16,8 @@ public final class TitleProgress {
 
     public static int target(Title title) {
         TriggerType trigger = title.getTrigger();
-        if ((trigger == TriggerType.MINECRAFT_STAT || trigger == TriggerType.EVENT) && title.requirement != null) {
-            return Math.max(1, title.requirement.amount);
+        if (trigger == TriggerType.MINECRAFT_STAT || trigger == TriggerType.EVENT) {
+            return Math.max(1, title.requirement().amount);
         }
         return 1;
     }
@@ -28,8 +28,8 @@ public final class TitleProgress {
             return target;
         }
         return switch (title.getTrigger()) {
-            case MINECRAFT_STAT -> clamp(statValue(player, title.requirement), target);
-            case EVENT -> clamp(counterValue(playerData, title.requirement), target);
+            case MINECRAFT_STAT -> clamp(statValue(player, title.requirement()), target);
+            case EVENT -> clamp(counterValue(playerData, title.requirement()), target);
             default -> 0;
         };
     }

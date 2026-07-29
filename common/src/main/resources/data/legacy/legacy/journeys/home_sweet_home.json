@@ -1,0 +1,10 @@
+{
+  "category": "survival",
+  "icon": "minecraft:red_bed",
+  "title": "Home Sweet Home",
+  "description": "Place your first bed.",
+  "trigger": {
+    "type": "counter",
+    "counter": "place:beds"
+  }
+}

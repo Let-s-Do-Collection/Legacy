@@ -1,0 +1,11 @@
+{
+  "category": "survival",
+  "icon": "minecraft:conduit",
+  "title": "First Conduit",
+  "description": "Craft a conduit.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:crafted",
+    "stat": "minecraft:conduit"
+  }
+}

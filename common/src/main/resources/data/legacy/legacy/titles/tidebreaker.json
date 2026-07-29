@@ -1,0 +1,13 @@
+{
+  "id": "tidebreaker",
+  "translation_key": "title.legacy.tidebreaker",
+  "category": "combat",
+  "icon": "minecraft:prismarine_shard",
+  "rarity": "epic",
+  "display_priority": 173,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:elder_guardian"
+  }
+}

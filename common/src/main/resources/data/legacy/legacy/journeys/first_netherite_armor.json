@@ -1,0 +1,10 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:netherite_chestplate",
+  "title": "First Netherite Armor",
+  "description": "Ascend to netherite.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:nether/netherite_armor"
+  }
+}

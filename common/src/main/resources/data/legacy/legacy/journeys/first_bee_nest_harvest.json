@@ -1,0 +1,10 @@
+{
+  "category": "farming",
+  "icon": "minecraft:honeycomb",
+  "title": "First Bee Nest Harvest",
+  "description": "Gather honey without a sting.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:husbandry/safely_harvest_honey"
+  }
+}

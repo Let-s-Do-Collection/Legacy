@@ -1,0 +1,16 @@
+{
+  "id": "flower_picker",
+  "translation_key": "title.legacy.flower_picker",
+  "category": "farming",
+  "icon": "minecraft:poppy",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "farming/flowers",
+  "stage": 1,
+  "display_priority": 25,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#minecraft:small_flowers",
+    "value": 32
+  }
+}

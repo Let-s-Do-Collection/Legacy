@@ -1,0 +1,12 @@
+{
+  "id": "beyond_horizon",
+  "translation_key": "title.legacy.beyond_horizon",
+  "category": "exploration",
+  "icon": "minecraft:ender_pearl",
+  "rarity": "rare",
+  "display_priority": 121,
+  "trigger": {
+    "type": "event",
+    "counter": "dimension:minecraft:the_end"
+  }
+}

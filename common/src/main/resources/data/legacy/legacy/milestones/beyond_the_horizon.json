@@ -1,0 +1,11 @@
+{
+  "id": "beyond_the_horizon",
+  "icon": "minecraft:ender_eye",
+  "rarity": "epic",
+  "shared": true,
+  "trigger": {
+    "type": "dimension",
+    "id": "minecraft:the_end"
+  },
+  "retro_advancement": "minecraft:story/enter_the_end"
+}

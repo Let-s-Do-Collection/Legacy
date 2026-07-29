@@ -1,0 +1,9 @@
+{
+  "id": "drop_dead_gorgeous",
+  "icon": "minecraft:netherite_chestplate",
+  "rarity": "legendary",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:nether/netherite_armor"
+  }
+}

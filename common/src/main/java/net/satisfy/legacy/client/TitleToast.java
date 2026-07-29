@@ -37,6 +37,17 @@ public class TitleToast implements Toast {
     }
 
     @Override
+    public int width() {
+        Font font = Minecraft.getInstance().font;
+        int text = font.width(this.header);
+        if (this.subtitle != null) {
+            text = Math.max(text, font.width(this.subtitle));
+        }
+        text = Math.max(text, font.width(this.titleName));
+        return Math.max(160, 30 + text + 8);
+    }
+
+    @Override
     public Toast.Visibility render(GuiGraphics guiGraphics, ToastComponent toastComponent, long timeSinceLastVisible) {
         guiGraphics.blitSprite(this.background, 0, 0, this.width(), this.height());
 
@@ -45,9 +56,9 @@ public class TitleToast implements Toast {
             guiGraphics.drawString(font, this.header, 30, 7, 0xFFFF00, false);
             guiGraphics.drawString(font, this.titleName, 30, 18, 0xFFFFFFFF, false);
         } else {
-            guiGraphics.drawString(font, this.header, 30, 5, 0xFFFF00, false);
-            guiGraphics.drawString(font, this.subtitle, 30, 14, 0xFFFFFFFF, false);
-            guiGraphics.drawString(font, this.titleName, 30, 23, 0xFFFFFFFF, false);
+            guiGraphics.drawString(font, this.header, 30, 3, 0xFFFF00, false);
+            guiGraphics.drawString(font, this.subtitle, 30, 12, 0xFFFFFFFF, false);
+            guiGraphics.drawString(font, this.titleName, 30, 21, 0xFFFFFFFF, false);
         }
 
         guiGraphics.renderFakeItem(this.icon, 8, 8);

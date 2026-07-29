@@ -1,0 +1,13 @@
+{
+  "id": "shadow_touched",
+  "translation_key": "title.legacy.shadow_touched",
+  "category": "exploration",
+  "icon": "minecraft:echo_shard",
+  "rarity": "epic",
+  "display_priority": 114,
+  "hidden": true,
+  "trigger": {
+    "type": "event",
+    "counter": "biome:minecraft:deep_dark"
+  }
+}

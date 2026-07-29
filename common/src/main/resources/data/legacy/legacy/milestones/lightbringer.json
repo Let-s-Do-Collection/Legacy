@@ -1,0 +1,9 @@
+{
+  "id": "lightbringer",
+  "icon": "minecraft:beacon",
+  "rarity": "epic",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:nether/create_beacon"
+  }
+}

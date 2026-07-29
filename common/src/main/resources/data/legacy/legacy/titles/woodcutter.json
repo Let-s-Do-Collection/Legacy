@@ -1,0 +1,16 @@
+{
+  "id": "woodcutter",
+  "translation_key": "title.legacy.woodcutter",
+  "category": "forestry",
+  "icon": "minecraft:wooden_axe",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "forestry/wood",
+  "stage": 1,
+  "display_priority": 50,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#minecraft:logs",
+    "value": 128
+  }
+}

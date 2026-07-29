@@ -1,0 +1,16 @@
+{
+  "id": "gardener",
+  "translation_key": "title.legacy.gardener",
+  "category": "farming",
+  "icon": "minecraft:fern",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "farming/bonemeal",
+  "stage": 2,
+  "display_priority": 16,
+  "trigger": {
+    "type": "event",
+    "counter": "bonemeal:used",
+    "value": 512
+  }
+}

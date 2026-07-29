@@ -1,0 +1,10 @@
+{
+  "id": "the_unheard",
+  "icon": "minecraft:echo_shard",
+  "rarity": "mythic",
+  "shared": true,
+  "trigger": {
+    "type": "kill",
+    "id": "minecraft:warden"
+  }
+}

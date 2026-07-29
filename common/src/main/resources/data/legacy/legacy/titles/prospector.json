@@ -1,0 +1,16 @@
+{
+  "id": "prospector",
+  "translation_key": "title.legacy.prospector",
+  "category": "mining",
+  "icon": "minecraft:raw_iron",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "mining/ore",
+  "stage": 1,
+  "display_priority": 65,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#legacy:ores",
+    "value": 64
+  }
+}

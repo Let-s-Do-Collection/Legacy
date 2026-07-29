@@ -1,0 +1,16 @@
+{
+  "id": "miner",
+  "translation_key": "title.legacy.miner",
+  "category": "mining",
+  "icon": "minecraft:stone_pickaxe",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "mining/stone",
+  "stage": 2,
+  "display_priority": 61,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#legacy:stones",
+    "value": 2048
+  }
+}

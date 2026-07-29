@@ -1,0 +1,17 @@
+{
+  "id": "trader",
+  "translation_key": "title.legacy.trader",
+  "category": "trading",
+  "icon": "minecraft:emerald",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "village/trade",
+  "stage": 1,
+  "display_priority": 200,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:traded_with_villager",
+    "value": 50
+  }
+}

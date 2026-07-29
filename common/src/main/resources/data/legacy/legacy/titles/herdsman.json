@@ -1,0 +1,17 @@
+{
+  "id": "herdsman",
+  "translation_key": "title.legacy.herdsman",
+  "category": "farming",
+  "icon": "minecraft:lead",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "farming/breeding",
+  "stage": 3,
+  "display_priority": 22,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:animals_bred",
+    "value": 500
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "category": "misc",
+  "icon": "minecraft:music_disc_cat",
+  "title": "First Music Disc",
+  "description": "Let a record spin.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:play_record"
+  }
+}

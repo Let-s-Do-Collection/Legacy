@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:prismarine",
+  "title": "First Ocean Monument",
+  "description": "Discover a monument beneath the waves.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:monument"
+  }
+}

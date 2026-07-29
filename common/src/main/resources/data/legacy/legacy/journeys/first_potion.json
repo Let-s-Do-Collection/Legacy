@@ -1,0 +1,11 @@
+{
+  "category": "survival",
+  "icon": "minecraft:potion",
+  "title": "First Potion",
+  "description": "Drink your first potion.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:used",
+    "stat": "minecraft:potion"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "category": "survival",
+  "icon": "minecraft:beacon",
+  "title": "First Beacon Activated",
+  "description": "Bring home the beacon.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:nether/create_beacon"
+  }
+}

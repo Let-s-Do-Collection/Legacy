@@ -1,0 +1,11 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:elytra",
+  "title": "First Elytra Flight",
+  "description": "Take to the skies on wings.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:aviate_one_cm"
+  }
+}

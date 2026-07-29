@@ -1,0 +1,11 @@
+{
+  "category": "survival",
+  "icon": "minecraft:totem_of_undying",
+  "title": "First Totem of Undying",
+  "description": "Cheat death with a totem.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:used",
+    "stat": "minecraft:totem_of_undying"
+  }
+}

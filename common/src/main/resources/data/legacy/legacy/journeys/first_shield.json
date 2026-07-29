@@ -1,0 +1,11 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:shield",
+  "title": "First Shield",
+  "description": "Raise a shield for the first time.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:crafted",
+    "stat": "minecraft:shield"
+  }
+}

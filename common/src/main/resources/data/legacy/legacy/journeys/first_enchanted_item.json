@@ -1,0 +1,11 @@
+{
+  "category": "magic",
+  "icon": "minecraft:enchanting_table",
+  "title": "First Enchanted Item",
+  "description": "Enchant your first item.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:enchant_item"
+  }
+}

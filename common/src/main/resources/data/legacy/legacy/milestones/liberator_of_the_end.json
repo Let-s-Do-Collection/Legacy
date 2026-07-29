@@ -1,0 +1,11 @@
+{
+  "id": "liberator_of_the_end",
+  "icon": "minecraft:dragon_head",
+  "rarity": "legendary",
+  "shared": true,
+  "trigger": {
+    "type": "kill",
+    "id": "minecraft:ender_dragon"
+  },
+  "retro_advancement": "minecraft:end/kill_dragon"
+}

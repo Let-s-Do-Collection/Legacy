@@ -1,0 +1,12 @@
+{
+  "id": "fortunes_favorite",
+  "translation_key": "title.legacy.fortunes_favorite",
+  "category": "mining",
+  "icon": "minecraft:diamond",
+  "rarity": "rare",
+  "display_priority": 70,
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:story/mine_diamond"
+  }
+}

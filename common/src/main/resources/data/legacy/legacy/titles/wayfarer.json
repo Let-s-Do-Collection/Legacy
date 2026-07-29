@@ -1,0 +1,16 @@
+{
+  "id": "wayfarer",
+  "translation_key": "title.legacy.wayfarer",
+  "category": "exploration",
+  "icon": "minecraft:leather_boots",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "exploration/biomes",
+  "stage": 1,
+  "display_priority": 100,
+  "trigger": {
+    "type": "event",
+    "counter": "biomes_distinct",
+    "value": 5
+  }
+}

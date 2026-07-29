@@ -1,0 +1,16 @@
+{
+  "id": "forester",
+  "translation_key": "title.legacy.forester",
+  "category": "forestry",
+  "icon": "minecraft:iron_axe",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "forestry/wood",
+  "stage": 3,
+  "display_priority": 52,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#minecraft:logs",
+    "value": 8192
+  }
+}

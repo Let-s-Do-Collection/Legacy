@@ -1,0 +1,11 @@
+{
+  "category": "combat",
+  "icon": "minecraft:crossbow",
+  "title": "First Raid Victory",
+  "description": "Turn back the raid.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:raid_win"
+  }
+}

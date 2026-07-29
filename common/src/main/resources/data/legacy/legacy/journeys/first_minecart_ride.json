@@ -1,0 +1,11 @@
+{
+  "category": "misc",
+  "icon": "minecraft:minecart",
+  "title": "First Minecart Ride",
+  "description": "Ride the rails.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:minecart_one_cm"
+  }
+}

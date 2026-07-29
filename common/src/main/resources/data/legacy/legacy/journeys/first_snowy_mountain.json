@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:powder_snow_bucket",
+  "title": "First Snowy Mountain",
+  "description": "Climb into the snowy peaks.",
+  "trigger": {
+    "type": "counter",
+    "counter": "biome:minecraft:snowy_mountains"
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.satisfy.legacy.core.title.TitleRarity;
+import net.satisfy.legacy.core.trigger.Trigger;
 
 public class Milestone {
     @SerializedName("id")
@@ -15,14 +16,15 @@ public class Milestone {
     @SerializedName("translation_key")
     public String translationKey;
 
-    @SerializedName("coop")
+    /** A shared milestone can also be earned by others within {@link #gracePeriod}. */
+    @SerializedName(value = "shared", alternate = {"coop"})
     public boolean coop = false;
 
-    @SerializedName("trigger_kind")
-    public String triggerKind = "advancement";
+    @SerializedName("trigger")
+    public Trigger trigger = new Trigger();
 
-    @SerializedName("trigger_value")
-    public String triggerValue = "";
+    @SerializedName("grace_period")
+    public int gracePeriod = 300;
 
     @SerializedName("retro_advancement")
     public String retroAdvancement;
@@ -32,6 +34,23 @@ public class Milestone {
 
     @SerializedName("rarity")
     public TitleRarity rarity = TitleRarity.EPIC;
+
+    /**
+     * Milestone trigger kind — {@code dimension}, {@code kill} or {@code advancement}. Uses the
+     * same {@code trigger} block as titles and journeys; only the accepted {@code type} values differ.
+     */
+    public String triggerKind() {
+        return trigger == null || trigger.type == null ? "advancement" : trigger.type;
+    }
+
+    public String triggerValue() {
+        return trigger == null || trigger.id == null ? "" : trigger.id;
+    }
+
+    /** Grace window in game ticks (20 ticks = 1 second). */
+    public long graceTicks() {
+        return Math.max(0, gracePeriod) * 20L;
+    }
 
     public String getId() {
         return id;
@@ -49,7 +68,7 @@ public class Milestone {
         if (retroAdvancement != null) {
             return retroAdvancement;
         }
-        return "advancement".equals(triggerKind) ? triggerValue : null;
+        return "advancement".equals(triggerKind()) ? triggerValue() : null;
     }
 
     public ItemStack iconStack() {

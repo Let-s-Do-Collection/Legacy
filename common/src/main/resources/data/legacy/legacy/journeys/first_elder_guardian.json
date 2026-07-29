@@ -1,0 +1,11 @@
+{
+  "category": "combat",
+  "icon": "minecraft:prismarine_shard",
+  "title": "First Elder Guardian",
+  "description": "Defeat an elder guardian.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:elder_guardian"
+  }
+}

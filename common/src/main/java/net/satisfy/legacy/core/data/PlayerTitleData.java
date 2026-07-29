@@ -14,6 +14,7 @@ import java.util.Set;
 public class PlayerTitleData {
     private final Set<String> unlocked = new LinkedHashSet<>();
     private final Map<String, Integer> counters = new LinkedHashMap<>();
+    private final Map<String, Integer> journeys = new LinkedHashMap<>();
     private String active = "";
     private TitleForm form = TitleForm.MASCULINE;
 
@@ -58,6 +59,23 @@ public class PlayerTitleData {
         return value;
     }
 
+    public Map<String, Integer> getJourneys() {
+        return journeys;
+    }
+
+    public boolean isJourneyDone(String id) {
+        return id != null && journeys.containsKey(id);
+    }
+
+    /** Records a journey as completed on the given world day. Returns true if it was newly recorded. */
+    public boolean completeJourney(String id, int worldDay) {
+        if (id == null || journeys.containsKey(id)) {
+            return false;
+        }
+        journeys.put(id, worldDay);
+        return true;
+    }
+
     public boolean markVisited(String key) {
         if (key == null || counters.getOrDefault(key, 0) > 0) {
             return false;
@@ -78,6 +96,11 @@ public class PlayerTitleData {
             countersTag.putInt(entry.getKey(), entry.getValue());
         }
         tag.put("counters", countersTag);
+        CompoundTag journeysTag = new CompoundTag();
+        for (Map.Entry<String, Integer> entry : journeys.entrySet()) {
+            journeysTag.putInt(entry.getKey(), entry.getValue());
+        }
+        tag.put("journeys", journeysTag);
         tag.putString("active", active);
         tag.putInt("form", form.ordinal());
         return tag;
@@ -92,6 +115,10 @@ public class PlayerTitleData {
         CompoundTag countersTag = tag.getCompound("counters");
         for (String key : countersTag.getAllKeys()) {
             data.counters.put(key, countersTag.getInt(key));
+        }
+        CompoundTag journeysTag = tag.getCompound("journeys");
+        for (String key : journeysTag.getAllKeys()) {
+            data.journeys.put(key, journeysTag.getInt(key));
         }
         data.active = tag.getString("active");
         data.form = TitleForm.byOrdinal(tag.getInt("form"));

@@ -1,0 +1,13 @@
+{
+  "id": "milestone_drop_dead_gorgeous",
+  "translation_key": "milestone.legacy.drop_dead_gorgeous",
+  "category": "milestone",
+  "icon": "minecraft:netherite_chestplate",
+  "rarity": "legendary",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

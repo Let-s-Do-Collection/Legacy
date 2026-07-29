@@ -1,0 +1,17 @@
+{
+  "id": "shepherd",
+  "translation_key": "title.legacy.shepherd",
+  "category": "farming",
+  "icon": "minecraft:white_wool",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "farming/breeding",
+  "stage": 2,
+  "display_priority": 21,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:animals_bred",
+    "value": 100
+  }
+}

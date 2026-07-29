@@ -1,0 +1,14 @@
+{
+  "id": "pillager_hunter",
+  "translation_key": "title.legacy.pillager_hunter",
+  "category": "combat",
+  "icon": "minecraft:crossbow",
+  "rarity": "uncommon",
+  "display_priority": 175,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:pillager",
+    "value": 100
+  }
+}

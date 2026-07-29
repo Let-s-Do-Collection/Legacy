@@ -1,0 +1,11 @@
+{
+  "category": "combat",
+  "icon": "minecraft:iron_sword",
+  "title": "First PvP Victory",
+  "description": "Best another player in battle.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:player_kills"
+  }
+}

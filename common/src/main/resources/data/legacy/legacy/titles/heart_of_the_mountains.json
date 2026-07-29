@@ -1,0 +1,16 @@
+{
+  "id": "heart_of_the_mountains",
+  "translation_key": "title.legacy.heart_of_the_mountains",
+  "category": "mining",
+  "icon": "minecraft:emerald",
+  "rarity": "legendary",
+  "placement": "prefix",
+  "series": "mining/ore",
+  "stage": 3,
+  "display_priority": 67,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#legacy:ores",
+    "value": 2048
+  }
+}

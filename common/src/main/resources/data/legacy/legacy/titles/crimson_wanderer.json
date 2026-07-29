@@ -1,0 +1,12 @@
+{
+  "id": "crimson_wanderer",
+  "translation_key": "title.legacy.crimson_wanderer",
+  "category": "exploration",
+  "icon": "minecraft:crimson_fungus",
+  "rarity": "rare",
+  "display_priority": 111,
+  "trigger": {
+    "type": "event",
+    "counter": "biome:minecraft:crimson_forest"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:iron_chestplate",
+  "title": "First Iron Armor",
+  "description": "Suit up in a full set of iron.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:story/obtain_armor"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ashen",
+  "translation_key": "title.legacy.ashen",
+  "category": "exploration",
+  "icon": "minecraft:soul_sand",
+  "rarity": "rare",
+  "display_priority": 112,
+  "trigger": {
+    "type": "event",
+    "counter": "biome:minecraft:soul_sand_valley"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "hellwalker",
+  "translation_key": "title.legacy.hellwalker",
+  "category": "exploration",
+  "icon": "minecraft:flint_and_steel",
+  "rarity": "uncommon",
+  "display_priority": 120,
+  "trigger": {
+    "type": "event",
+    "counter": "dimension:minecraft:the_nether"
+  }
+}

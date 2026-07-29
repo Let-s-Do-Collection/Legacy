@@ -1,0 +1,11 @@
+{
+  "category": "misc",
+  "icon": "minecraft:filled_map",
+  "title": "First Map",
+  "description": "Chart the world.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:crafted",
+    "stat": "minecraft:map"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "category": "misc",
+  "icon": "minecraft:skeleton_skull",
+  "title": "First Death",
+  "description": "Everyone dies once. Then again.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:deaths"
+  }
+}

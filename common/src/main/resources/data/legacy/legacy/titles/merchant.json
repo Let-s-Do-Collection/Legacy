@@ -1,0 +1,17 @@
+{
+  "id": "merchant",
+  "translation_key": "title.legacy.merchant",
+  "category": "trading",
+  "icon": "minecraft:emerald_block",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "village/trade",
+  "stage": 2,
+  "display_priority": 201,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:traded_with_villager",
+    "value": 200
+  }
+}

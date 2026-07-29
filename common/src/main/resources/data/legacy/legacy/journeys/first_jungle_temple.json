@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:mossy_cobblestone",
+  "title": "First Jungle Temple",
+  "description": "Find a temple lost in the jungle.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:jungle_pyramid"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:sculk_catalyst",
+  "title": "First Ancient City",
+  "description": "Step into the silence of an ancient city.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:ancient_city"
+  }
+}

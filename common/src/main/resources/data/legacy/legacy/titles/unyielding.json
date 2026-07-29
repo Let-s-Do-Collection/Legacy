@@ -1,0 +1,17 @@
+{
+  "id": "unyielding",
+  "translation_key": "title.legacy.unyielding",
+  "category": "defense",
+  "icon": "minecraft:netherite_chestplate",
+  "rarity": "epic",
+  "placement": "prefix",
+  "series": "defense/block",
+  "stage": 3,
+  "display_priority": 232,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:damage_blocked_by_shield",
+    "value": 50000
+  }
+}

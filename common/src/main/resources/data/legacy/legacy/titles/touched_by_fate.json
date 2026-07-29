@@ -1,0 +1,13 @@
+{
+  "id": "touched_by_fate",
+  "translation_key": "title.legacy.touched_by_fate",
+  "category": "special",
+  "icon": "minecraft:nether_star",
+  "rarity": "mythic",
+  "display_priority": 300,
+  "hidden": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:fate"
+  }
+}

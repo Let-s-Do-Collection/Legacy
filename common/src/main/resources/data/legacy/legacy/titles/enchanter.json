@@ -1,0 +1,14 @@
+{
+  "id": "enchanter",
+  "translation_key": "title.legacy.enchanter",
+  "category": "magic",
+  "icon": "minecraft:enchanted_book",
+  "rarity": "rare",
+  "display_priority": 220,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:enchant_item",
+    "value": 50
+  }
+}

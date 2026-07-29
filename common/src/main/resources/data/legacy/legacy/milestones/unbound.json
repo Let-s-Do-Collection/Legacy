@@ -1,0 +1,9 @@
+{
+  "id": "unbound",
+  "icon": "minecraft:elytra",
+  "rarity": "legendary",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:end/elytra"
+  }
+}

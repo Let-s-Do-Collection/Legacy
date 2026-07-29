@@ -1,0 +1,16 @@
+{
+  "id": "warbound",
+  "translation_key": "title.legacy.warbound",
+  "category": "pvp",
+  "icon": "minecraft:totem_of_undying",
+  "rarity": "legendary",
+  "series": "pvp/duel",
+  "stage": 5,
+  "display_priority": 155,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:player_kills",
+    "value": 500
+  }
+}

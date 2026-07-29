@@ -6,6 +6,8 @@ public final class Counters {
     public static final String HARVEST_ANY = "harvest:crops";
     public static final String PLACE_SAPLINGS = "place:saplings";
     public static final String PLACE_CROPS = "place:crops";
+    public static final String PLACE_BEDS = "place:beds";
+    public static final String PLACE_BANNERS = "place:banners";
     public static final String BONEMEAL_USED = "bonemeal:used";
     public static final String DIMENSIONS_DISTINCT = "dimensions_distinct";
     public static final String BIOMES_DISTINCT = "biomes_distinct";

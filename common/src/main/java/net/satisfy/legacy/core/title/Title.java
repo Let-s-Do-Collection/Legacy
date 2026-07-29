@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.satisfy.legacy.core.trigger.Trigger;
 
 public class Title {
     @SerializedName("id")
@@ -16,14 +17,15 @@ public class Title {
     @SerializedName("translation_key")
     public String translationKey;
 
+    /** Optional literal name, for datapack authors who do not need localisation or gendered forms. */
+    @SerializedName("title")
+    public String title;
+
     @SerializedName("placement")
     public Placement placement = Placement.SUFFIX;
 
     @SerializedName("trigger")
-    public TriggerType trigger = TriggerType.CUSTOM;
-
-    @SerializedName("requirement")
-    public TitleRequirement requirement = new TitleRequirement();
+    public Trigger trigger = new Trigger();
 
     @SerializedName("category")
     public String category = "";
@@ -70,12 +72,25 @@ public class Title {
         return translationKey != null ? translationKey : "title.legacy." + id;
     }
 
+    public boolean hasExplicitTranslationKey() {
+        return translationKey != null && !translationKey.isBlank();
+    }
+
+    /** The literal name, or {@code null} when this title relies on {@code translation_key}. */
+    public String literalName() {
+        return title == null || title.isBlank() ? null : title;
+    }
+
     public Placement getPlacement() {
         return placement == null ? Placement.SUFFIX : placement;
     }
 
     public TriggerType getTrigger() {
-        return trigger == null ? TriggerType.CUSTOM : trigger;
+        return trigger == null ? TriggerType.CUSTOM : trigger.type();
+    }
+
+    public TitleRequirement requirement() {
+        return trigger == null ? new TitleRequirement() : trigger.requirement();
     }
 
     public TitleRarity getRarity() {
@@ -83,6 +98,9 @@ public class Title {
     }
 
     public Component displayName() {
+        if (!hasExplicitTranslationKey() && literalName() != null) {
+            return Component.literal(literalName());
+        }
         return Component.translatable(getTranslationKey());
     }
 

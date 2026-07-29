@@ -4,19 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.satisfy.legacy.Legacy;
 import org.slf4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,73 +23,64 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class TitleManager extends SimplePreparableReloadListener<List<Title>> {
-    public static final TitleManager INSTANCE = new TitleManager();
-
+/**
+ * Loads titles per file from {@code data/<namespace>/legacy/titles/*.json} — the same
+ * discovery model as advancements and loot tables. One title = one file, so any datapack can
+ * add or override a title with a single JSON file. Everything in Legacy is data-driven.
+ */
+public class TitleManager extends SimpleJsonResourceReloadListener {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Gson GSON = new GsonBuilder().create();
+    private static final String DIRECTORY = "legacy/titles";
 
-    private static final ResourceLocation TITLES = Legacy.identifier("titles.json");
+    // Must be declared AFTER GSON/DIRECTORY: the constructor passes them to super(),
+    // and static fields initialize in declaration order.
+    public static final TitleManager INSTANCE = new TitleManager();
 
     private Map<String, Title> titles = Collections.emptyMap();
 
     private TitleManager() {
+        super(GSON, DIRECTORY);
     }
 
     @Override
-    protected List<Title> prepare(ResourceManager resourceManager, ProfilerFiller profiler) {
+    protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
         List<Title> loaded = new ArrayList<>();
+        Set<String> seenIds = new HashSet<>();
 
-        Optional<Resource> resource = resourceManager.getResource(TITLES);
-        if (resource.isEmpty()) {
-            LOGGER.info("[{}] No titles.json found - starting with an empty title list.", Legacy.MOD_ID);
-            return loaded;
+        // Deterministic order across datapacks/loaders.
+        List<ResourceLocation> keys = new ArrayList<>(object.keySet());
+        keys.sort(Comparator.comparing(ResourceLocation::toString));
+
+        for (ResourceLocation file : keys) {
+            JsonElement element = object.get(file);
+            if (!element.isJsonObject()) {
+                LOGGER.warn("[{}] Skipping non-object title file '{}'.", Legacy.MOD_ID, file);
+                continue;
+            }
+            JsonObject json = element.getAsJsonObject();
+            Title title;
+            try {
+                title = GSON.fromJson(json, Title.class);
+            } catch (RuntimeException e) {
+                LOGGER.warn("[{}] Skipping malformed title file '{}': {}", Legacy.MOD_ID, file, e.getMessage());
+                continue;
+            }
+            if (title != null && (title.id == null || title.id.isBlank())) {
+                title.id = file.getPath();
+            }
+            if (TitleValidator.validate(json, title, seenIds)) {
+                loaded.add(title);
+            }
         }
-
-        try (BufferedReader reader = resource.get().openAsReader()) {
-            JsonElement root = JsonParser.parseReader(reader);
-            if (root.isJsonObject() && root.getAsJsonObject().has("titles")) {
-                root = root.getAsJsonObject().get("titles");
-            }
-            if (!root.isJsonArray()) {
-                LOGGER.warn("[{}] titles.json must contain a 'titles' array.", Legacy.MOD_ID);
-                return loaded;
-            }
-            Set<String> seenIds = new HashSet<>();
-            for (JsonElement element : root.getAsJsonArray()) {
-                if (!element.isJsonObject()) {
-                    LOGGER.warn("[{}] Skipping non-object entry in titles.json: {}", Legacy.MOD_ID, element);
-                    continue;
-                }
-                JsonObject object = element.getAsJsonObject();
-                Title title;
-                try {
-                    title = GSON.fromJson(object, Title.class);
-                } catch (RuntimeException e) {
-                    LOGGER.warn("[{}] Skipping malformed title entry {}: {}", Legacy.MOD_ID, object, e.getMessage());
-                    continue;
-                }
-                if (TitleValidator.validate(object, title, seenIds)) {
-                    loaded.add(title);
-                }
-            }
-        } catch (IOException | RuntimeException e) {
-            LOGGER.error("[{}] Failed to load titles.json", Legacy.MOD_ID, e);
-        }
-
-        return loaded;
+        replaceAll(loaded);
+        LOGGER.info("[{}] Loaded {} title(s) from {} file(s).", Legacy.MOD_ID, this.titles.size(), object.size());
     }
 
+    /** Used by {@code /legacy reload} to refresh titles without a full resource reload. */
     public int reload(ResourceManager resourceManager) {
-        List<Title> prepared = prepare(resourceManager, InactiveProfiler.INSTANCE);
-        apply(prepared, resourceManager, InactiveProfiler.INSTANCE);
+        apply(prepare(resourceManager, InactiveProfiler.INSTANCE), resourceManager, InactiveProfiler.INSTANCE);
         return this.titles.size();
-    }
-
-    @Override
-    protected void apply(List<Title> prepared, ResourceManager resourceManager, ProfilerFiller profiler) {
-        replaceAll(prepared);
-        LOGGER.info("[{}] Loaded {} title(s).", Legacy.MOD_ID, this.titles.size());
     }
 
     public void replaceAll(List<Title> newTitles) {

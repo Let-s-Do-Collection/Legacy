@@ -1,0 +1,17 @@
+{
+  "id": "navigator",
+  "translation_key": "title.legacy.navigator",
+  "category": "travel",
+  "icon": "minecraft:heart_of_the_sea",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "travel/boat",
+  "stage": 3,
+  "display_priority": 242,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:boat_one_cm",
+    "value": 2000000
+  }
+}

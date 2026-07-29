@@ -1,0 +1,13 @@
+{
+  "id": "milestone_unbound",
+  "translation_key": "milestone.legacy.unbound",
+  "category": "milestone",
+  "icon": "minecraft:elytra",
+  "rarity": "legendary",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

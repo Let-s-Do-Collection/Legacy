@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:dark_oak_planks",
+  "title": "First Woodland Mansion",
+  "description": "Find the mansion in the dark forest.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:mansion"
+  }
+}

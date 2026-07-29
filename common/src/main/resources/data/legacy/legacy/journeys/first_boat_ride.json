@@ -1,0 +1,11 @@
+{
+  "category": "misc",
+  "icon": "minecraft:oak_boat",
+  "title": "First Boat Ride",
+  "description": "Set out by boat.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:boat_one_cm"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "emberheart",
+  "translation_key": "title.legacy.emberheart",
+  "category": "combat",
+  "icon": "minecraft:blaze_rod",
+  "rarity": "uncommon",
+  "display_priority": 162,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:blaze",
+    "value": 30
+  }
+}

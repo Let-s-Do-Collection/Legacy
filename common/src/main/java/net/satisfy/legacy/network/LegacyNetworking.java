@@ -8,10 +8,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.satisfy.legacy.Legacy;
+import net.satisfy.legacy.client.ClientJourneyData;
 import net.satisfy.legacy.client.ClientMilestoneData;
 import net.satisfy.legacy.client.ClientTitleData;
 import net.satisfy.legacy.client.LegacyToasts;
 import net.satisfy.legacy.core.data.PlayerTitleData;
+import net.satisfy.legacy.core.journey.Journey;
+import net.satisfy.legacy.core.journey.JourneyManager;
 import net.satisfy.legacy.core.milestone.Milestone;
 import net.satisfy.legacy.core.milestone.MilestoneManager;
 import net.satisfy.legacy.core.milestone.MilestoneRecord;
@@ -42,6 +45,7 @@ public final class LegacyNetworking {
     public static final ResourceLocation SET_FORM = Legacy.identifier("set_form");
     public static final ResourceLocation MILESTONE_SYNC = Legacy.identifier("milestone_sync");
     public static final ResourceLocation MILESTONE_TOAST = Legacy.identifier("milestone_toast");
+    public static final ResourceLocation JOURNEY_SYNC = Legacy.identifier("journey_sync");
 
     private LegacyNetworking() {
     }
@@ -71,7 +75,10 @@ public final class LegacyNetworking {
             for (int i = 0; i < count; i++) {
                 Title title = new Title();
                 title.id = buffer.readUtf();
-                title.translationKey = buffer.readUtf();
+                String tk = buffer.readUtf();
+                title.translationKey = tk.isEmpty() ? null : tk;
+                String literal = buffer.readUtf();
+                title.title = literal.isEmpty() ? null : literal;
                 title.placement = buffer.readVarInt() == Placement.PREFIX.ordinal() ? Placement.PREFIX : Placement.SUFFIX;
                 title.category = buffer.readUtf();
                 title.displayPriority = buffer.readVarInt();
@@ -158,6 +165,22 @@ public final class LegacyNetworking {
             String playerName = buffer.readUtf();
             context.queue(() -> LegacyToasts.showMilestone(id, playerName));
         });
+
+        NetworkManager.registerReceiver(NetworkManager.s2c(), JOURNEY_SYNC, (buffer, context) -> {
+            int count = buffer.readVarInt();
+            List<ClientJourneyData.Entry> list = new ArrayList<>(count);
+            for (int i = 0; i < count; i++) {
+                String id = buffer.readUtf();
+                String category = buffer.readUtf();
+                String icon = buffer.readUtf();
+                String title = buffer.readUtf();
+                String description = buffer.readUtf();
+                boolean done = buffer.readBoolean();
+                int day = buffer.readVarInt();
+                list.add(new ClientJourneyData.Entry(id, category, icon, title, description, done, day));
+            }
+            context.queue(() -> ClientJourneyData.set(list));
+        });
     }
 
     public static void sendRegistry(ServerPlayer player) {
@@ -167,7 +190,8 @@ public final class LegacyNetworking {
         for (Title title : titles) {
             title.syncedTarget = TitleProgress.target(title);
             buffer.writeUtf(title.getId());
-            buffer.writeUtf(title.getTranslationKey());
+            buffer.writeUtf(title.hasExplicitTranslationKey() ? title.translationKey : "");
+            buffer.writeUtf(title.literalName() == null ? "" : title.literalName());
             buffer.writeVarInt(title.getPlacement().ordinal());
             buffer.writeUtf(title.category == null ? "" : title.category);
             buffer.writeVarInt(title.displayPriority);
@@ -244,6 +268,23 @@ public final class LegacyNetworking {
             }
         }
         NetworkManager.sendToPlayer(player, MILESTONE_SYNC, buffer);
+    }
+
+    public static void sendJourneys(ServerPlayer player, PlayerTitleData data) {
+        RegistryFriendlyByteBuf buffer = serverBuffer(player);
+        List<Journey> journeys = JourneyManager.INSTANCE.all();
+        buffer.writeVarInt(journeys.size());
+        for (Journey journey : journeys) {
+            boolean done = data.isJourneyDone(journey.getId());
+            buffer.writeUtf(journey.getId());
+            buffer.writeUtf(journey.getCategory());
+            buffer.writeUtf(journey.icon == null ? "minecraft:paper" : journey.icon);
+            buffer.writeUtf(journey.title());
+            buffer.writeUtf(journey.description());
+            buffer.writeBoolean(done);
+            buffer.writeVarInt(done ? data.getJourneys().getOrDefault(journey.getId(), 0) : 0);
+        }
+        NetworkManager.sendToPlayer(player, JOURNEY_SYNC, buffer);
     }
 
     public static void broadcastMilestoneToast(MinecraftServer server, String milestoneId, String playerName) {

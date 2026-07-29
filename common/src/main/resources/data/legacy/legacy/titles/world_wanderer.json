@@ -1,0 +1,16 @@
+{
+  "id": "world_wanderer",
+  "translation_key": "title.legacy.world_wanderer",
+  "category": "exploration",
+  "icon": "minecraft:filled_map",
+  "rarity": "epic",
+  "placement": "prefix",
+  "series": "exploration/biomes",
+  "stage": 4,
+  "display_priority": 103,
+  "trigger": {
+    "type": "event",
+    "counter": "biomes_distinct",
+    "value": 50
+  }
+}

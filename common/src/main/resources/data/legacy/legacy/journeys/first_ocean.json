@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:kelp",
+  "title": "First Ocean",
+  "description": "Reach the open ocean.",
+  "trigger": {
+    "type": "counter",
+    "counter": "biome:minecraft:ocean"
+  }
+}

@@ -23,12 +23,22 @@ public final class TitleTriggers {
         if (title.milestone) {
             return false;
         }
-        TitleRequirement req = title.requirement != null ? title.requirement : new TitleRequirement();
-        return switch (title.getTrigger()) {
+        return evaluate(player, playerData, title.getTrigger(), title.requirement(), title);
+    }
+
+    /**
+     * Shared trigger engine used by titles, journeys and any future JSON-driven system.
+     * {@code customTitle} may be {@code null} for non-title consumers (journeys) — custom
+     * predicates that need a title simply won't fire in that context.
+     */
+    public static boolean evaluate(ServerPlayer player, PlayerTitleData playerData,
+                                   net.satisfy.legacy.core.title.TriggerType type,
+                                   TitleRequirement req, Title customTitle) {
+        return switch (type) {
             case MINECRAFT_STAT -> statSatisfied(player, req);
             case EVENT -> eventSatisfied(playerData, req);
             case ADVANCEMENT -> advancementSatisfied(player, req);
-            case CUSTOM -> CustomTriggers.isSatisfied(req.id, player, title);
+            case CUSTOM -> CustomTriggers.isSatisfied(req.id, player, customTitle);
         };
     }
 

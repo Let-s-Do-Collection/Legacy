@@ -1,0 +1,10 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:diamond_chestplate",
+  "title": "First Diamond Armor",
+  "description": "Forge your first diamond armor.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:story/shiny_gear"
+  }
+}

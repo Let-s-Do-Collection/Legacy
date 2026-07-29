@@ -1,0 +1,14 @@
+{
+  "id": "terror_of_the_seas",
+  "translation_key": "title.legacy.terror_of_the_seas",
+  "category": "combat",
+  "icon": "minecraft:trident",
+  "rarity": "uncommon",
+  "display_priority": 163,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:drowned",
+    "value": 25
+  }
+}

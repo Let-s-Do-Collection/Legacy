@@ -1,0 +1,11 @@
+{
+  "category": "magic",
+  "icon": "minecraft:end_crystal",
+  "title": "First End Crystal",
+  "description": "Place an end crystal.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:used",
+    "stat": "minecraft:end_crystal"
+  }
+}

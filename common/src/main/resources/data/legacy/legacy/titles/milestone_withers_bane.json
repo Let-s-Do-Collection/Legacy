@@ -1,0 +1,13 @@
+{
+  "id": "milestone_withers_bane",
+  "translation_key": "milestone.legacy.withers_bane",
+  "category": "milestone",
+  "icon": "minecraft:nether_star",
+  "rarity": "legendary",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

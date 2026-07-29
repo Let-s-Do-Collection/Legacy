@@ -36,6 +36,7 @@ public final class LegacyCommands {
                         .then(Commands.argument("id", StringArgumentType.string()).suggests(TITLE_IDS)
                                 .executes(ctx -> info(ctx.getSource(), StringArgumentType.getString(ctx, "id")))))
                 .then(Commands.literal("milestones").executes(ctx -> milestones(ctx.getSource())))
+                .then(Commands.literal("journeys").executes(ctx -> journeys(ctx.getSource())))
                 .then(Commands.literal("eval").executes(ctx -> eval(ctx.getSource())))
                 .then(Commands.literal("clear").executes(ctx -> clear(ctx.getSource())))
                 .then(Commands.literal("reload").requires(source -> source.hasPermission(2))
@@ -81,6 +82,22 @@ public final class LegacyCommands {
         return 1;
     }
 
+    private static int journeys(CommandSourceStack source) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        ServerPlayer player = source.getPlayerOrException();
+        PlayerTitleData data = LegacyTitleSavedData.get(player.server).getOrCreate(player.getUUID());
+        var all = net.satisfy.legacy.core.journey.JourneyManager.INSTANCE.all();
+        source.sendSuccess(() -> Component.literal("[legacy] " + all.size() + " journey(s), completed "
+                + data.getJourneys().size() + ":").withStyle(ChatFormatting.GOLD), false);
+        for (var journey : all) {
+            boolean done = data.isJourneyDone(journey.getId());
+            String suffix = done ? " - completed Day " + data.getJourneys().get(journey.getId()) : " - open";
+            source.sendSuccess(() -> Component.literal((done ? " ✓ " : " ☐ ") + journey.title()
+                    + " [" + journey.getCategory() + "]" + suffix)
+                    .withStyle(done ? ChatFormatting.GREEN : ChatFormatting.GRAY), false);
+        }
+        return all.size();
+    }
+
     private static int list(CommandSourceStack source) {
         source.sendSuccess(() -> Component.literal("[legacy] defined titles: "
                 + TitleManager.INSTANCE.all().stream().map(t -> t.getId()).toList()), false);
@@ -114,7 +131,7 @@ public final class LegacyCommands {
                 + " | category: " + (title.category == null || title.category.isEmpty() ? "-" : title.category)
                 + " | hidden: " + title.hidden), false);
         source.sendSuccess(() -> Component.literal("  trigger: " + title.getTrigger().name().toLowerCase(java.util.Locale.ROOT)
-                + " | requirement: " + describeRequirement(title.requirement)), false);
+                + " | requirement: " + describeRequirement(title.requirement())), false);
         return 1;
     }
 
@@ -132,7 +149,7 @@ public final class LegacyCommands {
 
     private static int reload(CommandSourceStack source) {
         int count = TitleService.reloadTitles(source.getServer());
-        source.sendSuccess(() -> Component.literal("[legacy] reloaded titles.json - " + count + " title(s) loaded").withStyle(ChatFormatting.GREEN), true);
+        source.sendSuccess(() -> Component.literal("[legacy] reloaded titles - " + count + " title(s) loaded").withStyle(ChatFormatting.GREEN), true);
         return count;
     }
 

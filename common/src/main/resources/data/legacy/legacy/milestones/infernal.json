@@ -1,0 +1,11 @@
+{
+  "id": "infernal",
+  "icon": "minecraft:flint_and_steel",
+  "rarity": "epic",
+  "shared": true,
+  "trigger": {
+    "type": "dimension",
+    "id": "minecraft:the_nether"
+  },
+  "retro_advancement": "minecraft:story/enter_the_nether"
+}

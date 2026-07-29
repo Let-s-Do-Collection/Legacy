@@ -1,0 +1,16 @@
+{
+  "id": "cultivator",
+  "translation_key": "title.legacy.cultivator",
+  "category": "farming",
+  "icon": "minecraft:bread",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "farming/harvest",
+  "stage": 3,
+  "display_priority": 12,
+  "trigger": {
+    "type": "event",
+    "counter": "harvest:crops",
+    "value": 2048
+  }
+}

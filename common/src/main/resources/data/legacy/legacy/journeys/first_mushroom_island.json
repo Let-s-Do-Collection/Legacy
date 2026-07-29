@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:red_mushroom_block",
+  "title": "First Mushroom Island",
+  "description": "Set foot on a mushroom island.",
+  "trigger": {
+    "type": "counter",
+    "counter": "biome:minecraft:mushroom_fields"
+  }
+}

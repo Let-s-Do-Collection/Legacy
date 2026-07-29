@@ -1,0 +1,14 @@
+{
+  "id": "long_road",
+  "translation_key": "title.legacy.long_road",
+  "category": "exploration",
+  "icon": "minecraft:iron_boots",
+  "rarity": "uncommon",
+  "display_priority": 130,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:walk_one_cm",
+    "value": 2000000
+  }
+}

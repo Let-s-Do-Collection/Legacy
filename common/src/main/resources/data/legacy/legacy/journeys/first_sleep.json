@@ -1,0 +1,10 @@
+{
+  "category": "misc",
+  "icon": "minecraft:white_bed",
+  "title": "First Sleep",
+  "description": "Sleep through your first night.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:adventure/sleep_in_bed"
+  }
+}

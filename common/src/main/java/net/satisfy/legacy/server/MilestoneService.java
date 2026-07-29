@@ -16,7 +16,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public final class MilestoneService {
-    private static final long GRACE_TICKS = 6000L;
     private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
 
     private MilestoneService() {
@@ -60,7 +59,7 @@ public final class MilestoneService {
         MinecraftServer server = player.server;
         MilestoneManager.INSTANCE.ensureLoaded(server);
         for (Milestone milestone : MilestoneManager.INSTANCE.all()) {
-            if (kind.equals(milestone.triggerKind) && value.equals(milestone.triggerValue)) {
+            if (kind.equals(milestone.triggerKind()) && value.equals(milestone.triggerValue())) {
                 tryClaim(server, milestone, player);
             }
         }
@@ -82,7 +81,7 @@ public final class MilestoneService {
             record.worldDay = (int) (overworld.getDayTime() / 24000L);
             record.time = formatDayTime(overworld.getDayTime());
             record.date = LocalDate.now().format(DATE);
-            record.graceUntil = milestone.coop ? now + GRACE_TICKS : now;
+            record.graceUntil = milestone.coop ? now + milestone.graceTicks() : now;
             record.recipients.add(new MilestoneRecord.Recipient(player.getUUID(), record.firstName));
             data.setDirty();
             announce(server, milestone, player, data);

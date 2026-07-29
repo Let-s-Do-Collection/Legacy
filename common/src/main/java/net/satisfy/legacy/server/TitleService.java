@@ -34,9 +34,12 @@ public final class TitleService {
         evaluate(player, playerData, false);
         data.setDirty();
 
+        JourneyService.evaluate(player, playerData);
+
         LegacyNetworking.sendRegistry(player);
         LegacyNetworking.sendSelf(player, playerData);
         sendProgress(player, playerData);
+        JourneyService.sync(player, playerData);
         broadcastActiveTitles(server);
         MilestoneService.onJoin(player);
     }
@@ -57,6 +60,9 @@ public final class TitleService {
             }
             if (evaluate(player, playerData, true)) {
                 LegacyNetworking.sendSelf(player, playerData);
+            }
+            if (JourneyService.evaluate(player, playerData)) {
+                JourneyService.sync(player, playerData);
             }
             sendProgress(player, playerData);
         }
@@ -131,8 +137,10 @@ public final class TitleService {
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             PlayerTitleData playerData = data.getOrCreate(player.getUUID());
             evaluate(player, playerData, false);
+            JourneyService.evaluate(player, playerData);
             LegacyNetworking.sendRegistry(player);
             LegacyNetworking.sendSelf(player, playerData);
+            JourneyService.sync(player, playerData);
         }
         data.setDirty();
         broadcastActiveTitles(server);

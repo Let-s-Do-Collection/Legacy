@@ -1,0 +1,13 @@
+{
+  "id": "milestone_the_unheard",
+  "translation_key": "milestone.legacy.the_unheard",
+  "category": "milestone",
+  "icon": "minecraft:echo_shard",
+  "rarity": "mythic",
+  "display_priority": 900,
+  "milestone": true,
+  "trigger": {
+    "type": "custom",
+    "id": "legacy:milestone_locked"
+  }
+}

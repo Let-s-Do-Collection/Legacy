@@ -1,0 +1,16 @@
+{
+  "id": "deep_delver",
+  "translation_key": "title.legacy.deep_delver",
+  "category": "mining",
+  "icon": "minecraft:deepslate",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "mining/stone",
+  "stage": 3,
+  "display_priority": 62,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#legacy:stones",
+    "value": 8192
+  }
+}

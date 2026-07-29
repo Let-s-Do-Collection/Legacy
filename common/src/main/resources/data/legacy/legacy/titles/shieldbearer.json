@@ -1,0 +1,17 @@
+{
+  "id": "shieldbearer",
+  "translation_key": "title.legacy.shieldbearer",
+  "category": "defense",
+  "icon": "minecraft:shield",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "defense/block",
+  "stage": 1,
+  "display_priority": 230,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:damage_blocked_by_shield",
+    "value": 1000
+  }
+}

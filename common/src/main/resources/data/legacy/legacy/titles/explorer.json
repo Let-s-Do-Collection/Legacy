@@ -1,0 +1,16 @@
+{
+  "id": "explorer",
+  "translation_key": "title.legacy.explorer",
+  "category": "exploration",
+  "icon": "minecraft:map",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "exploration/biomes",
+  "stage": 3,
+  "display_priority": 102,
+  "trigger": {
+    "type": "event",
+    "counter": "biomes_distinct",
+    "value": 30
+  }
+}

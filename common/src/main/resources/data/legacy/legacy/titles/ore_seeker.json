@@ -1,0 +1,16 @@
+{
+  "id": "ore_seeker",
+  "translation_key": "title.legacy.ore_seeker",
+  "category": "mining",
+  "icon": "minecraft:raw_gold",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "mining/ore",
+  "stage": 2,
+  "display_priority": 66,
+  "trigger": {
+    "type": "event",
+    "counter": "mine:#legacy:ores",
+    "value": 512
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:trial_spawner",
+  "title": "First Trial Chamber",
+  "description": "Enter a trial chamber.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:trial_chambers"
+  }
+}

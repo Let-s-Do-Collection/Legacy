@@ -1,0 +1,14 @@
+{
+  "id": "endermans_bane",
+  "translation_key": "title.legacy.endermans_bane",
+  "category": "combat",
+  "icon": "minecraft:ender_eye",
+  "rarity": "rare",
+  "display_priority": 161,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:enderman",
+    "value": 64
+  }
+}

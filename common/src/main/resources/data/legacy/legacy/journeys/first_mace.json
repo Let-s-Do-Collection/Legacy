@@ -1,0 +1,11 @@
+{
+  "category": "equipment",
+  "icon": "minecraft:mace",
+  "title": "First Mace",
+  "description": "Forge a mace from a heavy core.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:crafted",
+    "stat": "minecraft:mace"
+  }
+}

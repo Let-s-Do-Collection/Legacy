@@ -37,6 +37,12 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand "version": project.version
     }
+
+    // Include the common module's assets/data so directory-scanning reload listeners
+    // (SimpleJsonResourceReloadListener) can enumerate them in the dev runtime, not just
+    // in the shadowed production jar.
+    from project(":common").sourceSets.main.resources
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 shadowJar {

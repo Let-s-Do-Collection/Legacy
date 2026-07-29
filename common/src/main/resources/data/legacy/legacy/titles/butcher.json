@@ -1,0 +1,14 @@
+{
+  "id": "butcher",
+  "translation_key": "title.legacy.butcher",
+  "category": "combat",
+  "icon": "minecraft:skeleton_skull",
+  "rarity": "rare",
+  "display_priority": 160,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:mob_kills",
+    "value": 2500
+  }
+}

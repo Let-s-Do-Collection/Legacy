@@ -1,0 +1,16 @@
+{
+  "id": "green_hand",
+  "translation_key": "title.legacy.green_hand",
+  "category": "farming",
+  "icon": "minecraft:bone_meal",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "farming/bonemeal",
+  "stage": 1,
+  "display_priority": 15,
+  "trigger": {
+    "type": "event",
+    "counter": "bonemeal:used",
+    "value": 64
+  }
+}

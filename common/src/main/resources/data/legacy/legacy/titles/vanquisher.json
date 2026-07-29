@@ -1,0 +1,17 @@
+{
+  "id": "vanquisher",
+  "translation_key": "title.legacy.vanquisher",
+  "category": "pvp",
+  "icon": "minecraft:diamond_sword",
+  "rarity": "rare",
+  "placement": "prefix",
+  "series": "pvp/duel",
+  "stage": 3,
+  "display_priority": 153,
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:player_kills",
+    "value": 50
+  }
+}

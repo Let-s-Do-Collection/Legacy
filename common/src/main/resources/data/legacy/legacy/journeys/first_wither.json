@@ -1,0 +1,11 @@
+{
+  "category": "combat",
+  "icon": "minecraft:nether_star",
+  "title": "First Wither",
+  "description": "Bring down the Wither.",
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:killed",
+    "stat": "minecraft:wither"
+  }
+}

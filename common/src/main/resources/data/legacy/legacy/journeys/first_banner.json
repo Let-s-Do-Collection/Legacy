@@ -1,0 +1,10 @@
+{
+  "category": "misc",
+  "icon": "minecraft:white_banner",
+  "title": "First Banner",
+  "description": "Raise your colors.",
+  "trigger": {
+    "type": "counter",
+    "counter": "place:banners"
+  }
+}

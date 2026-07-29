@@ -1,0 +1,12 @@
+{
+  "id": "relic_seeker",
+  "translation_key": "title.legacy.relic_seeker",
+  "category": "mining",
+  "icon": "minecraft:ancient_debris",
+  "rarity": "epic",
+  "display_priority": 71,
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:nether/obtain_ancient_debris"
+  }
+}

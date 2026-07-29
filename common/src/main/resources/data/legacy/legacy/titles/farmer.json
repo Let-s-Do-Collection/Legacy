@@ -1,0 +1,16 @@
+{
+  "id": "farmer",
+  "translation_key": "title.legacy.farmer",
+  "category": "farming",
+  "icon": "minecraft:wheat",
+  "rarity": "common",
+  "placement": "prefix",
+  "series": "farming/harvest",
+  "stage": 1,
+  "display_priority": 10,
+  "trigger": {
+    "type": "event",
+    "counter": "harvest:crops",
+    "value": 64
+  }
+}

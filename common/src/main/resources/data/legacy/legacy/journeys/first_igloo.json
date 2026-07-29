@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:snow_block",
+  "title": "First Igloo",
+  "description": "Shelter in an igloo.",
+  "trigger": {
+    "type": "counter",
+    "counter": "structure:minecraft:igloo"
+  }
+}

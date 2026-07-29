@@ -1,0 +1,16 @@
+{
+  "id": "master_farmer",
+  "translation_key": "title.legacy.master_farmer",
+  "category": "farming",
+  "icon": "minecraft:hay_block",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "series": "farming/harvest",
+  "stage": 2,
+  "display_priority": 11,
+  "trigger": {
+    "type": "event",
+    "counter": "harvest:crops",
+    "value": 512
+  }
+}

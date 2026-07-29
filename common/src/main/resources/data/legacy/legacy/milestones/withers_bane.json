@@ -1,0 +1,10 @@
+{
+  "id": "withers_bane",
+  "icon": "minecraft:nether_star",
+  "rarity": "legendary",
+  "shared": true,
+  "trigger": {
+    "type": "kill",
+    "id": "minecraft:wither"
+  }
+}

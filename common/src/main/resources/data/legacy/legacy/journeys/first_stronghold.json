@@ -1,0 +1,10 @@
+{
+  "category": "exploration",
+  "icon": "minecraft:end_portal_frame",
+  "title": "First Stronghold",
+  "description": "Descend into a stronghold.",
+  "trigger": {
+    "type": "advancement",
+    "id": "minecraft:story/follow_ender_eye"
+  }
+}
