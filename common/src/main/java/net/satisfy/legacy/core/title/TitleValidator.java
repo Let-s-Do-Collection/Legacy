@@ -66,6 +66,9 @@ public final class TitleValidator {
     }
 
     private static void validateRequirement(Title title, String id) {
+        if (title.milestone) {
+            return;
+        }
         TitleRequirement req = title.requirement;
         switch (title.getTrigger()) {
             case MINECRAFT_STAT -> {

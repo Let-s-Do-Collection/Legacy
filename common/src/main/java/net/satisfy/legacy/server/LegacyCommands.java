@@ -10,8 +10,12 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.satisfy.legacy.api.LegacyAPI;
-import net.satisfy.legacy.core.data.LegacyTitleSavedData;
+import net.satisfy.legacy.core.data.LegacyMilestoneSavedData;
 import net.satisfy.legacy.core.data.PlayerTitleData;
+import net.satisfy.legacy.core.data.LegacyTitleSavedData;
+import net.satisfy.legacy.core.milestone.Milestone;
+import net.satisfy.legacy.core.milestone.MilestoneManager;
+import net.satisfy.legacy.core.milestone.MilestoneRecord;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleManager;
 import net.satisfy.legacy.core.title.TitleRequirement;
@@ -31,6 +35,7 @@ public final class LegacyCommands {
                 .then(Commands.literal("info")
                         .then(Commands.argument("id", StringArgumentType.string()).suggests(TITLE_IDS)
                                 .executes(ctx -> info(ctx.getSource(), StringArgumentType.getString(ctx, "id")))))
+                .then(Commands.literal("milestones").executes(ctx -> milestones(ctx.getSource())))
                 .then(Commands.literal("eval").executes(ctx -> eval(ctx.getSource())))
                 .then(Commands.literal("clear").executes(ctx -> clear(ctx.getSource())))
                 .then(Commands.literal("reload").requires(source -> source.hasPermission(2))
@@ -52,6 +57,27 @@ public final class LegacyCommands {
                         + " | active: '" + data.getActive() + "'"
                         + " | dimension: " + player.level().dimension().location()), false);
         source.sendSuccess(() -> Component.literal("[legacy] unlocked = " + data.getUnlocked()), false);
+        return 1;
+    }
+
+    private static int milestones(CommandSourceStack source) {
+        net.minecraft.server.MinecraftServer server = source.getServer();
+        MilestoneManager.INSTANCE.ensureLoaded(server);
+        LegacyMilestoneSavedData data = LegacyMilestoneSavedData.get(server);
+        source.sendSuccess(() -> Component.literal("[legacy] Milestones:").withStyle(ChatFormatting.GOLD), false);
+        for (Milestone m : MilestoneManager.INSTANCE.all()) {
+            MilestoneRecord r = data.all().get(m.getId());
+            final String line;
+            if (r == null || r.state == MilestoneRecord.State.UNCLAIMED) {
+                line = "  " + m.getId() + " - unclaimed" + (m.coop ? " (coop)" : "");
+            } else if (r.state == MilestoneRecord.State.PRE_EXISTING) {
+                line = "  " + m.getId() + " - pre-existing (before records)";
+            } else {
+                line = "  " + m.getId() + " - " + r.firstName + " | Day " + r.worldDay + " | " + r.date
+                        + " | recipients: " + r.recipients.size();
+            }
+            source.sendSuccess(() -> Component.literal(line), false);
+        }
         return 1;
     }
 

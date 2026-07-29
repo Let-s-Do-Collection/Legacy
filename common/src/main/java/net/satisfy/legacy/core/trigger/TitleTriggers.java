@@ -20,6 +20,9 @@ public final class TitleTriggers {
     }
 
     public static boolean isSatisfied(ServerPlayer player, PlayerTitleData playerData, Title title) {
+        if (title.milestone) {
+            return false;
+        }
         TitleRequirement req = title.requirement != null ? title.requirement : new TitleRequirement();
         return switch (title.getTrigger()) {
             case MINECRAFT_STAT -> statSatisfied(player, req);

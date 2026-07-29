@@ -17,6 +17,9 @@ public final class LegacyToasts {
     }
 
     public static void showUnlock(String titleId) {
+        if (!LegacyClientConfig.titleUnlockToasts) {
+            return;
+        }
         Minecraft minecraft = Minecraft.getInstance();
         Optional<Title> maybeTitle = TitleManager.INSTANCE.get(titleId);
 
@@ -30,5 +33,28 @@ public final class LegacyToasts {
         ));
 
         minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1.0F));
+    }
+
+    public static void showMilestone(String milestoneId, String playerName) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!LegacyClientConfig.milestoneNotifications
+                && (minecraft.player == null || !minecraft.player.getGameProfile().getName().equals(playerName))) {
+            return;
+        }
+        ClientMilestoneData.Entry entry = ClientMilestoneData.all().stream()
+                .filter(e -> e.id().equals(milestoneId)).findFirst().orElse(null);
+        Component name = entry != null
+                ? Component.translatable(entry.nameKey()).withStyle(entry.rarityValue().getColor())
+                : Component.translatable("milestone.legacy." + milestoneId);
+        net.minecraft.world.item.ItemStack icon = entry != null ? entry.iconStack() : net.minecraft.world.item.ItemStack.EMPTY;
+
+        minecraft.getToasts().addToast(new TitleToast(
+                TitleToast.MILESTONE_BG,
+                Component.translatable("toast.legacy.milestone").withStyle(net.minecraft.ChatFormatting.GOLD),
+                name,
+                Component.translatable("toast.legacy.milestone.earned", playerName).withStyle(net.minecraft.ChatFormatting.WHITE),
+                icon));
+
+        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.PLAYER_LEVELUP, 1.0F));
     }
 }

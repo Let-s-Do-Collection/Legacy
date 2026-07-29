@@ -40,6 +40,9 @@ public class Title {
     @SerializedName("hidden")
     public boolean hidden = false;
 
+    @SerializedName("milestone")
+    public boolean milestone = false;
+
     @SerializedName("icon")
     public String icon = "minecraft:paper";
 

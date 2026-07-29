@@ -1,0 +1,103 @@
+{
+  "milestones": [
+    {
+      "id": "infernal",
+      "coop": true,
+      "trigger_kind": "dimension",
+      "trigger_value": "minecraft:the_nether",
+      "retro_advancement": "minecraft:story/enter_the_nether",
+      "icon": "minecraft:flint_and_steel",
+      "rarity": "epic"
+    },
+    {
+      "id": "beyond_the_horizon",
+      "coop": true,
+      "trigger_kind": "dimension",
+      "trigger_value": "minecraft:the_end",
+      "retro_advancement": "minecraft:story/enter_the_end",
+      "icon": "minecraft:ender_eye",
+      "rarity": "epic"
+    },
+    {
+      "id": "liberator_of_the_end",
+      "coop": true,
+      "trigger_kind": "kill",
+      "trigger_value": "minecraft:ender_dragon",
+      "retro_advancement": "minecraft:end/kill_dragon",
+      "icon": "minecraft:dragon_head",
+      "rarity": "legendary"
+    },
+    {
+      "id": "withers_bane",
+      "coop": true,
+      "trigger_kind": "kill",
+      "trigger_value": "minecraft:wither",
+      "icon": "minecraft:nether_star",
+      "rarity": "legendary"
+    },
+    {
+      "id": "tidebreaker",
+      "coop": true,
+      "trigger_kind": "kill",
+      "trigger_value": "minecraft:elder_guardian",
+      "icon": "minecraft:prismarine_shard",
+      "rarity": "epic"
+    },
+    {
+      "id": "the_unheard",
+      "coop": true,
+      "trigger_kind": "kill",
+      "trigger_value": "minecraft:warden",
+      "icon": "minecraft:echo_shard",
+      "rarity": "mythic"
+    },
+    {
+      "id": "hero_of_the_overworld",
+      "coop": true,
+      "trigger_kind": "advancement",
+      "trigger_value": "minecraft:adventure/hero_of_the_village",
+      "icon": "minecraft:bell",
+      "rarity": "epic"
+    },
+    {
+      "id": "strike_rich",
+      "coop": false,
+      "trigger_kind": "advancement",
+      "trigger_value": "minecraft:story/mine_diamond",
+      "icon": "minecraft:diamond",
+      "rarity": "rare"
+    },
+    {
+      "id": "drop_dead_gorgeous",
+      "coop": false,
+      "trigger_kind": "advancement",
+      "trigger_value": "minecraft:nether/netherite_armor",
+      "icon": "minecraft:netherite_chestplate",
+      "rarity": "legendary"
+    },
+    {
+      "id": "lightbringer",
+      "coop": false,
+      "trigger_kind": "advancement",
+      "trigger_value": "minecraft:nether/create_beacon",
+      "icon": "minecraft:beacon",
+      "rarity": "epic"
+    },
+    {
+      "id": "unbound",
+      "coop": false,
+      "trigger_kind": "advancement",
+      "trigger_value": "minecraft:end/elytra",
+      "icon": "minecraft:elytra",
+      "rarity": "legendary"
+    },
+    {
+      "id": "merciless",
+      "coop": false,
+      "trigger_kind": "kill",
+      "trigger_value": "minecraft:player",
+      "icon": "minecraft:iron_sword",
+      "rarity": "rare"
+    }
+  ]
+}

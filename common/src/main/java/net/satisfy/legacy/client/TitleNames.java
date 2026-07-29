@@ -14,7 +14,8 @@ public final class TitleNames {
     }
 
     public static MutableComponent styled(Title title, TitleForm form) {
-        return Component.translatable(key(title, form)).withStyle(title.getRarity().getColor());
+        MutableComponent name = Component.translatable(key(title, form));
+        return LegacyClientConfig.titleColors ? name.withStyle(title.getRarity().getColor()) : name;
     }
 
     public static MutableComponent plain(Title title, TitleForm form) {

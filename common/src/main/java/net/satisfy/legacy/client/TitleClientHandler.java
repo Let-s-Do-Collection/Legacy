@@ -23,6 +23,13 @@ public final class TitleClientHandler {
             return original;
         }
 
+        if (!LegacyClientConfig.showOthersTitles) {
+            net.minecraft.client.player.LocalPlayer self = net.minecraft.client.Minecraft.getInstance().player;
+            if (self == null || !player.getUUID().equals(self.getUUID())) {
+                return original;
+            }
+        }
+
         String activeId = ClientTitleData.getActiveTitle(player.getUUID());
         if (activeId == null || activeId.isEmpty()) {
             return original;
@@ -34,7 +41,7 @@ public final class TitleClientHandler {
         }
 
         Title title = maybeTitle.get();
-        ChatFormatting color = title.getRarity().getColor();
+        ChatFormatting color = LegacyClientConfig.titleColors ? title.getRarity().getColor() : ChatFormatting.WHITE;
 
         MutableComponent nameComponent = original.copy().withStyle(color);
         MutableComponent titleComponent = TitleNames.styled(title, ClientTitleData.getForm(player.getUUID()));

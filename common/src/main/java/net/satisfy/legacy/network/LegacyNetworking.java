@@ -5,11 +5,16 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.satisfy.legacy.Legacy;
+import net.satisfy.legacy.client.ClientMilestoneData;
 import net.satisfy.legacy.client.ClientTitleData;
 import net.satisfy.legacy.client.LegacyToasts;
 import net.satisfy.legacy.core.data.PlayerTitleData;
+import net.satisfy.legacy.core.milestone.Milestone;
+import net.satisfy.legacy.core.milestone.MilestoneManager;
+import net.satisfy.legacy.core.milestone.MilestoneRecord;
 import net.satisfy.legacy.core.title.Placement;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleForm;
@@ -35,6 +40,8 @@ public final class LegacyNetworking {
     public static final ResourceLocation PROGRESS_SYNC = Legacy.identifier("progress_sync");
     public static final ResourceLocation SET_ACTIVE = Legacy.identifier("set_active");
     public static final ResourceLocation SET_FORM = Legacy.identifier("set_form");
+    public static final ResourceLocation MILESTONE_SYNC = Legacy.identifier("milestone_sync");
+    public static final ResourceLocation MILESTONE_TOAST = Legacy.identifier("milestone_toast");
 
     private LegacyNetworking() {
     }
@@ -74,6 +81,7 @@ public final class LegacyNetworking {
                 title.syncedTarget = buffer.readVarInt();
                 title.series = buffer.readUtf();
                 title.stage = buffer.readVarInt();
+                title.milestone = buffer.readBoolean();
                 titles.add(title);
             }
             context.queue(() -> {
@@ -119,6 +127,37 @@ public final class LegacyNetworking {
             }
             context.queue(() -> ClientTitleData.setProgress(progress));
         });
+
+        NetworkManager.registerReceiver(NetworkManager.s2c(), MILESTONE_SYNC, (buffer, context) -> {
+            int count = buffer.readVarInt();
+            List<ClientMilestoneData.Entry> list = new ArrayList<>(count);
+            for (int i = 0; i < count; i++) {
+                String id = buffer.readUtf();
+                String tk = buffer.readUtf();
+                String icon = buffer.readUtf();
+                int rarity = buffer.readVarInt();
+                boolean coop = buffer.readBoolean();
+                int state = buffer.readVarInt();
+                String firstName = buffer.readUtf();
+                int worldDay = buffer.readVarInt();
+                String time = buffer.readUtf();
+                String date = buffer.readUtf();
+                boolean owned = buffer.readBoolean();
+                int rc = buffer.readVarInt();
+                List<String> recipients = new ArrayList<>(rc);
+                for (int j = 0; j < rc; j++) {
+                    recipients.add(buffer.readUtf());
+                }
+                list.add(new ClientMilestoneData.Entry(id, tk, icon, rarity, coop, state, firstName, worldDay, time, date, owned, recipients));
+            }
+            context.queue(() -> ClientMilestoneData.set(list));
+        });
+
+        NetworkManager.registerReceiver(NetworkManager.s2c(), MILESTONE_TOAST, (buffer, context) -> {
+            String id = buffer.readUtf();
+            String playerName = buffer.readUtf();
+            context.queue(() -> LegacyToasts.showMilestone(id, playerName));
+        });
     }
 
     public static void sendRegistry(ServerPlayer player) {
@@ -138,6 +177,7 @@ public final class LegacyNetworking {
             buffer.writeVarInt(title.syncedTarget);
             buffer.writeUtf(title.series == null ? "" : title.series);
             buffer.writeVarInt(title.stage);
+            buffer.writeBoolean(title.milestone);
         }
         NetworkManager.sendToPlayer(player, REGISTRY_SYNC, buffer);
     }
@@ -179,6 +219,40 @@ public final class LegacyNetworking {
             buffer.writeVarInt(entry.getValue());
         }
         NetworkManager.sendToPlayer(player, PROGRESS_SYNC, buffer);
+    }
+
+    public static void sendMilestones(ServerPlayer player, Map<String, MilestoneRecord> records) {
+        RegistryFriendlyByteBuf buffer = serverBuffer(player);
+        List<Milestone> milestones = MilestoneManager.INSTANCE.all();
+        buffer.writeVarInt(milestones.size());
+        for (Milestone m : milestones) {
+            MilestoneRecord record = records.getOrDefault(m.getId(), new MilestoneRecord());
+            buffer.writeUtf(m.getId());
+            buffer.writeUtf(m.getTranslationKey());
+            buffer.writeUtf(m.icon == null ? "minecraft:paper" : m.icon);
+            buffer.writeVarInt(m.getRarity().ordinal());
+            buffer.writeBoolean(m.coop);
+            buffer.writeVarInt(record.state.ordinal());
+            buffer.writeUtf(record.firstName == null ? "" : record.firstName);
+            buffer.writeVarInt(record.worldDay);
+            buffer.writeUtf(record.time == null ? "" : record.time);
+            buffer.writeUtf(record.date == null ? "" : record.date);
+            buffer.writeBoolean(record.hasRecipient(player.getUUID()));
+            buffer.writeVarInt(record.recipients.size());
+            for (MilestoneRecord.Recipient r : record.recipients) {
+                buffer.writeUtf(r.name());
+            }
+        }
+        NetworkManager.sendToPlayer(player, MILESTONE_SYNC, buffer);
+    }
+
+    public static void broadcastMilestoneToast(MinecraftServer server, String milestoneId, String playerName) {
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            RegistryFriendlyByteBuf buffer = serverBuffer(player);
+            buffer.writeUtf(milestoneId);
+            buffer.writeUtf(playerName);
+            NetworkManager.sendToPlayer(player, MILESTONE_TOAST, buffer);
+        }
     }
 
     public static void sendSetActive(String titleId) {

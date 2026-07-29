@@ -2,6 +2,7 @@ package net.satisfy.legacy.core.trigger;
 
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
+import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.core.BlockPos;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.levelgen.structure.StructureStart;
 import net.satisfy.legacy.Legacy;
 import net.satisfy.legacy.core.data.LegacyTitleSavedData;
 import net.satisfy.legacy.core.data.PlayerTitleData;
+import net.satisfy.legacy.server.MilestoneService;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -106,8 +108,20 @@ public final class LegacyCollectors {
             return EventResult.pass();
         });
 
-        PlayerEvent.CHANGE_DIMENSION.register((player, oldLevel, newLevel) ->
-                withData(player, data -> recordDimension(data, newLevel.location())));
+        PlayerEvent.CHANGE_DIMENSION.register((player, oldLevel, newLevel) -> {
+            withData(player, data -> recordDimension(data, newLevel.location()));
+            MilestoneService.onDimension(player, newLevel.location());
+        });
+
+        EntityEvent.LIVING_DEATH.register((entity, source) -> {
+            if (source.getEntity() instanceof ServerPlayer killer && killer != entity) {
+                MilestoneService.onKill(killer, BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()));
+            }
+            return EventResult.pass();
+        });
+
+        PlayerEvent.PLAYER_ADVANCEMENT.register((player, advancement) ->
+                MilestoneService.onAdvancement(player, advancement.id()));
     }
 
     public static void onJoin(ServerPlayer player, PlayerTitleData data) {

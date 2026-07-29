@@ -17,8 +17,8 @@
       "rarity": "common"
     },
     {
-      "id": "grossbauer",
-      "translation_key": "title.legacy.grossbauer",
+      "id": "master_farmer",
+      "translation_key": "title.legacy.master_farmer",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -33,8 +33,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "landwirt",
-      "translation_key": "title.legacy.landwirt",
+      "id": "cultivator",
+      "translation_key": "title.legacy.cultivator",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -49,8 +49,8 @@
       "rarity": "rare"
     },
     {
-      "id": "gruene_hand",
-      "translation_key": "title.legacy.gruene_hand",
+      "id": "green_hand",
+      "translation_key": "title.legacy.green_hand",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -65,8 +65,8 @@
       "rarity": "common"
     },
     {
-      "id": "gaertner",
-      "translation_key": "title.legacy.gaertner",
+      "id": "gardener",
+      "translation_key": "title.legacy.gardener",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -81,8 +81,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "viehzuechter",
-      "translation_key": "title.legacy.viehzuechter",
+      "id": "breeder",
+      "translation_key": "title.legacy.breeder",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -98,8 +98,8 @@
       "rarity": "common"
     },
     {
-      "id": "schaefer",
-      "translation_key": "title.legacy.schaefer",
+      "id": "shepherd",
+      "translation_key": "title.legacy.shepherd",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -115,8 +115,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "hirte",
-      "translation_key": "title.legacy.hirte",
+      "id": "herdsman",
+      "translation_key": "title.legacy.herdsman",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -132,8 +132,8 @@
       "rarity": "rare"
     },
     {
-      "id": "blumenpfluecker",
-      "translation_key": "title.legacy.blumenpfluecker",
+      "id": "flower_picker",
+      "translation_key": "title.legacy.flower_picker",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -148,8 +148,8 @@
       "rarity": "common"
     },
     {
-      "id": "blumenmeister",
-      "translation_key": "title.legacy.blumenmeister",
+      "id": "florist",
+      "translation_key": "title.legacy.florist",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -164,8 +164,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "holzhacker",
-      "translation_key": "title.legacy.holzhacker",
+      "id": "woodcutter",
+      "translation_key": "title.legacy.woodcutter",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -180,8 +180,8 @@
       "rarity": "common"
     },
     {
-      "id": "holzfaeller",
-      "translation_key": "title.legacy.holzfaeller",
+      "id": "lumberjack",
+      "translation_key": "title.legacy.lumberjack",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -196,8 +196,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "foerster",
-      "translation_key": "title.legacy.foerster",
+      "id": "forester",
+      "translation_key": "title.legacy.forester",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -212,8 +212,8 @@
       "rarity": "rare"
     },
     {
-      "id": "schuerfer",
-      "translation_key": "title.legacy.schuerfer",
+      "id": "quarrier",
+      "translation_key": "title.legacy.quarrier",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -228,8 +228,8 @@
       "rarity": "common"
     },
     {
-      "id": "bergmann",
-      "translation_key": "title.legacy.bergmann",
+      "id": "miner",
+      "translation_key": "title.legacy.miner",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -244,8 +244,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "tiefengraeber",
-      "translation_key": "title.legacy.tiefengraeber",
+      "id": "deep_delver",
+      "translation_key": "title.legacy.deep_delver",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -260,8 +260,8 @@
       "rarity": "rare"
     },
     {
-      "id": "prospektor",
-      "translation_key": "title.legacy.prospektor",
+      "id": "prospector",
+      "translation_key": "title.legacy.prospector",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -276,8 +276,8 @@
       "rarity": "common"
     },
     {
-      "id": "erzsucher",
-      "translation_key": "title.legacy.erzsucher",
+      "id": "ore_seeker",
+      "translation_key": "title.legacy.ore_seeker",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -334,8 +334,8 @@
       "rarity": "epic"
     },
     {
-      "id": "reisender",
-      "translation_key": "title.legacy.reisender",
+      "id": "wayfarer",
+      "translation_key": "title.legacy.wayfarer",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -350,8 +350,8 @@
       "rarity": "common"
     },
     {
-      "id": "pfadfinder",
-      "translation_key": "title.legacy.pfadfinder",
+      "id": "pathfinder",
+      "translation_key": "title.legacy.pathfinder",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -366,8 +366,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "entdecker",
-      "translation_key": "title.legacy.entdecker",
+      "id": "explorer",
+      "translation_key": "title.legacy.explorer",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -382,8 +382,8 @@
       "rarity": "rare"
     },
     {
-      "id": "weltenentdecker",
-      "translation_key": "title.legacy.weltenentdecker",
+      "id": "world_wanderer",
+      "translation_key": "title.legacy.world_wanderer",
       "placement": "prefix",
       "trigger": "event",
       "requirement": {
@@ -561,8 +561,8 @@
       "rarity": "common"
     },
     {
-      "id": "streiter",
-      "translation_key": "title.legacy.streiter",
+      "id": "fighter",
+      "translation_key": "title.legacy.fighter",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -578,8 +578,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "bezwinger",
-      "translation_key": "title.legacy.bezwinger",
+      "id": "vanquisher",
+      "translation_key": "title.legacy.vanquisher",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -595,8 +595,8 @@
       "rarity": "rare"
     },
     {
-      "id": "eroberer",
-      "translation_key": "title.legacy.eroberer",
+      "id": "conqueror",
+      "translation_key": "title.legacy.conqueror",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -763,8 +763,8 @@
       "rarity": "mythic"
     },
     {
-      "id": "pluendererjaeger",
-      "translation_key": "title.legacy.pluendererjaeger",
+      "id": "pillager_hunter",
+      "translation_key": "title.legacy.pillager_hunter",
       "placement": "suffix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -778,8 +778,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "haendler",
-      "translation_key": "title.legacy.haendler",
+      "id": "trader",
+      "translation_key": "title.legacy.trader",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -795,8 +795,8 @@
       "rarity": "common"
     },
     {
-      "id": "meisterhaendler",
-      "translation_key": "title.legacy.meisterhaendler",
+      "id": "master_trader",
+      "translation_key": "title.legacy.master_trader",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -812,8 +812,8 @@
       "rarity": "rare"
     },
     {
-      "id": "protektor",
-      "translation_key": "title.legacy.protektor",
+      "id": "protector",
+      "translation_key": "title.legacy.protector",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -829,8 +829,8 @@
       "rarity": "common"
     },
     {
-      "id": "beschuetzer",
-      "translation_key": "title.legacy.beschuetzer",
+      "id": "defender",
+      "translation_key": "title.legacy.defender",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -846,8 +846,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "held_des_dorfes",
-      "translation_key": "title.legacy.held_des_dorfes",
+      "id": "hero_of_the_village",
+      "translation_key": "title.legacy.hero_of_the_village",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -878,8 +878,8 @@
       "rarity": "rare"
     },
     {
-      "id": "schildtraeger",
-      "translation_key": "title.legacy.schildtraeger",
+      "id": "shieldbearer",
+      "translation_key": "title.legacy.shieldbearer",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -895,8 +895,8 @@
       "rarity": "common"
     },
     {
-      "id": "bollwerk",
-      "translation_key": "title.legacy.bollwerk",
+      "id": "bulwark",
+      "translation_key": "title.legacy.bulwark",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -912,8 +912,8 @@
       "rarity": "uncommon"
     },
     {
-      "id": "unerschuetterlich",
-      "translation_key": "title.legacy.unerschuetterlich",
+      "id": "unyielding",
+      "translation_key": "title.legacy.unyielding",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -929,8 +929,8 @@
       "rarity": "epic"
     },
     {
-      "id": "bootsmann",
-      "translation_key": "title.legacy.bootsmann",
+      "id": "boatman",
+      "translation_key": "title.legacy.boatman",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -946,8 +946,8 @@
       "rarity": "common"
     },
     {
-      "id": "seefahrer",
-      "translation_key": "title.legacy.seefahrer",
+      "id": "seafarer",
+      "translation_key": "title.legacy.seafarer",
       "placement": "prefix",
       "trigger": "minecraft_stat",
       "requirement": {
@@ -1026,6 +1026,174 @@
       "hidden": true,
       "icon": "minecraft:nether_star",
       "rarity": "mythic"
+    },
+    {
+      "id": "milestone_infernal",
+      "translation_key": "milestone.legacy.infernal",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:flint_and_steel",
+      "rarity": "epic"
+    },
+    {
+      "id": "milestone_beyond_the_horizon",
+      "translation_key": "milestone.legacy.beyond_the_horizon",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:ender_eye",
+      "rarity": "epic"
+    },
+    {
+      "id": "milestone_liberator_of_the_end",
+      "translation_key": "milestone.legacy.liberator_of_the_end",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:dragon_head",
+      "rarity": "legendary"
+    },
+    {
+      "id": "milestone_withers_bane",
+      "translation_key": "milestone.legacy.withers_bane",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:nether_star",
+      "rarity": "legendary"
+    },
+    {
+      "id": "milestone_tidebreaker",
+      "translation_key": "milestone.legacy.tidebreaker",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:prismarine_shard",
+      "rarity": "epic"
+    },
+    {
+      "id": "milestone_the_unheard",
+      "translation_key": "milestone.legacy.the_unheard",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:echo_shard",
+      "rarity": "mythic"
+    },
+    {
+      "id": "milestone_hero_of_the_overworld",
+      "translation_key": "milestone.legacy.hero_of_the_overworld",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:bell",
+      "rarity": "epic"
+    },
+    {
+      "id": "milestone_strike_rich",
+      "translation_key": "milestone.legacy.strike_rich",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:diamond",
+      "rarity": "rare"
+    },
+    {
+      "id": "milestone_drop_dead_gorgeous",
+      "translation_key": "milestone.legacy.drop_dead_gorgeous",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:netherite_chestplate",
+      "rarity": "legendary"
+    },
+    {
+      "id": "milestone_lightbringer",
+      "translation_key": "milestone.legacy.lightbringer",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:beacon",
+      "rarity": "epic"
+    },
+    {
+      "id": "milestone_unbound",
+      "translation_key": "milestone.legacy.unbound",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:elytra",
+      "rarity": "legendary"
+    },
+    {
+      "id": "milestone_merciless",
+      "translation_key": "milestone.legacy.merciless",
+      "placement": "suffix",
+      "trigger": "custom",
+      "requirement": {
+        "id": "legacy:milestone_locked"
+      },
+      "category": "milestone",
+      "milestone": true,
+      "display_priority": 900,
+      "icon": "minecraft:iron_sword",
+      "rarity": "rare"
     }
   ]
 }

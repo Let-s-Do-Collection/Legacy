@@ -9,5 +9,6 @@ public final class LegacyClient {
     }
 
     public static void init() {
+        LegacyClientConfig.load();
     }
 }

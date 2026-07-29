@@ -38,6 +38,7 @@ public final class TitleService {
         LegacyNetworking.sendSelf(player, playerData);
         sendProgress(player, playerData);
         broadcastActiveTitles(server);
+        MilestoneService.onJoin(player);
     }
 
     public static void onServerTick(MinecraftServer server) {
@@ -79,6 +80,15 @@ public final class TitleService {
             LegacyNetworking.sendSelf(player, playerData);
         }
         return playerData.getUnlocked().size() - before;
+    }
+
+    public static void unlockTitle(ServerPlayer player, String titleId) {
+        LegacyTitleSavedData data = LegacyTitleSavedData.get(player.server);
+        PlayerTitleData playerData = data.getOrCreate(player.getUUID());
+        if (playerData.unlock(titleId)) {
+            data.setDirty();
+            LegacyNetworking.sendSelf(player, playerData);
+        }
     }
 
     public static void setActive(ServerPlayer player, String titleId) {
