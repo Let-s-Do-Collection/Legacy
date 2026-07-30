@@ -1,0 +1,17 @@
+{
+  "id": "tea_master",
+  "translation_key": "title.legacy.tea_master",
+  "category": "cooking",
+  "icon": "herbalbrews:tea_kettle",
+  "rarity": "rare",
+  "placement": "prefix",
+  "display_priority": 321,
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:#legacy:herbalbrews_drinks",
+    "value": 200
+  }
+}

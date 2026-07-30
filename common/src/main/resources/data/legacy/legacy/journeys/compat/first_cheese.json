@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "meadow:cheese_slice",
+  "translation_key": "journey.legacy.first_cheese",
+  "title": "First Cheese",
+  "description": "Aged just right.",
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:meadow:cheese_slice"
+  }
+}

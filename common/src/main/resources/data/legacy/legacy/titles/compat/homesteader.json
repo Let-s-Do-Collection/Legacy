@@ -1,0 +1,17 @@
+{
+  "id": "homesteader",
+  "translation_key": "title.legacy.homesteader",
+  "category": "farming",
+  "icon": "farm_and_charm:fertilized_soil",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 319,
+  "required_mods": [
+    "farm_and_charm"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "craft:farm_and_charm:fertilized_soil",
+    "value": 50
+  }
+}

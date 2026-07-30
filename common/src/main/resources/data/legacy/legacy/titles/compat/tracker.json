@@ -1,0 +1,11 @@
+{
+  "id": "tracker",
+  "translation_key": "title.legacy.tracker",
+  "category": "hunting",
+  "icon": "wildernature:blunderbuss",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 300,
+  "required_mods": ["wildernature"],
+  "trigger": { "type": "item", "id": "wildernature:blunderbuss" }
+}

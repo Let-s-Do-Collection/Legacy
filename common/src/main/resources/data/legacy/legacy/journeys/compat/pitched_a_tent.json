@@ -1,0 +1,14 @@
+{
+  "category": "exploration",
+  "icon": "camping:tent_red",
+  "translation_key": "journey.legacy.pitched_a_tent",
+  "title": "Pitched a Tent",
+  "description": "Home for the night.",
+  "required_mods": [
+    "camping"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "camping:tent_red"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "gourmet",
+  "translation_key": "title.legacy.gourmet",
+  "category": "cooking",
+  "icon": "candlelight:lasagne",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 317,
+  "required_mods": [
+    "candlelight"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:candlelight:lasagne",
+    "value": 12
+  }
+}

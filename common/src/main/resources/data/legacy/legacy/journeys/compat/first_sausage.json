@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "brewery:sausage",
+  "translation_key": "journey.legacy.first_sausage",
+  "title": "First Sausage",
+  "description": "Straight off the grill.",
+  "required_mods": [
+    "brewery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:brewery:sausage"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "meadow:cheesecake_slice",
+  "translation_key": "journey.legacy.first_cheesecake",
+  "title": "First Cheesecake",
+  "description": "Worth the wait.",
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:meadow:cheesecake_slice"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "camping:small_backpack",
+  "translation_key": "journey.legacy.the_backpack",
+  "title": "A Backpack",
+  "description": "Room for everything.",
+  "required_mods": [
+    "camping"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "camping:small_backpack"
+  }
+}

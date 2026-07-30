@@ -1,0 +1,11 @@
+{
+  "id": "drinker",
+  "translation_key": "title.legacy.drinker",
+  "category": "cooking",
+  "icon": "brewery:beer_wheat",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 315,
+  "required_mods": ["brewery"],
+  "trigger": { "type": "counter", "counter": "consume:#legacy:brewery_drinks", "value": 25 }
+}

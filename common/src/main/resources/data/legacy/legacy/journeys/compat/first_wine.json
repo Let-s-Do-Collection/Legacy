@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "vinery:red_wine",
+  "translation_key": "journey.legacy.first_wine",
+  "title": "First Wine",
+  "description": "To a good vintage.",
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:#legacy:vinery_wines"
+  }
+}

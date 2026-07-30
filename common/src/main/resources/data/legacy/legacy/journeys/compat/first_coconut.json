@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "beachparty:coconut_open",
+  "translation_key": "journey.legacy.first_coconut",
+  "title": "First Coconut",
+  "description": "Cracked it open.",
+  "required_mods": [
+    "beachparty"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:beachparty:coconut_open"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "combat",
+  "icon": "wildernature:bison_meat",
+  "translation_key": "journey.legacy.first_hunt",
+  "title": "First Hunt",
+  "description": "The first catch of many.",
+  "required_mods": [
+    "wildernature"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "wildernature:bison_meat"
+  }
+}

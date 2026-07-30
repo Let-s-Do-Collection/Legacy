@@ -1,0 +1,17 @@
+{
+  "id": "master_baker",
+  "translation_key": "title.legacy.master_baker",
+  "category": "cooking",
+  "icon": "bakery:croissant",
+  "rarity": "epic",
+  "placement": "prefix",
+  "display_priority": 311,
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:bakery:baker_station",
+    "value": 500
+  }
+}

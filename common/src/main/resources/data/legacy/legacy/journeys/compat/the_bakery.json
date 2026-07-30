@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "bakery:baker_station",
+  "translation_key": "journey.legacy.the_bakery",
+  "title": "The Baker's Bench",
+  "description": "You kneaded your first dough.",
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:bakery:baker_station"
+  }
+}

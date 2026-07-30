@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "candlelight:chocolate_mousse",
+  "translation_key": "journey.legacy.a_sweet_ending",
+  "title": "A Sweet Ending",
+  "description": "Dessert is served.",
+  "required_mods": [
+    "candlelight"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:candlelight:chocolate_mousse"
+  }
+}

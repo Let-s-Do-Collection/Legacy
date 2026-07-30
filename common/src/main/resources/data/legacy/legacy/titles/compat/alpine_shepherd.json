@@ -1,0 +1,18 @@
+{
+  "id": "alpine_shepherd",
+  "translation_key": "title.legacy.alpine_shepherd",
+  "category": "farming",
+  "icon": "meadow:wooden_milk_bucket",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 322,
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:custom",
+    "stat": "minecraft:animals_bred",
+    "value": 5
+  }
+}

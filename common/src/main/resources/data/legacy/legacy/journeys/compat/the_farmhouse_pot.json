@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "farm_and_charm:cooking_pot",
+  "translation_key": "journey.legacy.the_farmhouse_pot",
+  "title": "The Farmhouse Pot",
+  "description": "A hearty meal is cooking.",
+  "required_mods": [
+    "farm_and_charm"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:farm_and_charm:cooking_pot"
+  }
+}

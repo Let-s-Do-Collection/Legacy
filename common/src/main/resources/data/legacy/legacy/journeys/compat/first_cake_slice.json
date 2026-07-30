@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "bakery:strawberry_cake_slice",
+  "translation_key": "journey.legacy.first_cake_slice",
+  "title": "First Slice of Cake",
+  "description": "The first cut is the sweetest.",
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:bakery:strawberry_cake_slice"
+  }
+}

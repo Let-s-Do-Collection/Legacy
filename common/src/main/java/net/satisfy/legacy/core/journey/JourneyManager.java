@@ -54,6 +54,9 @@ public class JourneyManager extends SimpleJsonResourceReloadListener {
                     LOGGER.warn("[{}] Journey '{}' has no trigger - skipping.", Legacy.MOD_ID, file);
                     continue;
                 }
+                if (!net.satisfy.legacy.core.CompatGate.present(journey.requiredMods)) {
+                    continue;
+                }
                 loaded.put(journey.id, journey);
             } catch (Exception ex) {
                 LOGGER.warn("[{}] Failed to parse journey '{}': {}", Legacy.MOD_ID, file, ex.getMessage());

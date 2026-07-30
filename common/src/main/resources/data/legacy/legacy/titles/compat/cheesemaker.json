@@ -1,0 +1,17 @@
+{
+  "id": "cheesemaker",
+  "translation_key": "title.legacy.cheesemaker",
+  "category": "farming",
+  "icon": "meadow:cheese_wheel",
+  "rarity": "rare",
+  "placement": "prefix",
+  "display_priority": 323,
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:meadow:cheese_form",
+    "value": 25
+  }
+}

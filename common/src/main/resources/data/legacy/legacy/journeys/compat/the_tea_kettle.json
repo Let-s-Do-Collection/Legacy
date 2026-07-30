@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "herbalbrews:tea_kettle",
+  "translation_key": "journey.legacy.the_tea_kettle",
+  "title": "The Tea Kettle",
+  "description": "You brewed your first pot.",
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:herbalbrews:tea_kettle"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "herbalbrews:witch_hat",
+  "translation_key": "journey.legacy.the_witchs_hat",
+  "title": "The Witch's Hat",
+  "description": "For the finest brews.",
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "herbalbrews:witch_hat"
+  }
+}

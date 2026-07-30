@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "brewery:beer_wheat",
+  "translation_key": "journey.legacy.first_beer",
+  "title": "First Beer",
+  "description": "Cheers to that.",
+  "required_mods": [
+    "brewery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:#legacy:brewery_drinks"
+  }
+}

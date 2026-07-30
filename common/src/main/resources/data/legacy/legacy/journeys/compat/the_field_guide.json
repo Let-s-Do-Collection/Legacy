@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "icon": "wildernature:field_guide",
+  "translation_key": "journey.legacy.the_field_guide",
+  "title": "The Field Guide",
+  "description": "Every creature, noted.",
+  "required_mods": [
+    "wildernature"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "wildernature:field_guide"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "exploration",
+  "icon": "camping:sleeping_bag_red",
+  "translation_key": "journey.legacy.first_night_outdoors",
+  "title": "First Night Outdoors",
+  "description": "Under the open sky.",
+  "required_mods": [
+    "camping"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:camping:sleeping_bag_red"
+  }
+}

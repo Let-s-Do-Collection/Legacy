@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "bakery:chocolate_truffle",
+  "translation_key": "journey.legacy.sweet_tooth",
+  "title": "Sweet Tooth",
+  "description": "You could not resist.",
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:bakery:chocolate_truffle"
+  }
+}

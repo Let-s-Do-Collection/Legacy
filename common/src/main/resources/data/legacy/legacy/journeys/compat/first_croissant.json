@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "bakery:croissant",
+  "translation_key": "journey.legacy.first_croissant",
+  "title": "First Croissant",
+  "description": "Buttery and golden.",
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "bakery:croissant"
+  }
+}

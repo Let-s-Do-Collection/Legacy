@@ -1,0 +1,14 @@
+{
+  "category": "exploration",
+  "icon": "wildernature:truffle",
+  "translation_key": "journey.legacy.a_truffle",
+  "title": "A Truffle",
+  "description": "A rare find in the roots.",
+  "required_mods": [
+    "wildernature"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "wildernature:truffle"
+  }
+}

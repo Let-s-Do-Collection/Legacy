@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "candlelight:cooking_hat",
+  "translation_key": "journey.legacy.the_chef",
+  "title": "The Chef's Hat",
+  "description": "Now it is official.",
+  "required_mods": [
+    "candlelight"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "candlelight:cooking_hat"
+  }
+}

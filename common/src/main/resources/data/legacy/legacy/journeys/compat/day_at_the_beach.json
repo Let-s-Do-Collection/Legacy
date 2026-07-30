@@ -1,0 +1,14 @@
+{
+  "category": "exploration",
+  "icon": "beachparty:hooded_beach_chair",
+  "translation_key": "journey.legacy.day_at_the_beach",
+  "title": "A Day at the Beach",
+  "description": "Sun, sand and a comfy chair.",
+  "required_mods": [
+    "beachparty"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:beachparty:hooded_beach_chair"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "beachcomber",
+  "translation_key": "title.legacy.beachcomber",
+  "category": "exploration",
+  "icon": "beachparty:seashell",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 313,
+  "required_mods": [
+    "beachparty"
+  ],
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:used",
+    "stat": "beachparty:seashell",
+    "value": 25
+  }
+}

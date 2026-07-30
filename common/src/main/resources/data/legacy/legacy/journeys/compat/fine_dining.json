@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "candlelight:beef_wellington",
+  "translation_key": "journey.legacy.fine_dining",
+  "title": "Fine Dining",
+  "description": "A dish worth dressing up for.",
+  "required_mods": [
+    "candlelight"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:candlelight:beef_wellington"
+  }
+}

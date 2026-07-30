@@ -54,6 +54,9 @@ public final class MilestoneManager extends SimpleJsonResourceReloadListener {
                 if (milestone.id == null || milestone.id.isBlank()) {
                     milestone.id = file.getPath();
                 }
+                if (!net.satisfy.legacy.core.CompatGate.present(milestone.requiredMods)) {
+                    continue;
+                }
                 map.putIfAbsent(milestone.id, milestone);
             } catch (Exception e) {
                 LOGGER.warn("[{}] Failed to parse milestone '{}': {}", Legacy.MOD_ID, file, e.getMessage());

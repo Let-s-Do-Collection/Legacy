@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "meadow:fur_chestplate",
+  "translation_key": "journey.legacy.alpine_fur",
+  "title": "Wrapped in Fur",
+  "description": "The mountains are cold.",
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "meadow:fur_chestplate"
+  }
+}

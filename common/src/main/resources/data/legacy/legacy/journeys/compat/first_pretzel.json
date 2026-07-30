@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "brewery:pretzel",
+  "translation_key": "journey.legacy.first_pretzel",
+  "title": "First Pretzel",
+  "description": "Salt and warmth.",
+  "required_mods": [
+    "brewery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:brewery:pretzel"
+  }
+}

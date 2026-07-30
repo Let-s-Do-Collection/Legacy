@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "camping:grill",
+  "translation_key": "journey.legacy.the_camp_grill",
+  "title": "The Camp Grill",
+  "description": "You fired it up.",
+  "required_mods": [
+    "camping"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:camping:grill"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "icon": "wildernature:deer_trophy",
+  "translation_key": "journey.legacy.a_trophy",
+  "title": "First Trophy",
+  "description": "A memory on the wall.",
+  "required_mods": [
+    "wildernature"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "wildernature:deer_trophy"
+  }
+}

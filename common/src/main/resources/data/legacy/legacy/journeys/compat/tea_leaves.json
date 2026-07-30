@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "herbalbrews:green_tea_leaf",
+  "translation_key": "journey.legacy.tea_leaves",
+  "title": "Tea Leaves",
+  "description": "Picked by hand.",
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "herbalbrews:green_tea_leaf"
+  }
+}

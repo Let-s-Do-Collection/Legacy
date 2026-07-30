@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "meadow:wooden_milk_bucket",
+  "translation_key": "journey.legacy.first_milk",
+  "title": "First Milk",
+  "description": "Fresh from the pasture.",
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "meadow:wooden_milk_bucket"
+  }
+}

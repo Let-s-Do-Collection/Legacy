@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "herbalbrews:green_tea",
+  "translation_key": "journey.legacy.first_tea",
+  "title": "First Cup of Tea",
+  "description": "A quiet moment.",
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:#legacy:herbalbrews_drinks"
+  }
+}

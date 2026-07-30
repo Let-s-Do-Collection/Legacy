@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "brewery:copper_brewingstation",
+  "translation_key": "journey.legacy.the_brewery",
+  "title": "The Brewery",
+  "description": "You set up your first brewing station.",
+  "required_mods": [
+    "brewery"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "brewery:copper_brewingstation"
+  }
+}

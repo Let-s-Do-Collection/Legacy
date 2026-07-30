@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "farm_and_charm:farmers_bread",
+  "translation_key": "journey.legacy.farmers_bread",
+  "title": "Farmer's Bread",
+  "description": "Simple and hearty.",
+  "required_mods": [
+    "farm_and_charm"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:farm_and_charm:farmers_bread"
+  }
+}

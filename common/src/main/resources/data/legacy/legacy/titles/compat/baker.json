@@ -1,0 +1,17 @@
+{
+  "id": "baker",
+  "translation_key": "title.legacy.baker",
+  "category": "cooking",
+  "icon": "bakery:bread",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 310,
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:bakery:baker_station",
+    "value": 50
+  }
+}

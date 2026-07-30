@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "beachparty:sunglasses",
+  "translation_key": "journey.legacy.shades_on",
+  "title": "Shades On",
+  "description": "The future is bright.",
+  "required_mods": [
+    "beachparty"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "beachparty:sunglasses"
+  }
+}

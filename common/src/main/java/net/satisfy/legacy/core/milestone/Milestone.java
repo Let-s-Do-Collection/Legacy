@@ -35,6 +35,10 @@ public class Milestone {
     @SerializedName("rarity")
     public TitleRarity rarity = TitleRarity.EPIC;
 
+    /** Only load this milestone when every listed mod is present. */
+    @SerializedName("required_mods")
+    public java.util.List<String> requiredMods;
+
     /**
      * Milestone trigger kind — {@code dimension}, {@code kill} or {@code advancement}. Uses the
      * same {@code trigger} block as titles and journeys; only the accepted {@code type} values differ.

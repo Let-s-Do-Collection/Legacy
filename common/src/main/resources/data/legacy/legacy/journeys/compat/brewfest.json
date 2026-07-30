@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "brewery:brewfest_hat",
+  "translation_key": "journey.legacy.brewfest",
+  "title": "Brewfest",
+  "description": "Hat on, mug up.",
+  "required_mods": [
+    "brewery"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "brewery:brewfest_hat"
+  }
+}

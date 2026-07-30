@@ -1,0 +1,15 @@
+{
+  "category": "exploration",
+  "icon": "beachparty:seashell",
+  "translation_key": "journey.legacy.a_seashell",
+  "title": "A Seashell",
+  "description": "You held it to your ear.",
+  "required_mods": [
+    "beachparty"
+  ],
+  "trigger": {
+    "type": "statistic",
+    "stat_type": "minecraft:used",
+    "stat": "beachparty:seashell"
+  }
+}

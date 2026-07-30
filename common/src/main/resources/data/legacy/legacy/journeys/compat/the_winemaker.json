@@ -1,0 +1,14 @@
+{
+  "category": "equipment",
+  "icon": "vinery:straw_hat",
+  "translation_key": "journey.legacy.the_winemaker",
+  "title": "The Winemaker's Hat",
+  "description": "Ready for the harvest.",
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "vinery:straw_hat"
+  }
+}

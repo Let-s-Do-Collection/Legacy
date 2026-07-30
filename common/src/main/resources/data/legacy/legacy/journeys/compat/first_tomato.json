@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "farm_and_charm:tomato",
+  "translation_key": "journey.legacy.first_tomato",
+  "title": "First Tomato",
+  "description": "Ripe and red.",
+  "required_mods": [
+    "farm_and_charm"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "farm_and_charm:tomato"
+  }
+}

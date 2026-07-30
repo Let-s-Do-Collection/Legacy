@@ -1,0 +1,11 @@
+{
+  "id": "brewmaster",
+  "translation_key": "title.legacy.brewmaster",
+  "category": "cooking",
+  "icon": "brewery:netherite_brewingstation",
+  "rarity": "rare",
+  "placement": "prefix",
+  "display_priority": 314,
+  "required_mods": ["brewery"],
+  "trigger": { "type": "item", "id": "brewery:netherite_brewingstation" }
+}

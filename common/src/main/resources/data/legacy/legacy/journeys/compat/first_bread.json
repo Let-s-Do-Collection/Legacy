@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "bakery:bread",
+  "translation_key": "journey.legacy.first_bread",
+  "title": "First Bread",
+  "description": "Warm from the oven, and it is yours.",
+  "required_mods": [
+    "bakery"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "bakery:bread"
+  }
+}

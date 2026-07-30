@@ -3,6 +3,9 @@
   "minVersion": "0.8",
   "package": "net.satisfy.legacy.neoforge.mixin",
   "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingEntityMixin"
+  ],
   "client": [
     "CreativeModeInventoryScreenMixin",
     "EntityRendererMixin",

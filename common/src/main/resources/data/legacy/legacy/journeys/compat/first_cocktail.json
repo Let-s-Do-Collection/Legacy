@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "beachparty:coconut_cocktail",
+  "translation_key": "journey.legacy.first_cocktail",
+  "title": "First Cocktail",
+  "description": "With a little umbrella.",
+  "required_mods": [
+    "beachparty"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:beachparty:coconut_cocktail"
+  }
+}

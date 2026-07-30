@@ -69,6 +69,9 @@ public class TitleManager extends SimpleJsonResourceReloadListener {
             if (title != null && (title.id == null || title.id.isBlank())) {
                 title.id = file.getPath();
             }
+            if (title != null && !net.satisfy.legacy.core.CompatGate.present(title.requiredMods)) {
+                continue;
+            }
             if (TitleValidator.validate(json, title, seenIds)) {
                 loaded.add(title);
             }

@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "candlelight:cooking_pot",
+  "translation_key": "journey.legacy.the_cooking_pot",
+  "title": "The Cooking Pot",
+  "description": "Something is simmering.",
+  "required_mods": [
+    "candlelight"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:candlelight:cooking_pot"
+  }
+}

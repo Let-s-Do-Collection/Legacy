@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "vinery:fermentation_barrel",
+  "translation_key": "journey.legacy.the_vineyard",
+  "title": "The Vineyard",
+  "description": "You pressed your first wine.",
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:vinery:fermentation_barrel"
+  }
+}

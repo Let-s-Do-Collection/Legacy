@@ -1,0 +1,17 @@
+{
+  "id": "herbalist",
+  "translation_key": "title.legacy.herbalist",
+  "category": "cooking",
+  "icon": "herbalbrews:green_tea",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 320,
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:#legacy:herbalbrews_drinks",
+    "value": 25
+  }
+}

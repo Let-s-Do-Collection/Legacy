@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "farm_and_charm:fertilized_soil",
+  "translation_key": "journey.legacy.first_fertile_soil",
+  "title": "First Fertile Soil",
+  "description": "The ground is ready.",
+  "required_mods": [
+    "farm_and_charm"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "craft:farm_and_charm:fertilized_soil"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "vinery:red_grape",
+  "translation_key": "journey.legacy.first_grapes",
+  "title": "First Grapes",
+  "description": "Straight from the vine.",
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "vinery:red_grape"
+  }
+}

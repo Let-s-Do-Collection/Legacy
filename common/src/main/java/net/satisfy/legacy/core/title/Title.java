@@ -51,6 +51,10 @@ public class Title {
     @SerializedName("rarity")
     public TitleRarity rarity = TitleRarity.COMMON;
 
+    /** Only load this title when every listed mod is present. */
+    @SerializedName("required_mods")
+    public java.util.List<String> requiredMods;
+
     public transient int syncedTarget = 1;
 
     public Title() {

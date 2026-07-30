@@ -104,16 +104,28 @@ public final class LegacyCollectors {
         InteractionEvent.RIGHT_CLICK_BLOCK.register((player, hand, pos, face) -> {
             if (player instanceof ServerPlayer serverPlayer) {
                 ItemStack stack = player.getItemInHand(hand);
+                ServerLevel level = serverPlayer.serverLevel();
+                BlockState state = level.getBlockState(pos);
                 if (stack.is(Items.BONE_MEAL)) {
-                    ServerLevel level = serverPlayer.serverLevel();
-                    BlockState state = level.getBlockState(pos);
                     if (state.getBlock() instanceof BonemealableBlock bonemealable
                             && bonemealable.isValidBonemealTarget(level, pos, state)) {
                         withData(serverPlayer, data -> data.addCounter(Counters.BONEMEAL_USED, 1));
                     }
                 }
+                if (hand == net.minecraft.world.InteractionHand.MAIN_HAND) {
+                    ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+                    withData(serverPlayer, data -> data.addCounter(Counters.use(blockId), 1));
+                }
             }
             return EventResult.pass();
+        });
+
+        PlayerEvent.CRAFT_ITEM.register((player, constructed, inventory) -> {
+            if (player instanceof ServerPlayer serverPlayer && !constructed.isEmpty()) {
+                ResourceLocation id = BuiltInRegistries.ITEM.getKey(constructed.getItem());
+                int amount = Math.max(1, constructed.getCount());
+                withData(serverPlayer, data -> data.addCounter(Counters.craft(id), amount));
+            }
         });
 
         PlayerEvent.CHANGE_DIMENSION.register((player, oldLevel, newLevel) -> {
@@ -130,6 +142,18 @@ public final class LegacyCollectors {
 
         PlayerEvent.PLAYER_ADVANCEMENT.register((player, advancement) ->
                 MilestoneService.onAdvancement(player, advancement.id()));
+    }
+
+    /** Called from a mixin when a player finishes eating/drinking a food or beverage. */
+    public static void onConsume(ServerPlayer player, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return;
+        }
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        withData(player, data -> {
+            data.addCounter(Counters.consume(id), 1);
+            stack.getTags().forEach(tag -> data.addCounter(Counters.consumeTag(tag.location()), 1));
+        });
     }
 
     public static void onJoin(ServerPlayer player, PlayerTitleData data) {

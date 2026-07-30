@@ -1,0 +1,14 @@
+{
+  "category": "misc",
+  "icon": "camping:enderpack",
+  "translation_key": "journey.legacy.the_enderpack",
+  "title": "The Enderpack",
+  "description": "Storage that follows you.",
+  "required_mods": [
+    "camping"
+  ],
+  "trigger": {
+    "type": "item",
+    "id": "camping:enderpack"
+  }
+}

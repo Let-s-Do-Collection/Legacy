@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "farm_and_charm:farmers_breakfast",
+  "translation_key": "journey.legacy.farmers_breakfast",
+  "title": "Farmer's Breakfast",
+  "description": "Up before the sun.",
+  "required_mods": [
+    "farm_and_charm"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:farm_and_charm:farmers_breakfast"
+  }
+}

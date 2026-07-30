@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "vinery:red_grapejuice",
+  "translation_key": "journey.legacy.first_grape_juice",
+  "title": "First Grape Juice",
+  "description": "Sweet and simple.",
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:vinery:red_grapejuice"
+  }
+}

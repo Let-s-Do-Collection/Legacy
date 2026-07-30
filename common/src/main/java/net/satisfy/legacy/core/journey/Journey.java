@@ -33,6 +33,10 @@ public class Journey {
     @SerializedName("trigger")
     public Trigger trigger = new Trigger();
 
+    /** Only load this journey when every listed mod is present. */
+    @SerializedName("required_mods")
+    public java.util.List<String> requiredMods;
+
     public String getId() {
         return id;
     }

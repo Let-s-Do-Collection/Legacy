@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "wildernature:cooked_venison",
+  "translation_key": "journey.legacy.first_venison",
+  "title": "First Venison",
+  "description": "Cooked over the fire.",
+  "required_mods": [
+    "wildernature"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:wildernature:cooked_venison"
+  }
+}

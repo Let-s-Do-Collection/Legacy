@@ -1,0 +1,17 @@
+{
+  "id": "camper",
+  "translation_key": "title.legacy.camper",
+  "category": "exploration",
+  "icon": "camping:sleeping_bag_red",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 318,
+  "required_mods": [
+    "camping"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:camping:sleeping_bag_red",
+    "value": 1
+  }
+}

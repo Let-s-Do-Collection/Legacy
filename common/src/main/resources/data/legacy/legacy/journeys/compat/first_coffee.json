@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "herbalbrews:coffee",
+  "translation_key": "journey.legacy.first_coffee",
+  "title": "First Coffee",
+  "description": "The morning begins.",
+  "required_mods": [
+    "herbalbrews"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:herbalbrews:coffee"
+  }
+}

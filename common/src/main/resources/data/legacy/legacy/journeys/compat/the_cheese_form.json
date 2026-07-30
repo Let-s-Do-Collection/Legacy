@@ -1,0 +1,14 @@
+{
+  "category": "farming",
+  "icon": "meadow:cheese_form",
+  "translation_key": "journey.legacy.the_cheese_form",
+  "title": "The Cheese Form",
+  "description": "You pressed your first wheel.",
+  "required_mods": [
+    "meadow"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:meadow:cheese_form"
+  }
+}

@@ -39,4 +39,20 @@ public final class Counters {
     public static String structure(ResourceLocation id) {
         return "structure:" + id;
     }
+
+    public static String craft(ResourceLocation item) {
+        return "craft:" + item;
+    }
+
+    public static String use(ResourceLocation block) {
+        return "use:" + block;
+    }
+
+    public static String consume(ResourceLocation item) {
+        return "consume:" + item;
+    }
+
+    public static String consumeTag(ResourceLocation tag) {
+        return "consume:#" + tag;
+    }
 }

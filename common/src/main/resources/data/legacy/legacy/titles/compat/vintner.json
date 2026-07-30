@@ -1,0 +1,17 @@
+{
+  "id": "vintner",
+  "translation_key": "title.legacy.vintner",
+  "category": "farming",
+  "icon": "vinery:fermentation_barrel",
+  "rarity": "rare",
+  "placement": "prefix",
+  "display_priority": 324,
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "use:vinery:fermentation_barrel",
+    "value": 50
+  }
+}

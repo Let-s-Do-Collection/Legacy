@@ -1,0 +1,17 @@
+{
+  "id": "wine_taster",
+  "translation_key": "title.legacy.wine_taster",
+  "category": "cooking",
+  "icon": "vinery:red_wine",
+  "rarity": "uncommon",
+  "placement": "prefix",
+  "display_priority": 325,
+  "required_mods": [
+    "vinery"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:#legacy:vinery_wines",
+    "value": 25
+  }
+}

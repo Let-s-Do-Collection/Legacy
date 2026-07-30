@@ -1,0 +1,14 @@
+{
+  "category": "survival",
+  "icon": "candlelight:lasagne",
+  "translation_key": "journey.legacy.first_meal",
+  "title": "First Home-Cooked Meal",
+  "description": "You cooked it yourself.",
+  "required_mods": [
+    "candlelight"
+  ],
+  "trigger": {
+    "type": "counter",
+    "counter": "consume:candlelight:lasagne"
+  }
+}
