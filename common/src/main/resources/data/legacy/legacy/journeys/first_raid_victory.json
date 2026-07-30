@@ -1,6 +1,7 @@
 {
   "category": "combat",
   "icon": "minecraft:crossbow",
+  "translation_key": "journey.legacy.first_raid_victory",
   "title": "First Raid Victory",
   "description": "Turn back the raid.",
   "trigger": {

@@ -1,6 +1,7 @@
 {
   "category": "survival",
   "icon": "minecraft:golden_apple",
+  "translation_key": "journey.legacy.first_golden_apple",
   "title": "First Golden Apple",
   "description": "Taste a golden apple.",
   "trigger": {

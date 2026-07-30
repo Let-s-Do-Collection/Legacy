@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:mossy_cobblestone",
+  "translation_key": "journey.legacy.first_jungle_temple",
   "title": "First Jungle Temple",
   "description": "Find a temple lost in the jungle.",
   "trigger": {

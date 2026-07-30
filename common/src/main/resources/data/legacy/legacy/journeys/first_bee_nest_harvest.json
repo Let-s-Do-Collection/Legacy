@@ -1,6 +1,7 @@
 {
   "category": "farming",
   "icon": "minecraft:honeycomb",
+  "translation_key": "journey.legacy.first_bee_nest_harvest",
   "title": "First Bee Nest Harvest",
   "description": "Gather honey without a sting.",
   "trigger": {

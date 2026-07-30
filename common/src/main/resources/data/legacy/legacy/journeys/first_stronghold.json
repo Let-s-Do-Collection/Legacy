@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:end_portal_frame",
+  "translation_key": "journey.legacy.first_stronghold",
   "title": "First Stronghold",
   "description": "Descend into a stronghold.",
   "trigger": {

@@ -1,6 +1,7 @@
 {
   "category": "combat",
   "icon": "minecraft:prismarine_shard",
+  "translation_key": "journey.legacy.first_elder_guardian",
   "title": "First Elder Guardian",
   "description": "Defeat an elder guardian.",
   "trigger": {

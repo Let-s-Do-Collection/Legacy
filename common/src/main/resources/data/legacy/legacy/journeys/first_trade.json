@@ -1,6 +1,7 @@
 {
   "category": "villagers",
   "icon": "minecraft:emerald",
+  "translation_key": "journey.legacy.first_trade",
   "title": "First Trade",
   "description": "Strike your first bargain.",
   "trigger": {

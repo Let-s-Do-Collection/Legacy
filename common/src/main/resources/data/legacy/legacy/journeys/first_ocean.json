@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:kelp",
+  "translation_key": "journey.legacy.first_ocean",
   "title": "First Ocean",
   "description": "Reach the open ocean.",
   "trigger": {

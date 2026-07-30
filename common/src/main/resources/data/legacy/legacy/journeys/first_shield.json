@@ -1,11 +1,11 @@
 {
   "category": "equipment",
   "icon": "minecraft:shield",
+  "translation_key": "journey.legacy.first_shield",
   "title": "First Shield",
   "description": "Raise a shield for the first time.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:crafted",
-    "stat": "minecraft:shield"
+    "type": "item",
+    "id": "minecraft:shield"
   }
 }

@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:sculk_catalyst",
+  "translation_key": "journey.legacy.first_ancient_city",
   "title": "First Ancient City",
   "description": "Step into the silence of an ancient city.",
   "trigger": {

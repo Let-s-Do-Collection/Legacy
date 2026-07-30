@@ -1,6 +1,7 @@
 {
   "category": "combat",
   "icon": "minecraft:iron_sword",
+  "translation_key": "journey.legacy.first_pvp_victory",
   "title": "First PvP Victory",
   "description": "Best another player in battle.",
   "trigger": {

@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:bone",
+  "translation_key": "journey.legacy.a_friend",
   "title": "A Friend",
   "description": "Tame your first companion.",
   "trigger": {

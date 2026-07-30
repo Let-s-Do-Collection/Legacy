@@ -37,6 +37,7 @@ public class Trigger {
             case "advancement" -> TriggerType.ADVANCEMENT;
             case "counter", "event" -> TriggerType.EVENT;
             case "statistic", "stat", "minecraft_stat" -> TriggerType.MINECRAFT_STAT;
+            case "item" -> TriggerType.ITEM;
             default -> TriggerType.CUSTOM;
         };
     }
@@ -52,7 +53,7 @@ public class Trigger {
                 req.stat = stat;
                 req.statType = statType;
             }
-            case CUSTOM -> req.id = id;
+            case ITEM, CUSTOM -> req.id = id;
         }
         return req;
     }

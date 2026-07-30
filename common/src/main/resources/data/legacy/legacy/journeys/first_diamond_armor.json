@@ -1,6 +1,7 @@
 {
   "category": "equipment",
   "icon": "minecraft:diamond_chestplate",
+  "translation_key": "journey.legacy.first_diamond_armor",
   "title": "First Diamond Armor",
   "description": "Forge your first diamond armor.",
   "trigger": {

@@ -1,6 +1,7 @@
 {
   "category": "combat",
   "icon": "minecraft:echo_shard",
+  "translation_key": "journey.legacy.first_warden",
   "title": "First Warden",
   "description": "Face the Warden.",
   "trigger": {

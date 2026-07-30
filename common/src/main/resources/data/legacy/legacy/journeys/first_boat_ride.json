@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:oak_boat",
+  "translation_key": "journey.legacy.first_boat_ride",
   "title": "First Boat Ride",
   "description": "Set out by boat.",
   "trigger": {

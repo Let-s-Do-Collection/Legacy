@@ -1,22 +1,21 @@
-# Legacy — Datapack Guide
+# Legacy Data Pack Reference
 
-Legacy is a **progression platform** for Minecraft. Everything it adds is data-driven: if you can write
-a JSON file, you can extend Legacy. No registries, no Java classes, no mixins.
+Legacy is data-driven: titles, journeys and milestones are defined in JSON and loaded from data packs.
+Extending Legacy requires no registries, Java classes or mixins.
 
 ## The four systems
 
-| System | What it is | Loudness | Folder |
-|---|---|---|---|
-| **[Titles](titles.md)** | Cosmetic honorifics worn above the name | 🔔 small reward (toast) | `legacy/titles/` |
-| **[Journeys](journeys.md)** | A personal, silent "first time I did X" diary | 🤫 silent | `legacy/journeys/` |
-| **[Milestones](milestones.md)** | Server-wide world-firsts | 📣 broadcast to everyone | `legacy/milestones/` |
+| System | Description | Folder |
+|---|---|---|
+| [Titles](titles.md) | Cosmetic honorifics worn above the player's name, unlocked by triggers. | `legacy/titles/` |
+| [Journeys](journeys.md) | A per-player record of first-time events. No rewards, toasts or colour. | `legacy/journeys/` |
+| [Milestones](milestones.md) | Server-wide world-firsts, broadcast and recorded once. | `legacy/milestones/` |
 
-The remaining system, **Server History**, is the read-only chronicle of milestones already claimed — it
-needs no authoring.
+Server History is the read-only chronicle of claimed milestones and needs no authoring.
 
-## One file, one thing
+## One file per definition
 
-Each definition is a single JSON file, discovered exactly like advancements and loot tables:
+Each definition is a single JSON file, discovered like advancements and loot tables:
 
 ```
 data/<namespace>/legacy/
@@ -31,12 +30,12 @@ data/<namespace>/legacy/
     infernal.json
 ```
 
-Any datapack (in any namespace) can add files here, and any mod ships them the same way. `/legacy reload`
-re-reads titles live; a vanilla `/reload` refreshes all three.
+Any data pack (in any namespace) can add files here. `/legacy reload` re-reads titles live; a vanilla
+`/reload` refreshes all three systems.
 
-## One trigger block everywhere
+## Shared trigger block
 
-All three systems share the **same** trigger block — learn it once:
+All three systems use the same trigger block:
 
 ```json
 "trigger": { "type": "advancement", "id": "minecraft:story/mine_diamond" }
@@ -44,29 +43,29 @@ All three systems share the **same** trigger block — learn it once:
 "trigger": { "type": "statistic",   "stat_type": "minecraft:killed", "stat": "minecraft:wither", "value": 1 }
 ```
 
-Full reference: **[triggers.md](triggers.md)**.
+See [triggers.md](triggers.md) for the full list of trigger types.
 
-## Shared core, system-specific extras
+## Shared core, system-specific fields
 
-Every definition shares a core, then adds only what its system needs:
+Every definition shares a core, then adds fields specific to its system:
 
 ```jsonc
 // core (all systems)
 { "id": "...", "icon": "...", "category": "...", "trigger": { ... } }
 
-// title adds
+// title
 "translation_key": "...", "rarity": "epic", "placement": "suffix", "series": "...", "stage": 2
 
-// journey adds
-"title": "First Diamond Armor", "description": "Craft your first set of Diamond Armor."
+// journey
+"translation_key": "...", "title": "First Diamond Armor", "description": "Craft a full set of Diamond Armor."
 
-// milestone adds
+// milestone
 "shared": true, "grace_period": 300, "retro_advancement": "..."
 ```
 
-## Start here
+## Contents
 
-1. **[Creating your first Title](titles.md)**
-2. **[Creating your first Journey](journeys.md)**
-3. **[Creating your first Server Milestone](milestones.md)**
-4. **[Supported Trigger Types](triggers.md)**
+1. [Titles](titles.md)
+2. [Journeys](journeys.md)
+3. [Milestones](milestones.md)
+4. [Trigger types](triggers.md)

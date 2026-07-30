@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:white_banner",
+  "translation_key": "journey.legacy.first_banner",
   "title": "First Banner",
   "description": "Raise your colors.",
   "trigger": {

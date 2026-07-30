@@ -1,6 +1,7 @@
 {
   "category": "survival",
   "icon": "minecraft:totem_of_undying",
+  "translation_key": "journey.legacy.first_totem",
   "title": "First Totem of Undying",
   "description": "Cheat death with a totem.",
   "trigger": {

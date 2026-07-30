@@ -1,6 +1,7 @@
 {
   "category": "farming",
   "icon": "minecraft:wheat",
+  "translation_key": "journey.legacy.first_crop_harvest",
   "title": "First Crop Harvest",
   "description": "Reap your first grown crop.",
   "trigger": {

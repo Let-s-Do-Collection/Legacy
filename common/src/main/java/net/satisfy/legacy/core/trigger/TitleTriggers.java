@@ -38,8 +38,37 @@ public final class TitleTriggers {
             case MINECRAFT_STAT -> statSatisfied(player, req);
             case EVENT -> eventSatisfied(playerData, req);
             case ADVANCEMENT -> advancementSatisfied(player, req);
+            case ITEM -> itemSatisfied(player, req);
             case CUSTOM -> CustomTriggers.isSatisfied(req.id, player, customTitle);
         };
+    }
+
+    /** Satisfied once the player holds the item anywhere in their inventory (works with /give and creative). */
+    private static boolean itemSatisfied(ServerPlayer player, TitleRequirement req) {
+        if (req.id == null) {
+            return false;
+        }
+        ResourceLocation id = ResourceLocation.tryParse(req.id);
+        if (id == null) {
+            return false;
+        }
+        net.minecraft.world.item.Item item = BuiltInRegistries.ITEM.getOptional(id).orElse(null);
+        if (item == null) {
+            return false;
+        }
+        int need = Math.max(1, req.amount);
+        int have = 0;
+        net.minecraft.world.entity.player.Inventory inv = player.getInventory();
+        for (int i = 0; i < inv.getContainerSize(); i++) {
+            net.minecraft.world.item.ItemStack stack = inv.getItem(i);
+            if (stack.is(item)) {
+                have += stack.getCount();
+                if (have >= need) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static boolean eventSatisfied(PlayerTitleData playerData, TitleRequirement req) {

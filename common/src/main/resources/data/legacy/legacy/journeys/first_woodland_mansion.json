@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:dark_oak_planks",
+  "translation_key": "journey.legacy.first_woodland_mansion",
   "title": "First Woodland Mansion",
   "description": "Find the mansion in the dark forest.",
   "trigger": {

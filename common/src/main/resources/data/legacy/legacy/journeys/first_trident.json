@@ -1,11 +1,11 @@
 {
   "category": "equipment",
   "icon": "minecraft:trident",
+  "translation_key": "journey.legacy.first_trident",
   "title": "First Trident",
   "description": "Claim a trident from the deep.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:picked_up",
-    "stat": "minecraft:trident"
+    "type": "item",
+    "id": "minecraft:trident"
   }
 }

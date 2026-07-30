@@ -14,7 +14,7 @@ public final class TitleValidator {
 
     private static final Set<String> PLACEMENTS = Set.of("prefix", "suffix");
     private static final Set<String> TRIGGERS = Set.of(
-            "minecraft_stat", "statistic", "stat", "event", "counter", "advancement", "custom");
+            "minecraft_stat", "statistic", "stat", "event", "counter", "advancement", "item", "custom");
     private static final Set<String> RARITIES = Set.of("common", "uncommon", "rare", "epic", "legendary", "mythic");
 
     private TitleValidator() {
@@ -93,6 +93,11 @@ public final class TitleValidator {
             case ADVANCEMENT -> {
                 if (req == null || req.advancement == null) {
                     LOGGER.warn("[{}] Title '{}' uses trigger 'advancement' but has no 'requirement.advancement'; it can never unlock.", Legacy.MOD_ID, id);
+                }
+            }
+            case ITEM -> {
+                if (req == null || req.id == null) {
+                    LOGGER.warn("[{}] Title '{}' uses trigger 'item' but has no item id; it can never unlock.", Legacy.MOD_ID, id);
                 }
             }
             case CUSTOM -> {

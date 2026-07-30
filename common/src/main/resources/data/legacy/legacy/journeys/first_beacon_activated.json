@@ -1,6 +1,7 @@
 {
   "category": "survival",
   "icon": "minecraft:beacon",
+  "translation_key": "journey.legacy.first_beacon_activated",
   "title": "First Beacon Activated",
   "description": "Bring home the beacon.",
   "trigger": {

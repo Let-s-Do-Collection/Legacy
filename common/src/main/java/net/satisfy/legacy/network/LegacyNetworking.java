@@ -173,11 +173,12 @@ public final class LegacyNetworking {
                 String id = buffer.readUtf();
                 String category = buffer.readUtf();
                 String icon = buffer.readUtf();
+                String translationKey = buffer.readUtf();
                 String title = buffer.readUtf();
                 String description = buffer.readUtf();
                 boolean done = buffer.readBoolean();
                 int day = buffer.readVarInt();
-                list.add(new ClientJourneyData.Entry(id, category, icon, title, description, done, day));
+                list.add(new ClientJourneyData.Entry(id, category, icon, translationKey, title, description, done, day));
             }
             context.queue(() -> ClientJourneyData.set(list));
         });
@@ -279,6 +280,7 @@ public final class LegacyNetworking {
             buffer.writeUtf(journey.getId());
             buffer.writeUtf(journey.getCategory());
             buffer.writeUtf(journey.icon == null ? "minecraft:paper" : journey.icon);
+            buffer.writeUtf(journey.translationKey());
             buffer.writeUtf(journey.title());
             buffer.writeUtf(journey.description());
             buffer.writeBoolean(done);

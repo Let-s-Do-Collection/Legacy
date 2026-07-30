@@ -1,11 +1,11 @@
 {
   "category": "equipment",
   "icon": "minecraft:mace",
+  "translation_key": "journey.legacy.first_mace",
   "title": "First Mace",
   "description": "Forge a mace from a heavy core.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:crafted",
-    "stat": "minecraft:mace"
+    "type": "item",
+    "id": "minecraft:mace"
   }
 }

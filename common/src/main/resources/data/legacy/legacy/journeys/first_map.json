@@ -1,11 +1,11 @@
 {
   "category": "misc",
   "icon": "minecraft:filled_map",
+  "translation_key": "journey.legacy.first_map",
   "title": "First Map",
   "description": "Chart the world.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:crafted",
-    "stat": "minecraft:map"
+    "type": "item",
+    "id": "minecraft:filled_map"
   }
 }

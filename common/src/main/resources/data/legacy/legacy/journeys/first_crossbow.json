@@ -1,11 +1,11 @@
 {
   "category": "equipment",
   "icon": "minecraft:crossbow",
+  "translation_key": "journey.legacy.first_crossbow",
   "title": "First Crossbow",
   "description": "Assemble your first crossbow.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:crafted",
-    "stat": "minecraft:crossbow"
+    "type": "item",
+    "id": "minecraft:crossbow"
   }
 }

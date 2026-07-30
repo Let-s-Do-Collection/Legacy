@@ -2,6 +2,7 @@ package net.satisfy.legacy.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -17,12 +18,28 @@ public final class ClientJourneyData {
     private ClientJourneyData() {
     }
 
-    public record Entry(String id, String category, String icon, String title, String description,
-                        boolean done, int day) {
+    public record Entry(String id, String category, String icon, String translationKey, String title,
+                        String description, boolean done, int day) {
         public ItemStack iconStack() {
             ResourceLocation itemId = ResourceLocation.tryParse(icon == null ? "" : icon);
             Item item = itemId == null ? Items.PAPER : BuiltInRegistries.ITEM.getOptional(itemId).orElse(Items.PAPER);
             return new ItemStack(item);
+        }
+
+        /** Localised name: uses the translation key when present, otherwise the literal title. */
+        public String titleString() {
+            if (translationKey != null && !translationKey.isEmpty() && I18n.exists(translationKey)) {
+                return I18n.get(translationKey);
+            }
+            return title;
+        }
+
+        /** Localised description: uses {@code <key>.desc} when present, otherwise the literal description. */
+        public String descriptionString() {
+            if (translationKey != null && !translationKey.isEmpty() && I18n.exists(translationKey + ".desc")) {
+                return I18n.get(translationKey + ".desc");
+            }
+            return description;
         }
     }
 

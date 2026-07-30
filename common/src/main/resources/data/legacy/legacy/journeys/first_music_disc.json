@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:music_disc_cat",
+  "translation_key": "journey.legacy.first_music_disc",
   "title": "First Music Disc",
   "description": "Let a record spin.",
   "trigger": {

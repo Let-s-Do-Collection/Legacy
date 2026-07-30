@@ -1,97 +1,107 @@
-# Let's Do: Legacy
+![Let's Do: Legacy](https://lets-do.ch/assets/mod-logos/legacy.webp)
 
-Legacy is a Minecraft mod for Minecraft 1.21.1, built with Architectury for Fabric and NeoForge.
-ham
-It adds cosmetic progression through titles, personal journeys and server milestones. The mod does not
-introduce skills, levels, attributes or gameplay bonuses.
+<br>
 
-- **Mod ID:** `legacy`
-- **Display name:** Let's Do: Legacy
-- **Base package:** `net.satisfy.legacy`
-- **Maven group:** `net.satisfy`
+<p align="center">
+  <strong>Titles, Journeys & Server Milestones</strong>
+</p>
 
-## Project layout
+<p align="center">
+  <em>The mod that adds cosmetic progression to the Let's Do Collection</em>
+</p>
 
-```
-common/     Shared code and resources
-fabric/     Fabric entry points
-neoforge/   NeoForge entry points
-```
+<br>
 
-## Data packs
+<p align="center">
+  <em>"Your world remembers who was first"</em>
+</p>
 
-Legacy loads titles, journeys and milestones from data packs using Minecraft's resource reload system.
-Each definition is stored in its own JSON file.
+<br>
 
-```
-data/<namespace>/legacy/
-  titles/
-  journeys/
-  milestones/
-```
+Legacy is a cosmetic mod. It gives you titles, a personal journey diary and server milestones. No skills,
+no levels, no attributes, no gameplay bonus. You play the same as always, and Legacy remembers what you
+did.
 
-All three systems use the same trigger format.
+<br>
 
-```json
-"trigger": {
-  "type": "counter",
-  "counter": "harvest:crops",
-  "value": 64
-}
-```
+Play on. Nothing changes but what you carry.
 
-See the documentation in [`docs/`](docs/README.md) for the JSON format and available trigger types.
+<br>
 
-## Systems
+## Earn Your Titles
 
-| System | Description |
-| --- | --- |
-| Titles | Cosmetic titles displayed above the player's name. |
-| Journeys | A per-player record of completed milestones and first-time events. |
-| Milestones | World-first events shared across the server. |
-| Server History | A chronological record of completed server milestones. |
+<br>
 
-## Implementation
+- You unlock titles by playing: farming, mining, exploring, fighting
+- You wear one above your name, the colour shows the rarity
+- Some titles are a series, so you go from Farmer to Master Farmer to Cultivator
 
-- Definitions are loaded by `TitleManager`, `JourneyManager` and `MilestoneManager`.
-- Titles and journeys use the same trigger evaluation system.
-- Milestones are evaluated separately because they record world-first events.
-- Player progress is stored in `LegacyTitleSavedData`.
-- Server milestone data is stored in `LegacyMilestoneSavedData`.
-- The active title is rendered above the player's nametag.
-- The journal is available through a button next to the recipe book.
+<br>
 
-## Commands
+Wear your story.
 
-```
-/legacy status
-/legacy titles
-/legacy journeys
-/legacy milestones
-/legacy reload
-...
-```
+<br>
 
-See `docs/titles.md` for the complete command reference.
+## Keep a Personal Journey
 
-## API
+<br>
 
-`LegacyAPI` exposes methods for registering custom triggers and granting or revoking titles.
+- A private diary of your first times, like first diamond armor or first sunrise
+- No reward and no toast, a journey is a memory and not an achievement
+- Sorted by theme, with the day you did it
 
-Most integrations do not require Java code. Additional titles, journeys and milestones can be added
-through data packs.
+<br>
 
-## Building
+Some moments you want to remember.
 
-Requires JDK 21.
+<br>
 
-```bash
-./gradlew build
-```
+## Chase Server Milestones
 
-Build artifacts are written to:
+<br>
 
-```
-fabric/build/libs/
-neoforge/build/libs/
-```
+- Server-wide first times, the first player to do it is recorded forever
+- The whole server gets a message when a milestone falls
+- The Server History keeps the record of your world
+
+<br>
+
+Be the first. Be remembered.
+
+<br>
+
+<p align="center">
+  <em>Every title, journey and milestone is a data pack file. See the <a href="docs/README.md">docs</a> to make your own.</em>
+</p>
+
+<br>
+
+<div align="center">
+
+# The Let's Do Collection
+
+<br>
+
+<a href="https://lets-do.ch/mods/">
+  <img src="https://github.com/Let-s-Do-Collection/Let-s-Do-Collection/raw/main/LOGO.png?raw=true" width="350" alt="The Let's Do Collection">
+</a>
+
+<br>
+
+# Support & Community
+
+</div>
+
+<br>
+
+<p align="center">
+  Let's Do grows through its community.
+</p>
+
+<br>
+
+<p align="center">
+  <a href="https://github.com/Let-s-Do-Collection/Let-s-Do-Collection">GitHub</a> •
+  <a href="https://discord.gg/Jb2bgpYr">Discord</a> •
+  <a href="https://www.patreon.com/c/u78595058">Patreon</a>
+</p>

@@ -1,6 +1,7 @@
 {
   "category": "farming",
   "icon": "minecraft:cake",
+  "translation_key": "journey.legacy.first_cake",
   "title": "First Cake",
   "description": "Bake and place a cake.",
   "trigger": {

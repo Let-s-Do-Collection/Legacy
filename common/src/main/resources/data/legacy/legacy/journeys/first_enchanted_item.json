@@ -1,6 +1,7 @@
 {
   "category": "magic",
   "icon": "minecraft:enchanting_table",
+  "translation_key": "journey.legacy.first_enchanted_item",
   "title": "First Enchanted Item",
   "description": "Enchant your first item.",
   "trigger": {

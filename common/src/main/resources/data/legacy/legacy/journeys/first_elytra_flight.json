@@ -1,11 +1,11 @@
 {
   "category": "equipment",
   "icon": "minecraft:elytra",
-  "title": "First Elytra Flight",
-  "description": "Take to the skies on wings.",
+  "translation_key": "journey.legacy.first_elytra_flight",
+  "title": "First Elytra",
+  "description": "Claim your wings.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:custom",
-    "stat": "minecraft:aviate_one_cm"
+    "type": "item",
+    "id": "minecraft:elytra"
   }
 }

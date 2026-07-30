@@ -1,18 +1,18 @@
-# Creating your first Title
+# Titles
 
-A **title** is a cosmetic honorific players unlock and wear above their name (exactly one at a time).
-Titles are localised and support gendered forms.
+A title is a cosmetic honorific. A player unlocks it through a trigger and wears one at a time above the
+name. Titles are localised and support gendered forms.
 
-Every title is **one JSON file**:
+Every title is one JSON file:
 
 ```
 data/<namespace>/legacy/titles/<id>.json
 ```
 
-Any datapack — or mod — can add or override titles just by dropping a file here. `/legacy reload`
-re-reads them live.
+Any data pack or mod can add or override titles by dropping a file here. `/legacy reload` re-reads them
+live.
 
-## Minimal example
+## Example
 
 `data/legacy/titles/dragon_slayer.json`
 
@@ -34,48 +34,49 @@ Plus a language entry in `assets/<namespace>/lang/en_us.json`:
 "title.legacy.dragon_slayer": "Dragonslayer"
 ```
 
-That's it — `Marco, Dragonslayer` now unlocks when the player kills the dragon.
+Now `Marco, Dragonslayer` unlocks when the player kills the dragon.
 
 ## Fields
 
 | Field | Required | Default | Description |
 |---|---|---|---|
-| `id` | ✅ | *(filename)* | Unique id. Defaults to the file name if omitted. |
-| `trigger` | ✅ | `{ "type": "custom" }` | The unlock condition. See **[triggers.md](triggers.md)**. |
-| `translation_key` | ✅¹ | `title.legacy.<id>` | Language-file key for the display name (enables i18n + gendered forms). |
-| `title` | ➖ | – | Literal name, as an alternative to `translation_key` (no localisation/gender). |
-| `category` | ➖ | `misc` | Grouping key. |
-| `icon` | ➖ | `minecraft:paper` | Item shown in the UI and unlock toast. |
-| `rarity` | ➖ | `common` | Rarity → colour. |
-| `placement` | ➖ | `suffix` | `prefix` → `Farmer Marco`; `suffix` → `Marco, Terror of the Seas`. |
-| `series` | ➖ | – | Series key; the journal reveals only the next open stage in a series. |
-| `stage` | ➖ | `0` | Position within a series (1, 2, 3…). |
-| `display_priority` | ➖ | `100` | Sort order (lower = higher up). |
-| `hidden` | ➖ | `false` | Secret — only appears once unlocked. |
+| `trigger` | yes | `{ "type": "custom" }` | The unlock condition. See [triggers.md](triggers.md). |
+| `translation_key` | yes¹ | `title.legacy.<id>` | Language key for the display name. Enables translation and gendered forms. |
+| `title` | no¹ | – | Literal name, instead of `translation_key` (no translation or gender). |
+| `id` | no | *(filename)* | Unique id. Defaults to the file name. |
+| `category` | no | `misc` | Grouping key. |
+| `icon` | no | `minecraft:paper` | Item shown in the UI and unlock toast. |
+| `rarity` | no | `common` | Rarity, sets the colour. |
+| `placement` | no | `suffix` | `prefix` gives `Farmer Marco`, `suffix` gives `Marco, Terror of the Seas`. |
+| `series` | no | – | Series key. The journal only reveals the next open stage of a series. |
+| `stage` | no | `0` | Position in a series (1, 2, 3, ...). |
+| `display_priority` | no | `100` | Sort order. Lower is higher up. |
+| `hidden` | no | `false` | Secret. Only appears once unlocked. |
 
-¹ Provide either `translation_key` (recommended) **or** a literal `title`.
+¹ Provide either `translation_key` (recommended) or a literal `title`.
 
-### Text: `translation_key` vs `title`
+## Text: translation_key or title
 
-Legacy's own titles use `translation_key` because titles are **localised and gendered**: the display name
-resolves `<key>.male` / `<key>.female` with a fallback to `<key>`, across every installed language.
+Legacy's own titles use `translation_key` because titles are localised and gendered. The display name
+resolves `<key>.male` or `<key>.female`, and falls back to `<key>` when a gendered form is missing. This
+works for every installed language.
 
 ```json
 "title.legacy.dragon_slayer": "Dragonslayer",
 "title.legacy.dragon_slayer.female": "Dragonslayer"
 ```
 
-If you don't need localisation or gendered forms, skip the lang file and use a literal `title`:
+If you do not need translation or gendered forms, skip the language file and use a literal `title`:
 
 ```json
 { "id": "trailblazer", "title": "Trailblazer", "trigger": { "type": "counter", "counter": "biomes_distinct", "value": 25 } }
 ```
 
-## Rarity → colour
+## Rarity and colour
 
-Applied to **both** the title text and the wearer's name.
+The rarity colour is used for both the title text and the wearer's name.
 
-| `rarity` | Colour |
+| Rarity | Colour |
 |---|---|
 | `common` | White |
 | `uncommon` | Green |
@@ -86,26 +87,27 @@ Applied to **both** the title text and the wearer's name.
 
 ## Series
 
-Give related titles the same `series` and ascending `stage` values to build a progression the journal
-reveals one step at a time:
+Give related titles the same `series` and rising `stage` values. The journal reveals one step at a time.
 
 ```json
 { "id": "farmer",        "series": "farming/harvest", "stage": 1, "trigger": { "type": "counter", "counter": "harvest:crops", "value": 64  } }
 { "id": "master_farmer", "series": "farming/harvest", "stage": 2, "trigger": { "type": "counter", "counter": "harvest:crops", "value": 512 } }
 ```
 
-## Validation & commands
+## Validation
 
-On load and on `/legacy reload`, every file is validated with clear warnings (bad/duplicate `id`, invalid
-`rarity`/`placement`/`trigger.type`, unknown `icon`, a trigger missing the field it needs). A single bad
-file never breaks the rest.
+On load and on `/legacy reload`, every file is validated and logs a warning for a bad or duplicate `id`,
+an invalid `rarity`, `placement` or `trigger.type`, an unknown `icon`, or a trigger that is missing the
+field it needs. A single bad file does not break the rest.
 
-| Command | Perm | Purpose |
+## Commands
+
+| Command | Permission | Purpose |
 |---|---|---|
 | `/legacy titles` | all | List all titles. |
-| `/legacy info <id>` | all | Inspect a title's trigger/requirement. |
+| `/legacy info <id>` | all | Show a title's trigger and requirement. |
 | `/legacy eval` | all | Force an evaluation for yourself. |
-| `/legacy grant\|revoke <id>` | ops | Grant/revoke a title. |
+| `/legacy grant\|revoke <id>` | ops | Grant or revoke a title. |
 | `/legacy reload` | ops | Reload all titles live. |
 
 ## Custom triggers (API)
@@ -115,4 +117,4 @@ LegacyAPI.registerCustomTrigger("legacy:fate",
         (serverPlayer, title) -> serverPlayer.getInventory().contains(new ItemStack(Items.NETHER_STAR)));
 ```
 
-`LegacyAPI` also offers `grant(player, id)` and `revoke(player, id)`.
+`LegacyAPI` also has `grant(player, id)` and `revoke(player, id)`.

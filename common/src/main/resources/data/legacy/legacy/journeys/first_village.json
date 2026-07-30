@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:bell",
+  "translation_key": "journey.legacy.first_village",
   "title": "First Village",
   "description": "Arrive at a village for the first time.",
   "trigger": {

@@ -590,13 +590,13 @@ public class JournalPanel {
                         g.fill(contentLeft + 16, y + 1, contentLeft + 32, y + 17, 0x80101010);
                     }
                     int color = e.done() ? 0xE8E8E8 : 0x808080;
-                    g.drawString(font, trimToWidth(font, e.title(), contentRight - 4 - (contentLeft + 36)),
+                    g.drawString(font, trimToWidth(font, e.titleString(), contentRight - 4 - (contentLeft + 36)),
                             contentLeft + 36, y + 5, color, true);
                     if (hov) {
                         tooltip = new ArrayList<>();
-                        tooltip.add(Component.literal(e.title()).withStyle(e.done() ? ChatFormatting.WHITE : ChatFormatting.GRAY));
-                        if (!e.description().isEmpty()) {
-                            tooltip.add(Component.literal(e.description()).withStyle(ChatFormatting.DARK_GRAY));
+                        tooltip.add(Component.literal(e.titleString()).withStyle(e.done() ? ChatFormatting.WHITE : ChatFormatting.GRAY));
+                        if (!e.descriptionString().isEmpty()) {
+                            tooltip.add(Component.literal(e.descriptionString()).withStyle(ChatFormatting.DARK_GRAY));
                         }
                         tooltip.add(Component.empty());
                         tooltip.add(e.done()
@@ -639,7 +639,7 @@ public class JournalPanel {
                 continue;
             }
             list.sort(Comparator.comparingInt((ClientJourneyData.Entry e) -> e.done() ? 0 : 1)
-                    .thenComparing(ClientJourneyData.Entry::title, String.CASE_INSENSITIVE_ORDER));
+                    .thenComparing(ClientJourneyData.Entry::titleString, String.CASE_INSENSITIVE_ORDER));
             rows.add(new JourneyRow(group.getKey(), null));
             if (!journeyCollapsed.contains(group.getKey())) {
                 for (ClientJourneyData.Entry e : list) {
@@ -684,10 +684,8 @@ public class JournalPanel {
                     g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, open ? 0x44201810 : 0x33201810);
                 }
                 g.renderFakeItem(e.iconStack(), contentLeft, y + 1);
-                int nameColor = e.owned() ? 0x5FDB5F
-                        : e.state() == ClientMilestoneData.UNCLAIMED ? 0xFFFFFF
-                        : e.state() == ClientMilestoneData.PRE_EXISTING ? 0x6E6E6E
-                        : 0xFFC33D;
+                // Achieved (claimed or pre-existing) → gold; not yet achieved → white.
+                int nameColor = e.state() == ClientMilestoneData.UNCLAIMED ? 0xFFFFFF : 0xFFC33D;
                 g.drawString(font, trimToWidth(font, Component.translatable(e.nameKey()).getString(), contentRight - 12 - (contentLeft + 20)),
                         contentLeft + 20, y + 5, nameColor, true);
                 g.drawString(font, Component.literal(open ? "▾" : "▸"), contentRight - 10, y + 5, 0xF0C24E, true);

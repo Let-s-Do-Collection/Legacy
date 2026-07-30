@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:campfire",
+  "translation_key": "journey.legacy.safe_at_last",
   "title": "Safe at Last",
   "description": "Light your first campfire.",
   "trigger": {

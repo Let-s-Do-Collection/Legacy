@@ -1,6 +1,7 @@
 {
   "category": "magic",
   "icon": "minecraft:end_crystal",
+  "translation_key": "journey.legacy.first_end_crystal",
   "title": "First End Crystal",
   "description": "Place an end crystal.",
   "trigger": {

@@ -1,27 +1,27 @@
-# Supported Trigger Types
+# Trigger types
 
-Every data-driven Legacy system — **titles**, **journeys** and **milestones** — uses the exact same
-`trigger` block:
+Titles, journeys and milestones all use the same `trigger` block:
 
 ```json
 "trigger": { "type": "<type>", "...": "..." }
 ```
 
-Learn this block once and you can write for all three systems. Only the accepted `type` values differ
-per system, because titles and journeys are *polled* (checked periodically per player) while milestones
-fire on the *event itself* (to record a world-first).
+The accepted `type` values differ per system. Titles and journeys are polled (checked periodically per
+player). Milestones fire on the event itself, to record a world-first.
 
 | `type` | Titles | Journeys | Milestones | Meaning |
 |---|:---:|:---:|:---:|---|
-| `advancement` | ✅ | ✅ | ✅ | Player has a vanilla/data-pack advancement. |
-| `statistic` | ✅ | ✅ | – | A vanilla statistic reaches a value. |
-| `counter` | ✅ | ✅ | – | A Legacy counter reaches a value. |
-| `custom` | ✅ | ✅ | – | Mod-registered predicate (Java escape hatch). |
-| `dimension` | – | – | ✅ | First player to enter a dimension. |
-| `kill` | – | – | ✅ | First player to kill an entity type. |
+| `advancement` | yes | yes | yes | Player has a vanilla or data-pack advancement. |
+| `statistic` | yes | yes | no | A vanilla statistic reaches a value. |
+| `counter` | yes | yes | no | A Legacy counter reaches a value. |
+| `item` | yes | yes | no | Player holds an item in the inventory. |
+| `custom` | yes | yes | no | Mod-registered predicate (Java escape hatch). |
+| `dimension` | no | no | yes | First player to enter a dimension. |
+| `kill` | no | no | yes | First player to kill an entity type. |
 
-> Note: dimension and biome *presence* is available to titles/journeys as a **counter** (see below) —
-> `dimension:*` is a milestone type only because a milestone needs the entry event to name the world-first.
+Note: dimension and biome presence is also available to titles and journeys as a `counter` (see below).
+`dimension` is a separate milestone type because a milestone needs the entry event to name the
+world-first.
 
 ---
 
@@ -35,7 +35,7 @@ Fires when the player has the advancement.
 
 | Field | Required | Description |
 |---|---|---|
-| `id` | ✅ | Advancement id. |
+| `id` | yes | Advancement id. |
 
 Retroactive: if the player already has it, the trigger is satisfied on the next check.
 
@@ -51,9 +51,9 @@ Fires when a vanilla statistic reaches `value`.
 
 | Field | Required | Default | Description |
 |---|---|---|---|
-| `stat_type` | ➖ | `minecraft:custom` | Stat-type registry id. |
-| `stat` | ✅ | – | Key inside that stat type's registry. |
-| `value` | ➖ | `1` | Threshold. |
+| `stat_type` | no | `minecraft:custom` | Stat-type registry id. |
+| `stat` | yes | – | Key inside that stat type's registry. |
+| `value` | no | `1` | Threshold. |
 
 | `stat_type` | `stat` refers to | Examples |
 |---|---|---|
@@ -65,8 +65,8 @@ Fires when a vanilla statistic reaches `value`.
 
 Statistics are **retroactive** and reliable. Distances are centimetres, time is ticks (20/second).
 
-> ⚠️ `minecraft:mined` counts every block break, including immature crops. For "harvested a crop"
-> semantics use the `counter` type with `harvest:crops` instead.
+Note: `minecraft:mined` counts every block break, also immature crops. For a "harvested a crop"
+meaning, use the `counter` type with `harvest:crops` instead.
 
 ---
 
@@ -82,12 +82,12 @@ structures).
 
 | Field | Required | Default | Description |
 |---|---|---|---|
-| `counter` | ✅ | – | Counter key (see table). |
-| `value` | ➖ | `1` | Threshold. |
+| `counter` | yes | – | Counter key (see table). |
+| `value` | no | `1` | Threshold. |
 
 ### Available counter keys
 
-| Key | Increments when… |
+| Key | Increments when |
 |---|---|
 | `harvest:crops` | any fully-grown crop is harvested |
 | `harvest:<block>` | a specific mature crop is harvested, e.g. `harvest:minecraft:wheat` |
@@ -107,6 +107,21 @@ structures).
 > are seeded on join so "you are already in the Nether" is recognised).
 
 ---
+
+## `item`
+
+Fires while the player holds the item **anywhere** in their inventory (main, armor or off-hand).
+Unlike the `crafted`/`picked_up` statistics, this also fires for items obtained via `/give`, creative,
+trading or any other means — ideal for "First X" journeys.
+
+```json
+"trigger": { "type": "item", "id": "minecraft:elytra" }
+```
+
+| Field | Required | Default | Description |
+|---|---|---|---|
+| `id` | yes | – | Item id. |
+| `value` | no | `1` | How many the player must hold (summed across stacks). |
 
 ## `custom`
 

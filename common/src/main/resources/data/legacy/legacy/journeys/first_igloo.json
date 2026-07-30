@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:snow_block",
+  "translation_key": "journey.legacy.first_igloo",
   "title": "First Igloo",
   "description": "Shelter in an igloo.",
   "trigger": {

@@ -1,6 +1,7 @@
 {
   "category": "survival",
   "icon": "minecraft:red_bed",
+  "translation_key": "journey.legacy.home_sweet_home",
   "title": "Home Sweet Home",
   "description": "Place your first bed.",
   "trigger": {

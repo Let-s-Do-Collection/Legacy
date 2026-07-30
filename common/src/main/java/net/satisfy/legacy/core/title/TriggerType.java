@@ -12,6 +12,9 @@ public enum TriggerType {
     @SerializedName("advancement")
     ADVANCEMENT,
 
+    @SerializedName("item")
+    ITEM,
+
     @SerializedName("custom")
     CUSTOM
 }

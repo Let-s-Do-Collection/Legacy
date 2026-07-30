@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:powder_snow_bucket",
+  "translation_key": "journey.legacy.first_snowy_mountain",
   "title": "First Snowy Mountain",
   "description": "Climb into the snowy peaks.",
   "trigger": {

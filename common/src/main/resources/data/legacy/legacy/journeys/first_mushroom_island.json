@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:red_mushroom_block",
+  "translation_key": "journey.legacy.first_mushroom_island",
   "title": "First Mushroom Island",
   "description": "Set foot on a mushroom island.",
   "trigger": {

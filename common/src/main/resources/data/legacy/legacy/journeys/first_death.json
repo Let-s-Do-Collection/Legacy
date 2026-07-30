@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:skeleton_skull",
+  "translation_key": "journey.legacy.first_death",
   "title": "First Death",
   "description": "Everyone dies once. Then again.",
   "trigger": {

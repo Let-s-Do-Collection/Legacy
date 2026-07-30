@@ -1,11 +1,11 @@
 {
   "category": "equipment",
   "icon": "minecraft:bow",
+  "translation_key": "journey.legacy.first_bow",
   "title": "First Bow",
   "description": "String your first bow.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:crafted",
-    "stat": "minecraft:bow"
+    "type": "item",
+    "id": "minecraft:bow"
   }
 }

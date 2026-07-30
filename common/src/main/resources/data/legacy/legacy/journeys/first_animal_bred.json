@@ -1,6 +1,7 @@
 {
   "category": "farming",
   "icon": "minecraft:egg",
+  "translation_key": "journey.legacy.first_animal_bred",
   "title": "First Animal Bred",
   "description": "Bring new life to the farm.",
   "trigger": {

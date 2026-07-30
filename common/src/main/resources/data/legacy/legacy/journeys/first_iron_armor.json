@@ -1,6 +1,7 @@
 {
   "category": "equipment",
   "icon": "minecraft:iron_chestplate",
+  "translation_key": "journey.legacy.first_iron_armor",
   "title": "First Iron Armor",
   "description": "Suit up in a full set of iron.",
   "trigger": {

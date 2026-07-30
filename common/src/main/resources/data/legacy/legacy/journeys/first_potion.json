@@ -1,6 +1,7 @@
 {
   "category": "survival",
   "icon": "minecraft:potion",
+  "translation_key": "journey.legacy.first_potion",
   "title": "First Potion",
   "description": "Drink your first potion.",
   "trigger": {

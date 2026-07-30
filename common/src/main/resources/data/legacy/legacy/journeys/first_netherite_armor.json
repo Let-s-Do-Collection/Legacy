@@ -1,6 +1,7 @@
 {
   "category": "equipment",
   "icon": "minecraft:netherite_chestplate",
+  "translation_key": "journey.legacy.first_netherite_armor",
   "title": "First Netherite Armor",
   "description": "Ascend to netherite.",
   "trigger": {

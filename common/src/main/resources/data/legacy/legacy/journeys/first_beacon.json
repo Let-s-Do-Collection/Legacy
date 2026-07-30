@@ -1,11 +1,11 @@
 {
   "category": "survival",
   "icon": "minecraft:beacon",
+  "translation_key": "journey.legacy.first_beacon",
   "title": "First Beacon",
   "description": "Craft a beacon.",
   "trigger": {
-    "type": "statistic",
-    "stat_type": "minecraft:crafted",
-    "stat": "minecraft:beacon"
+    "type": "item",
+    "id": "minecraft:beacon"
   }
 }

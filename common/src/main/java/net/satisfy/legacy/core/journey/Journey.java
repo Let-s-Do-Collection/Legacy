@@ -20,6 +20,10 @@ public class Journey {
     @SerializedName("icon")
     public String icon = "minecraft:paper";
 
+    /** Optional language key. When set, the client localises the name/description via {@code <key>} and {@code <key>.desc}. */
+    @SerializedName("translation_key")
+    public String translationKey;
+
     @SerializedName("title")
     public String title = "";
 
@@ -35,6 +39,10 @@ public class Journey {
 
     public String getCategory() {
         return category == null || category.isBlank() ? "misc" : category;
+    }
+
+    public String translationKey() {
+        return translationKey == null || translationKey.isBlank() ? "" : translationKey;
     }
 
     public String title() {

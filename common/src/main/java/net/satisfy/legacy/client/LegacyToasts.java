@@ -55,6 +55,7 @@ public final class LegacyToasts {
                 Component.translatable("toast.legacy.milestone.earned", playerName).withStyle(net.minecraft.ChatFormatting.WHITE),
                 icon));
 
-        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.PLAYER_LEVELUP, 1.0F));
+        // Same fanfare as a title unlock, pitched down so a world-first feels heavier and grander.
+        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 0.8F));
     }
 }

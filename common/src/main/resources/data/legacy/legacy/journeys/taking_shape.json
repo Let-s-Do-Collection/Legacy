@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:chest",
+  "translation_key": "journey.legacy.taking_shape",
   "title": "Taking Shape",
   "description": "Place your first chest.",
   "trigger": {

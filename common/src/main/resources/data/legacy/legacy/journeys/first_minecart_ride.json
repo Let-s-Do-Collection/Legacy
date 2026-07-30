@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:minecart",
+  "translation_key": "journey.legacy.first_minecart_ride",
   "title": "First Minecart Ride",
   "description": "Ride the rails.",
   "trigger": {

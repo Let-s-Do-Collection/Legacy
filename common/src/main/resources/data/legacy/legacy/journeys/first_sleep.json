@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:white_bed",
+  "translation_key": "journey.legacy.first_sleep",
   "title": "First Sleep",
   "description": "Sleep through your first night.",
   "trigger": {

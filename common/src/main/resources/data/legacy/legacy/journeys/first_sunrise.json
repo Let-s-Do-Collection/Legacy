@@ -1,6 +1,7 @@
 {
   "category": "misc",
   "icon": "minecraft:sunflower",
+  "translation_key": "journey.legacy.first_sunrise",
   "title": "First Sunrise",
   "description": "See the sun rise in a new world.",
   "trigger": {

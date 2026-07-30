@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:trial_spawner",
+  "translation_key": "journey.legacy.first_trial_chamber",
   "title": "First Trial Chamber",
   "description": "Enter a trial chamber.",
   "trigger": {

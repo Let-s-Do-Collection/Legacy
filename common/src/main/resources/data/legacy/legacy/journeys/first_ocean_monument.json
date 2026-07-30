@@ -1,6 +1,7 @@
 {
   "category": "exploration",
   "icon": "minecraft:prismarine",
+  "translation_key": "journey.legacy.first_ocean_monument",
   "title": "First Ocean Monument",
   "description": "Discover a monument beneath the waves.",
   "trigger": {
