@@ -23,7 +23,6 @@ import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleForm;
 import net.satisfy.legacy.core.title.TitleManager;
 import net.satisfy.legacy.core.title.TitleRarity;
-import net.satisfy.legacy.core.trigger.TitleProgress;
 import net.satisfy.legacy.server.TitleService;
 
 import java.util.ArrayList;
@@ -189,7 +188,6 @@ public final class LegacyNetworking {
         List<Title> titles = TitleManager.INSTANCE.all();
         buffer.writeVarInt(titles.size());
         for (Title title : titles) {
-            title.syncedTarget = TitleProgress.target(title);
             buffer.writeUtf(title.getId());
             buffer.writeUtf(title.hasExplicitTranslationKey() ? title.translationKey : "");
             buffer.writeUtf(title.literalName() == null ? "" : title.literalName());

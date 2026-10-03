@@ -1,4 +1,4 @@
-package net.satisfy.legacy.neoforge.mixin;
+package net.satisfy.legacy.mixin;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.satisfy.legacy.client.JournalHolder;

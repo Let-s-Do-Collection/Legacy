@@ -1,4 +1,4 @@
-package net.satisfy.legacy.fabric.mixin;
+package net.satisfy.legacy.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.renderer.entity.EntityRenderer;

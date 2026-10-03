@@ -4,17 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import net.satisfy.legacy.core.title.TitleRequirement;
 import net.satisfy.legacy.core.title.TriggerType;
 
-/**
- * The single, shared trigger block used by every data-driven Legacy system — titles, journeys
- * and milestones. Once a datapack author understands this block, they understand all three.
- *
- * <pre>
- * "trigger": { "type": "advancement", "id": "minecraft:story/mine_diamond" }
- * "trigger": { "type": "counter",     "counter": "harvest:crops", "value": 64 }
- * "trigger": { "type": "statistic",   "stat_type": "minecraft:killed", "stat": "minecraft:wither", "value": 1 }
- * "trigger": { "type": "custom",      "id": "legacy:fate" }
- * </pre>
- */
 public class Trigger {
     @SerializedName("type")
     public String type = "custom";
@@ -42,7 +31,6 @@ public class Trigger {
         };
     }
 
-    /** Maps this unified block onto the internal requirement the trigger engine evaluates. */
     public TitleRequirement requirement() {
         TitleRequirement req = new TitleRequirement();
         req.amount = Math.max(1, value);

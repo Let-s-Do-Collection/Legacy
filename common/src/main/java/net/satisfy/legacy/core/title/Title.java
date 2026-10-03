@@ -17,7 +17,6 @@ public class Title {
     @SerializedName("translation_key")
     public String translationKey;
 
-    /** Optional literal name, for datapack authors who do not need localisation or gendered forms. */
     @SerializedName("title")
     public String title;
 
@@ -51,7 +50,6 @@ public class Title {
     @SerializedName("rarity")
     public TitleRarity rarity = TitleRarity.COMMON;
 
-    /** Only load this title when every listed mod is present. */
     @SerializedName("required_mods")
     public java.util.List<String> requiredMods;
 
@@ -80,7 +78,6 @@ public class Title {
         return translationKey != null && !translationKey.isBlank();
     }
 
-    /** The literal name, or {@code null} when this title relies on {@code translation_key}. */
     public String literalName() {
         return title == null || title.isBlank() ? null : title;
     }

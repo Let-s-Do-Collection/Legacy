@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <em>The mod that adds cosmetic progression to the Let's Do Collection</em>
+  <em>Earn it, wear it, be remembered</em>
 </p>
 
 <br>

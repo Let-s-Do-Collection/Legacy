@@ -1,6 +1,9 @@
 package net.satisfy.legacy.server;
 
 import net.minecraft.advancements.AdvancementHolder;
+import net.satisfy.legacy.Legacy;
+import net.satisfy.legacy.api.LegacyAPI;
+import net.satisfy.legacy.core.title.TitleManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -94,7 +97,12 @@ public final class MilestoneService {
     }
 
     private static void announce(MinecraftServer server, Milestone milestone, ServerPlayer recipient, LegacyMilestoneSavedData data) {
-        TitleService.unlockTitle(recipient, "milestone_" + milestone.getId());
+        String titleId = "milestone_" + milestone.getId();
+        if (TitleManager.INSTANCE.has(titleId)) {
+            LegacyAPI.grant(recipient, titleId);
+        } else {
+            Legacy.LOGGER.warn("[{}] Milestone '{}' has no matching title '{}'", Legacy.MOD_ID, milestone.getId(), titleId);
+        }
         LegacyNetworking.broadcastMilestoneToast(server, milestone.getId(), recipient.getGameProfile().getName());
         broadcast(server, data);
     }

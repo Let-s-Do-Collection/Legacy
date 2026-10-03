@@ -1,4 +1,4 @@
-package net.satisfy.legacy.neoforge.mixin;
+package net.satisfy.legacy.mixin;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;

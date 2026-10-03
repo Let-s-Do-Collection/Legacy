@@ -3,7 +3,10 @@ package net.satisfy.legacy.server;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.satisfy.legacy.Legacy;
+import net.satisfy.legacy.core.data.LegacyMilestoneSavedData;
 import net.satisfy.legacy.core.data.LegacyTitleSavedData;
+import net.satisfy.legacy.core.journey.JourneyManager;
+import net.satisfy.legacy.core.milestone.MilestoneManager;
 import net.satisfy.legacy.core.data.PlayerTitleData;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleForm;
@@ -13,12 +16,15 @@ import net.satisfy.legacy.core.trigger.TitleProgress;
 import net.satisfy.legacy.core.trigger.TitleTriggers;
 import net.satisfy.legacy.network.LegacyNetworking;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public final class TitleService {
     private static final int EVALUATION_INTERVAL = 40;
+
+    private static final Map<UUID, Map<String, Integer>> LAST_PROGRESS = new HashMap<>();
 
     private static int tickCounter;
 
@@ -32,9 +38,10 @@ public final class TitleService {
 
         LegacyCollectors.onJoin(player, playerData);
         evaluate(player, playerData, false);
+        JourneyService.evaluate(player, playerData);
         data.setDirty();
 
-        JourneyService.evaluate(player, playerData);
+        LAST_PROGRESS.remove(player.getUUID());
 
         LegacyNetworking.sendRegistry(player);
         LegacyNetworking.sendSelf(player, playerData);
@@ -44,6 +51,11 @@ public final class TitleService {
         MilestoneService.onJoin(player);
     }
 
+    public static void onQuit(ServerPlayer player) {
+        LAST_PROGRESS.remove(player.getUUID());
+        LegacyCollectors.onQuit(player);
+    }
+
     public static void onServerTick(MinecraftServer server) {
         if (++tickCounter < EVALUATION_INTERVAL) {
             return;
@@ -51,22 +63,27 @@ public final class TitleService {
         tickCounter = 0;
 
         LegacyTitleSavedData data = LegacyTitleSavedData.get(server);
+        boolean dirty = false;
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             PlayerTitleData playerData = data.getOrCreate(player.getUUID());
             try {
-                LegacyCollectors.sampleLocation(player, playerData);
+                dirty |= LegacyCollectors.sampleLocation(player, playerData);
             } catch (Exception e) {
                 Legacy.LOGGER.error("[{}] Location sampling failed for {}", Legacy.MOD_ID, player.getName().getString(), e);
             }
             if (evaluate(player, playerData, true)) {
+                dirty = true;
                 LegacyNetworking.sendSelf(player, playerData);
             }
             if (JourneyService.evaluate(player, playerData)) {
+                dirty = true;
                 JourneyService.sync(player, playerData);
             }
             sendProgress(player, playerData);
         }
-        data.setDirty();
+        if (dirty) {
+            data.setDirty();
+        }
     }
 
     private static void sendProgress(ServerPlayer player, PlayerTitleData playerData) {
@@ -74,6 +91,10 @@ public final class TitleService {
         for (Title title : TitleManager.INSTANCE.all()) {
             progress.put(title.getId(), TitleProgress.current(player, playerData, title, playerData.isUnlocked(title.getId())));
         }
+        if (progress.equals(LAST_PROGRESS.get(player.getUUID()))) {
+            return;
+        }
+        LAST_PROGRESS.put(player.getUUID(), progress);
         LegacyNetworking.sendProgress(player, progress);
     }
 
@@ -88,21 +109,12 @@ public final class TitleService {
         return playerData.getUnlocked().size() - before;
     }
 
-    public static void unlockTitle(ServerPlayer player, String titleId) {
-        LegacyTitleSavedData data = LegacyTitleSavedData.get(player.server);
-        PlayerTitleData playerData = data.getOrCreate(player.getUUID());
-        if (playerData.unlock(titleId)) {
-            data.setDirty();
-            LegacyNetworking.sendSelf(player, playerData);
-        }
-    }
-
     public static void setActive(ServerPlayer player, String titleId) {
         LegacyTitleSavedData data = LegacyTitleSavedData.get(player.server);
         PlayerTitleData playerData = data.getOrCreate(player.getUUID());
 
         String normalized = titleId == null ? "" : titleId;
-        if (!normalized.isEmpty() && !playerData.isUnlocked(normalized)) {
+        if (!normalized.isEmpty() && (!playerData.isUnlocked(normalized) || !TitleManager.INSTANCE.has(normalized))) {
             LegacyNetworking.sendSelf(player, playerData);
             return;
         }
@@ -133,17 +145,26 @@ public final class TitleService {
 
     public static int reloadTitles(MinecraftServer server) {
         int count = TitleManager.INSTANCE.reload(server.getResourceManager());
+        JourneyManager.INSTANCE.reload(server.getResourceManager());
+        MilestoneManager.INSTANCE.reload(server.getResourceManager());
+        LAST_PROGRESS.clear();
         LegacyTitleSavedData data = LegacyTitleSavedData.get(server);
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             PlayerTitleData playerData = data.getOrCreate(player.getUUID());
+            String active = playerData.getActive();
+            if (!active.isEmpty() && !TitleManager.INSTANCE.has(active)) {
+                playerData.setActive("");
+            }
             evaluate(player, playerData, false);
             JourneyService.evaluate(player, playerData);
             LegacyNetworking.sendRegistry(player);
             LegacyNetworking.sendSelf(player, playerData);
+            sendProgress(player, playerData);
             JourneyService.sync(player, playerData);
         }
         data.setDirty();
         broadcastActiveTitles(server);
+        MilestoneService.broadcast(server, LegacyMilestoneSavedData.get(server));
         return count;
     }
 

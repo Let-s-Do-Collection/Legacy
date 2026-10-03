@@ -20,17 +20,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Loads server milestones per file from {@code data/<namespace>/legacy/milestones/*.json},
- * the same discovery model as titles and journeys — one milestone, one file.
- */
 public final class MilestoneManager extends SimpleJsonResourceReloadListener {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Gson GSON = new GsonBuilder().create();
     private static final String DIRECTORY = "legacy/milestones";
 
-    // Must be declared AFTER GSON/DIRECTORY: the constructor passes them to super(),
-    // and static fields initialize in declaration order.
     public static final MilestoneManager INSTANCE = new MilestoneManager();
 
     private Map<String, Milestone> milestones = Collections.emptyMap();

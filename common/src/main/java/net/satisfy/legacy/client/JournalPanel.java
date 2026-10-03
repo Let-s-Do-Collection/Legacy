@@ -113,7 +113,7 @@ public class JournalPanel {
             case MILESTONES -> milestoneContentHeight;
             case HISTORY -> historyContentHeight;
             case JOURNEY -> journeyContentHeight;
-            case OPTIONS -> 0;
+            case OPTIONS -> OPTION_KEYS.length * ROW_HEIGHT;
             default -> entries.size() * ROW_HEIGHT;
         };
     }
@@ -145,8 +145,8 @@ public class JournalPanel {
 
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick, Font font,
                        int leftPos, int topPos, int imageWidth, int imageHeight) {
-        this.iconX = leftPos + imageWidth - 22;
-        this.iconY = topPos + 4;
+        this.iconX = leftPos + imageWidth - 22 + LegacyClientConfig.buttonOffsetX;
+        this.iconY = topPos + 4 + LegacyClientConfig.buttonOffsetY;
         boolean overIcon = isOverButton(mouseX, mouseY);
         g.blitSprite(overIcon || visible ? BUTTON_HL : BUTTON, iconX, iconY, 20, 18);
 
@@ -473,14 +473,19 @@ public class JournalPanel {
     private static final String[] OPTION_KEYS = {
             "gui.legacy.option.form", "gui.legacy.option.name",
             "gui.legacy.option.notifications", "gui.legacy.option.others",
-            "gui.legacy.option.unlock_toasts", "gui.legacy.option.colors"
+            "gui.legacy.option.unlock_toasts", "gui.legacy.option.colors",
+            "gui.legacy.option.button_x", "gui.legacy.option.button_y"
     };
 
     private void renderOptions(GuiGraphics g, Font font, int mouseX, int mouseY) {
         List<Component> tooltip = null;
+        g.enableScissor(contentLeft, listTop, contentRight, listBottom);
         for (int i = 0; i < OPTION_KEYS.length; i++) {
-            int rowY = listTop + i * ROW_HEIGHT;
-            boolean hov = mouseX >= contentLeft && mouseX < contentRight && mouseY >= rowY && mouseY < rowY + ROW_HEIGHT;
+            int rowY = listTop + i * ROW_HEIGHT - scrollOffset;
+            if (rowY + ROW_HEIGHT <= listTop || rowY >= listBottom) {
+                continue;
+            }
+            boolean hov = mouseY >= listTop && mouseY < listBottom && mouseX >= contentLeft && mouseX < contentRight && mouseY >= rowY && mouseY < rowY + ROW_HEIGHT;
             if (hov) {
                 g.fill(contentLeft, rowY, contentRight, rowY + ROW_HEIGHT, 0x33201810);
                 tooltip = List.of(
@@ -494,6 +499,10 @@ public class JournalPanel {
                 boolean fem = ClientTitleData.getForm() == TitleForm.FEMININE;
                 value = Component.translatable(fem ? "gui.legacy.option.form.female" : "gui.legacy.option.form.male");
                 color = 0xC8A45A;
+            } else if (i >= 6) {
+                int offset = i == 6 ? LegacyClientConfig.buttonOffsetX : LegacyClientConfig.buttonOffsetY;
+                value = Component.literal(offset > 0 ? "+" + offset : String.valueOf(offset));
+                color = 0xC8A45A;
             } else {
                 boolean on = optionValue(i);
                 value = Component.translatable(on ? "gui.legacy.option.on" : "gui.legacy.option.off");
@@ -501,6 +510,7 @@ public class JournalPanel {
             }
             g.drawString(font, value, contentRight - 4 - font.width(value), rowY + 6, color, false);
         }
+        g.disableScissor();
         if (tooltip != null) {
             g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
         }
@@ -515,6 +525,23 @@ public class JournalPanel {
             case 5 -> LegacyClientConfig.titleColors;
             default -> false;
         };
+    }
+
+    private void adjustButtonOffset(int i, int button) {
+        int step = net.minecraft.client.gui.screens.Screen.hasShiftDown() ? 10 : 1;
+        int current = i == 6 ? LegacyClientConfig.buttonOffsetX : LegacyClientConfig.buttonOffsetY;
+        int next = switch (button) {
+            case 0 -> current + step;
+            case 1 -> current - step;
+            default -> 0;
+        };
+        next = Math.max(-500, Math.min(500, next));
+        if (i == 6) {
+            LegacyClientConfig.buttonOffsetX = next;
+        } else {
+            LegacyClientConfig.buttonOffsetY = next;
+        }
+        LegacyClientConfig.save();
     }
 
     private void toggleOption(int i) {
@@ -684,7 +711,6 @@ public class JournalPanel {
                     g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, open ? 0x44201810 : 0x33201810);
                 }
                 g.renderFakeItem(e.iconStack(), contentLeft, y + 1);
-                // Achieved (claimed or pre-existing) → gold; not yet achieved → white.
                 int nameColor = e.state() == ClientMilestoneData.UNCLAIMED ? 0xFFFFFF : 0xFFC33D;
                 g.drawString(font, trimToWidth(font, Component.translatable(e.nameKey()).getString(), contentRight - 12 - (contentLeft + 20)),
                         contentLeft + 20, y + 5, nameColor, true);
@@ -861,6 +887,13 @@ public class JournalPanel {
             return false;
         }
         if (button != 0) {
+            if (tab == Tab.OPTIONS && mouseX >= contentLeft && mouseX < contentRight && mouseY >= listTop && mouseY < listBottom) {
+                int index = (int) ((mouseY - listTop + scrollOffset) / ROW_HEIGHT);
+                if (index >= 6 && index < OPTION_KEYS.length) {
+                    adjustButtonOffset(index, button);
+                    return true;
+                }
+            }
             return false;
         }
         for (int i = 0; i < Tab.values().length; i++) {
@@ -921,8 +954,10 @@ public class JournalPanel {
                     }
                 }
             } else if (tab == Tab.OPTIONS) {
-                int index = (int) ((mouseY - listTop) / ROW_HEIGHT);
-                if (index >= 0 && index < OPTION_KEYS.length) {
+                int index = (int) ((mouseY - listTop + scrollOffset) / ROW_HEIGHT);
+                if (index >= 6 && index < OPTION_KEYS.length) {
+                    adjustButtonOffset(index, button);
+                } else if (index >= 0 && index < OPTION_KEYS.length) {
                     toggleOption(index);
                 }
             }

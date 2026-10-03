@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dev.architectury.platform.Platform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.satisfy.legacy.Legacy;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,6 +19,8 @@ public final class LegacyClientConfig {
     public static boolean showOthersTitles = true;
     public static boolean titleUnlockToasts = true;
     public static boolean titleColors = true;
+    public static int buttonOffsetX = 0;
+    public static int buttonOffsetY = 0;
 
     private LegacyClientConfig() {
     }
@@ -37,10 +40,14 @@ public final class LegacyClientConfig {
                     showOthersTitles = d.showOthersTitles;
                     titleUnlockToasts = d.titleUnlockToasts;
                     titleColors = d.titleColors;
+                    buttonOffsetX = d.buttonOffsetX;
+                    buttonOffsetY = d.buttonOffsetY;
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Legacy.LOGGER.warn("[{}] Failed to read client config, using defaults: {}", Legacy.MOD_ID, e.getMessage());
         }
+        save();
     }
 
     public static void save() {
@@ -53,8 +60,11 @@ public final class LegacyClientConfig {
             d.showOthersTitles = showOthersTitles;
             d.titleUnlockToasts = titleUnlockToasts;
             d.titleColors = titleColors;
+            d.buttonOffsetX = buttonOffsetX;
+            d.buttonOffsetY = buttonOffsetY;
             Files.writeString(f, GSON.toJson(d));
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            Legacy.LOGGER.warn("[{}] Failed to write client config: {}", Legacy.MOD_ID, e.getMessage());
         }
     }
 
@@ -64,5 +74,7 @@ public final class LegacyClientConfig {
         boolean showOthersTitles = true;
         boolean titleUnlockToasts = true;
         boolean titleColors = true;
+        int buttonOffsetX = 0;
+        int buttonOffsetY = 0;
     }
 }

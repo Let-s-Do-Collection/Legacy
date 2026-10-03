@@ -23,18 +23,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-/**
- * Loads titles per file from {@code data/<namespace>/legacy/titles/*.json} — the same
- * discovery model as advancements and loot tables. One title = one file, so any datapack can
- * add or override a title with a single JSON file. Everything in Legacy is data-driven.
- */
 public class TitleManager extends SimpleJsonResourceReloadListener {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Gson GSON = new GsonBuilder().create();
     private static final String DIRECTORY = "legacy/titles";
 
-    // Must be declared AFTER GSON/DIRECTORY: the constructor passes them to super(),
-    // and static fields initialize in declaration order.
     public static final TitleManager INSTANCE = new TitleManager();
 
     private Map<String, Title> titles = Collections.emptyMap();
@@ -48,7 +41,6 @@ public class TitleManager extends SimpleJsonResourceReloadListener {
         List<Title> loaded = new ArrayList<>();
         Set<String> seenIds = new HashSet<>();
 
-        // Deterministic order across datapacks/loaders.
         List<ResourceLocation> keys = new ArrayList<>(object.keySet());
         keys.sort(Comparator.comparing(ResourceLocation::toString));
 
@@ -73,6 +65,7 @@ public class TitleManager extends SimpleJsonResourceReloadListener {
                 continue;
             }
             if (TitleValidator.validate(json, title, seenIds)) {
+                title.syncedTarget = net.satisfy.legacy.core.trigger.TitleProgress.target(title);
                 loaded.add(title);
             }
         }
@@ -80,7 +73,6 @@ public class TitleManager extends SimpleJsonResourceReloadListener {
         LOGGER.info("[{}] Loaded {} title(s) from {} file(s).", Legacy.MOD_ID, this.titles.size(), object.size());
     }
 
-    /** Used by {@code /legacy reload} to refresh titles without a full resource reload. */
     public int reload(ResourceManager resourceManager) {
         apply(prepare(resourceManager, InactiveProfiler.INSTANCE), resourceManager, InactiveProfiler.INSTANCE);
         return this.titles.size();

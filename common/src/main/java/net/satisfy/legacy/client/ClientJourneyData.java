@@ -26,7 +26,6 @@ public final class ClientJourneyData {
             return new ItemStack(item);
         }
 
-        /** Localised name: uses the translation key when present, otherwise the literal title. */
         public String titleString() {
             if (translationKey != null && !translationKey.isEmpty() && I18n.exists(translationKey)) {
                 return I18n.get(translationKey);
@@ -34,7 +33,6 @@ public final class ClientJourneyData {
             return title;
         }
 
-        /** Localised description: uses {@code <key>.desc} when present, otherwise the literal description. */
         public String descriptionString() {
             if (translationKey != null && !translationKey.isEmpty() && I18n.exists(translationKey + ".desc")) {
                 return I18n.get(translationKey + ".desc");

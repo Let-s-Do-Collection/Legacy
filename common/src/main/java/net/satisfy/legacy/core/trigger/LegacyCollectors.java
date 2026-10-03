@@ -6,6 +6,7 @@ import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,7 +35,10 @@ import net.satisfy.legacy.core.data.LegacyTitleSavedData;
 import net.satisfy.legacy.core.data.PlayerTitleData;
 import net.satisfy.legacy.server.MilestoneService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public final class LegacyCollectors {
@@ -44,6 +48,11 @@ public final class LegacyCollectors {
             TagKey.create(Registries.BLOCK, Legacy.identifier("stones")),
             TagKey.create(Registries.BLOCK, Legacy.identifier("ores"))
     );
+
+    private static final long USE_COOLDOWN_TICKS = 200L;
+
+    private static final Map<UUID, GlobalPos> LAST_SAMPLE = new HashMap<>();
+    private static final Map<UUID, Map<GlobalPos, Long>> LAST_USE = new HashMap<>();
 
     private LegacyCollectors() {
     }
@@ -112,7 +121,8 @@ public final class LegacyCollectors {
                         withData(serverPlayer, data -> data.addCounter(Counters.BONEMEAL_USED, 1));
                     }
                 }
-                if (hand == net.minecraft.world.InteractionHand.MAIN_HAND) {
+                if (hand == net.minecraft.world.InteractionHand.MAIN_HAND && !state.isAir()
+                        && tryConsumeUse(serverPlayer, GlobalPos.of(level.dimension(), pos.immutable()))) {
                     ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(state.getBlock());
                     withData(serverPlayer, data -> data.addCounter(Counters.use(blockId), 1));
                 }
@@ -144,7 +154,6 @@ public final class LegacyCollectors {
                 MilestoneService.onAdvancement(player, advancement.id()));
     }
 
-    /** Called from a mixin when a player finishes eating/drinking a food or beverage. */
     public static void onConsume(ServerPlayer player, ItemStack stack) {
         if (stack.isEmpty()) {
             return;
@@ -157,21 +166,44 @@ public final class LegacyCollectors {
     }
 
     public static void onJoin(ServerPlayer player, PlayerTitleData data) {
+        LAST_SAMPLE.remove(player.getUUID());
         recordDimension(data, player.level().dimension().location());
         sampleLocation(player, data);
     }
 
-    public static void sampleLocation(ServerPlayer player, PlayerTitleData data) {
+    public static void onQuit(ServerPlayer player) {
+        LAST_SAMPLE.remove(player.getUUID());
+        LAST_USE.remove(player.getUUID());
+    }
+
+    private static boolean tryConsumeUse(ServerPlayer player, GlobalPos pos) {
+        long now = player.server.overworld().getGameTime();
+        Map<GlobalPos, Long> uses = LAST_USE.computeIfAbsent(player.getUUID(), id -> new HashMap<>());
+        uses.values().removeIf(time -> now - time >= USE_COOLDOWN_TICKS);
+        if (uses.containsKey(pos)) {
+            return false;
+        }
+        uses.put(pos, now);
+        return true;
+    }
+
+    public static boolean sampleLocation(ServerPlayer player, PlayerTitleData data) {
         ServerLevel level = player.serverLevel();
         BlockPos pos = player.blockPosition();
+        GlobalPos current = GlobalPos.of(level.dimension(), pos);
+        if (current.equals(LAST_SAMPLE.put(player.getUUID(), current))) {
+            return false;
+        }
+        boolean[] changed = {false};
 
         Holder<Biome> biome = level.getBiome(pos);
         biome.unwrapKey().map(ResourceKey::location).ifPresent(id -> {
             if (data.markVisited(Counters.biome(id))) {
                 data.addCounter(Counters.BIOMES_DISTINCT, 1);
+                changed[0] = true;
             }
             for (ResourceLocation family : biomeFamilies(id)) {
-                data.markVisited(Counters.biome(family));
+                changed[0] |= data.markVisited(Counters.biome(family));
             }
         });
 
@@ -187,15 +219,15 @@ public final class LegacyCollectors {
             }
             if (data.markVisited(Counters.structure(id))) {
                 data.addCounter(Counters.STRUCTURES_DISTINCT, 1);
+                changed[0] = true;
             }
-            // Family alias so "any village" journeys work regardless of village variant.
             if (id.getPath().startsWith("village_")) {
-                data.markVisited(Counters.structure(ResourceLocation.withDefaultNamespace("village")));
+                changed[0] |= data.markVisited(Counters.structure(ResourceLocation.withDefaultNamespace("village")));
             }
         }
+        return changed[0];
     }
 
-    /** Broad biome families so journeys can match "any ocean" / "the snowy peaks" without listing every id. */
     private static List<ResourceLocation> biomeFamilies(ResourceLocation id) {
         List<ResourceLocation> families = new java.util.ArrayList<>(2);
         String path = id.getPath();

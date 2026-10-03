@@ -38,6 +38,7 @@ public final class Legacy {
         LegacyNetworking.init();
 
         PlayerEvent.PLAYER_JOIN.register(TitleService::onJoin);
+        PlayerEvent.PLAYER_QUIT.register(TitleService::onQuit);
         TickEvent.SERVER_POST.register(TitleService::onServerTick);
         CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> LegacyCommands.register(dispatcher));
 
@@ -50,7 +51,6 @@ public final class Legacy {
     private static void registerBuiltinTriggers() {
         LegacyAPI.registerCustomTrigger("legacy:fate",
                 (player, title) -> player.getInventory().contains(new ItemStack(Items.NETHER_STAR)));
-        // Satisfied while the player is present during the dawn window — "see the sun rise".
         LegacyAPI.registerCustomTrigger("legacy:sunrise", (player, title) -> {
             long timeOfDay = player.level().getDayTime() % 24000L;
             return timeOfDay >= 22000L && timeOfDay <= 23500L;

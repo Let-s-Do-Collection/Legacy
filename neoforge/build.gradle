@@ -1,6 +1,10 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "8.0.0"
+    id "com.modrinth.minotaur" version "2.+"
+    id "net.darkhax.curseforgegradle" version "1.1.25"
 }
+
+def changelogText = rootProject.file("CHANGELOG.md").exists() ? rootProject.file("CHANGELOG.md").text : " "
 
 architectury {
     platformSetupLoomIde()
@@ -85,4 +89,36 @@ publishing {
 
     repositories {
     }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "lets-do-legacy"
+    versionNumber = rootProject.mod_version
+    versionName = "${rootProject.archives_base_name}-${rootProject.mod_version} [${rootProject.minecraft_version}-neoforge]"
+    versionType = "release"
+    changelog = changelogText
+    gameVersions = [rootProject.minecraft_version]
+    loaders = ["neoforge"]
+    uploadFile = remapJar
+    additionalFiles = [tasks.sourcesJar.archiveFile]
+
+    dependencies {
+        required.project "architectury-api"
+    }
+}
+
+tasks.register("curseforge1724459", net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    apiToken = System.getenv("CURSEFORGE_API_KEY")
+    disableVersionDetection()
+
+    def mainFile = upload("1724459", remapJar)
+    mainFile.releaseType = "release"
+    mainFile.changelog = changelogText
+    mainFile.changelogType = "markdown"
+    mainFile.displayName = "Legacy - ${rootProject.mod_version} - NEOFORGE - ${rootProject.minecraft_version}"
+    mainFile.addGameVersion(rootProject.minecraft_version)
+    mainFile.addModLoader("NeoForge")
+    mainFile.addEnvironment("Client", "Server")
+    mainFile.addRequirement("architectury-api")
 }

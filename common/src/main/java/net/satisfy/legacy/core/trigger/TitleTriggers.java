@@ -26,11 +26,6 @@ public final class TitleTriggers {
         return evaluate(player, playerData, title.getTrigger(), title.requirement(), title);
     }
 
-    /**
-     * Shared trigger engine used by titles, journeys and any future JSON-driven system.
-     * {@code customTitle} may be {@code null} for non-title consumers (journeys) — custom
-     * predicates that need a title simply won't fire in that context.
-     */
     public static boolean evaluate(ServerPlayer player, PlayerTitleData playerData,
                                    net.satisfy.legacy.core.title.TriggerType type,
                                    TitleRequirement req, Title customTitle) {
@@ -43,7 +38,6 @@ public final class TitleTriggers {
         };
     }
 
-    /** Satisfied once the player holds the item anywhere in their inventory (works with /give and creative). */
     private static boolean itemSatisfied(ServerPlayer player, TitleRequirement req) {
         if (req.id == null) {
             return false;

@@ -1,5 +1,6 @@
-package net.satisfy.legacy.neoforge.mixin;
+package net.satisfy.legacy.mixin;
 
+import dev.architectury.platform.Platform;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -25,7 +26,7 @@ public abstract class CreativeModeInventoryScreenMixin
     private static CreativeModeTab selectedTab;
 
     @Unique
-    private static final int LEGACY_SHIFT = 40;
+    private static final int LEGACY_SHIFT = Platform.isNeoForge() ? 40 : 75;
 
     @Unique
     private final JournalPanel legacy$journal = new JournalPanel();
@@ -46,11 +47,12 @@ public abstract class CreativeModeInventoryScreenMixin
 
     @Inject(method = "render", at = @At("HEAD"))
     private void legacy$positionForJournal(GuiGraphics g, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
-        if (!legacy$onInventoryTab()) {
+        boolean onInventory = legacy$onInventoryTab();
+        if (!onInventory) {
             this.legacy$journal.setVisible(false);
         }
         int base = (this.width - this.imageWidth) / 2;
-        this.leftPos = (legacy$onInventoryTab() && this.legacy$journal.isVisible()) ? base + LEGACY_SHIFT : base;
+        this.leftPos = (onInventory && this.legacy$journal.isVisible()) ? base + LEGACY_SHIFT : base;
     }
 
     @Inject(method = "init", at = @At("TAIL"))
@@ -85,8 +87,6 @@ public abstract class CreativeModeInventoryScreenMixin
         }
     }
 
-    // The creative screen's own mouseScrolled does not delegate to child widgets, so scroll the
-    // journal directly when the cursor is over its list.
     @Inject(method = "mouseScrolled", at = @At("HEAD"), cancellable = true)
     private void legacy$journalScroll(double mouseX, double mouseY, double scrollX, double scrollY, CallbackInfoReturnable<Boolean> cir) {
         if (legacy$onInventoryTab() && this.legacy$journal.isVisible() && this.legacy$journal.isOverList(mouseX, mouseY)) {

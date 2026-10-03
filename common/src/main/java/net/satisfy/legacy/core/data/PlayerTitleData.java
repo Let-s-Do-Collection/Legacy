@@ -54,7 +54,7 @@ public class PlayerTitleData {
         if (key == null || delta == 0) {
             return getCounter(key);
         }
-        int value = Math.max(0, getCounter(key) + delta);
+        int value = (int) Math.max(0L, Math.min(Integer.MAX_VALUE, (long) getCounter(key) + delta));
         counters.put(key, value);
         return value;
     }
@@ -67,7 +67,6 @@ public class PlayerTitleData {
         return id != null && journeys.containsKey(id);
     }
 
-    /** Records a journey as completed on the given world day. Returns true if it was newly recorded. */
     public boolean completeJourney(String id, int worldDay) {
         if (id == null || journeys.containsKey(id)) {
             return false;

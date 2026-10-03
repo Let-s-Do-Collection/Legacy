@@ -8,6 +8,7 @@
     "satisfy"
   ],
   "license": "Custom",
+  "icon": "pack.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -23,6 +24,6 @@
     "architectury": ">=13.0.0"
   },
   "mixins": [
-    "legacy.fabric.mixins.json"
+    "legacy.mixins.json"
   ]
 }

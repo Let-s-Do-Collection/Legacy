@@ -28,7 +28,7 @@ public final class LegacyCommands {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("legacy")
+        dispatcher.register(Commands.literal("legacy").requires(source -> source.hasPermission(2))
                 .then(Commands.literal("status").executes(ctx -> status(ctx.getSource())))
                 .then(Commands.literal("list").executes(ctx -> list(ctx.getSource())))
                 .then(Commands.literal("titles").executes(ctx -> titles(ctx.getSource())))
@@ -39,12 +39,12 @@ public final class LegacyCommands {
                 .then(Commands.literal("journeys").executes(ctx -> journeys(ctx.getSource())))
                 .then(Commands.literal("eval").executes(ctx -> eval(ctx.getSource())))
                 .then(Commands.literal("clear").executes(ctx -> clear(ctx.getSource())))
-                .then(Commands.literal("reload").requires(source -> source.hasPermission(2))
+                .then(Commands.literal("reload")
                         .executes(ctx -> reload(ctx.getSource())))
-                .then(Commands.literal("grant").requires(source -> source.hasPermission(2))
+                .then(Commands.literal("grant")
                         .then(Commands.argument("id", StringArgumentType.string()).suggests(TITLE_IDS)
                                 .executes(ctx -> grant(ctx.getSource(), StringArgumentType.getString(ctx, "id")))))
-                .then(Commands.literal("revoke").requires(source -> source.hasPermission(2))
+                .then(Commands.literal("revoke")
                         .then(Commands.argument("id", StringArgumentType.string()).suggests(TITLE_IDS)
                                 .executes(ctx -> revoke(ctx.getSource(), StringArgumentType.getString(ctx, "id"))))));
     }
@@ -149,7 +149,7 @@ public final class LegacyCommands {
 
     private static int reload(CommandSourceStack source) {
         int count = TitleService.reloadTitles(source.getServer());
-        source.sendSuccess(() -> Component.literal("[legacy] reloaded titles - " + count + " title(s) loaded").withStyle(ChatFormatting.GREEN), true);
+        source.sendSuccess(() -> Component.literal("[legacy] reloaded - " + count + " title(s) loaded").withStyle(ChatFormatting.GREEN), true);
         return count;
     }
 

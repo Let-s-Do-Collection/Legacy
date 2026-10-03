@@ -7,15 +7,10 @@ import net.satisfy.legacy.core.journey.JourneyManager;
 import net.satisfy.legacy.core.trigger.TitleTriggers;
 import net.satisfy.legacy.network.LegacyNetworking;
 
-/**
- * Drives the per-player Personal Journey diary. Journeys reuse the shared trigger engine
- * ({@link TitleTriggers#evaluate}); completion is a one-shot record of the world day it happened.
- */
 public final class JourneyService {
     private JourneyService() {
     }
 
-    /** Evaluates every journey for the player. Returns true if any journey was newly completed. */
     public static boolean evaluate(ServerPlayer player, PlayerTitleData playerData) {
         int worldDay = (int) (player.server.overworld().getDayTime() / 24000L);
         boolean changed = false;

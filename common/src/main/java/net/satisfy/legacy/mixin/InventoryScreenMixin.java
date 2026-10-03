@@ -1,4 +1,4 @@
-package net.satisfy.legacy.neoforge.mixin;
+package net.satisfy.legacy.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

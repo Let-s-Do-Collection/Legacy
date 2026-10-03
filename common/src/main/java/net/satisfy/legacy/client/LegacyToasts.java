@@ -31,8 +31,6 @@ public final class LegacyToasts {
                 name,
                 maybeTitle.map(Title::iconStack).orElse(net.minecraft.world.item.ItemStack.EMPTY)
         ));
-
-        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 1.0F));
     }
 
     public static void showMilestone(String milestoneId, String playerName) {
@@ -55,7 +53,6 @@ public final class LegacyToasts {
                 Component.translatable("toast.legacy.milestone.earned", playerName).withStyle(net.minecraft.ChatFormatting.WHITE),
                 icon));
 
-        // Same fanfare as a title unlock, pitched down so a world-first feels heavier and grander.
         minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, 0.8F));
     }
 }

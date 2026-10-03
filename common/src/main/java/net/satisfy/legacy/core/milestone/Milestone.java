@@ -16,7 +16,6 @@ public class Milestone {
     @SerializedName("translation_key")
     public String translationKey;
 
-    /** A shared milestone can also be earned by others within {@link #gracePeriod}. */
     @SerializedName(value = "shared", alternate = {"coop"})
     public boolean coop = false;
 
@@ -35,14 +34,9 @@ public class Milestone {
     @SerializedName("rarity")
     public TitleRarity rarity = TitleRarity.EPIC;
 
-    /** Only load this milestone when every listed mod is present. */
     @SerializedName("required_mods")
     public java.util.List<String> requiredMods;
 
-    /**
-     * Milestone trigger kind — {@code dimension}, {@code kill} or {@code advancement}. Uses the
-     * same {@code trigger} block as titles and journeys; only the accepted {@code type} values differ.
-     */
     public String triggerKind() {
         return trigger == null || trigger.type == null ? "advancement" : trigger.type;
     }
@@ -51,7 +45,6 @@ public class Milestone {
         return trigger == null || trigger.id == null ? "" : trigger.id;
     }
 
-    /** Grace window in game ticks (20 ticks = 1 second). */
     public long graceTicks() {
         return Math.max(0, gracePeriod) * 20L;
     }

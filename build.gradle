@@ -47,3 +47,18 @@ allprojects {
         withSourcesJar()
     }
 }
+
+tasks.register("publishModrinthAll") {
+    group = "publishing"
+    dependsOn(":fabric:modrinth", ":neoforge:modrinth")
+}
+
+tasks.register("publishCurseForgeAll") {
+    group = "publishing"
+    dependsOn(":fabric:curseforge1724459", ":neoforge:curseforge1724459")
+}
+
+tasks.register("publishAll") {
+    group = "publishing"
+    dependsOn("publishModrinthAll", "publishCurseForgeAll")
+}

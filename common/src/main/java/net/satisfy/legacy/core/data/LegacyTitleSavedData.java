@@ -48,7 +48,8 @@ public class LegacyTitleSavedData extends SavedData {
         for (String key : playersTag.getAllKeys()) {
             try {
                 data.players.put(UUID.fromString(key), PlayerTitleData.load(playersTag.getCompound(key)));
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException e) {
+                Legacy.LOGGER.warn("[{}] Skipping player entry with invalid UUID '{}'", Legacy.MOD_ID, key);
             }
         }
         return data;

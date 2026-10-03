@@ -7,6 +7,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.satisfy.legacy.Legacy;
 import org.slf4j.Logger;
@@ -17,19 +18,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Loads personal journeys per file from {@code data/<namespace>/legacy/journeys/*.json}
- * (the same discovery model Minecraft uses for advancements and loot tables). Any datapack
- * — including third-party mods — can drop a JSON file in that folder and extend Legacy with
- * no Java, no registries and no mixins.
- */
 public class JourneyManager extends SimpleJsonResourceReloadListener {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Gson GSON = new GsonBuilder().create();
     private static final String DIRECTORY = "legacy/journeys";
 
-    // Must be declared AFTER GSON/DIRECTORY: the constructor passes them to super(),
-    // and static fields initialize in declaration order.
     public static final JourneyManager INSTANCE = new JourneyManager();
 
     private Map<String, Journey> journeys = Collections.emptyMap();
@@ -48,7 +41,6 @@ public class JourneyManager extends SimpleJsonResourceReloadListener {
                 if (journey == null) {
                     continue;
                 }
-                // The resource location is the authoritative, collision-safe id.
                 journey.id = file.toString();
                 if (journey.trigger == null) {
                     LOGGER.warn("[{}] Journey '{}' has no trigger - skipping.", Legacy.MOD_ID, file);
@@ -64,6 +56,11 @@ public class JourneyManager extends SimpleJsonResourceReloadListener {
         }
         this.journeys = Collections.unmodifiableMap(loaded);
         LOGGER.info("[{}] Loaded {} journeys.", Legacy.MOD_ID, loaded.size());
+    }
+
+    public int reload(ResourceManager resourceManager) {
+        apply(prepare(resourceManager, InactiveProfiler.INSTANCE), resourceManager, InactiveProfiler.INSTANCE);
+        return this.journeys.size();
     }
 
     public List<Journey> all() {

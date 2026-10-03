@@ -3,7 +3,7 @@ loaderVersion = "[4,)"
 license = "Custom"
 
 [[mixins]]
-config = "legacy.neoforge.mixins.json"
+config = "legacy.mixins.json"
 
 [[mods]]
 modId = "legacy"
@@ -13,6 +13,7 @@ authors = "satisfy"
 description = '''
 A purely cosmetic, long-term title system. Unlock titles through your activities and wear one above your name.
 '''
+logoFile = "pack.png"
 
 [[dependencies.legacy]]
 modId = "neoforge"
