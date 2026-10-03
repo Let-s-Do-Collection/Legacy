@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "net.satisfy.legacy.mixin",
   "compatibilityLevel": "JAVA_21",
+  "refmap": "legacy-common-refmap.json",
   "mixins": [
     "LivingEntityMixin"
   ],

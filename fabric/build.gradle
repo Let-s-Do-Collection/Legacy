@@ -134,7 +134,7 @@ tasks.register("releaseChangelog") {
 
         println "Using Discord webhook: ${discordWebhookUrl.replaceAll('/api/webhooks/[^/]+/[^/]+$', '/api/webhooks/********/********')}"
 
-        def modName = (project.findProperty("modDisplayName") ?: "Let's Do: Legacy").toString()
+        def modName = (project.findProperty("modDisplayName") ?: "Legacy").toString()
         def versionLabel = rootProject.mod_version
         def full = rootProject.file("CHANGELOG.md").exists() ? rootProject.file("CHANGELOG.md").getText("UTF-8") : ""
         def m = (full =~ /(?s)(\[[^\]]+][\s\S]*?)(\n\*\*\*\n)/)
