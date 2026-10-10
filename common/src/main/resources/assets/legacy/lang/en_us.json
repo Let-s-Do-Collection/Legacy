@@ -10,7 +10,7 @@
   "gui.legacy.title.undiscovered": "This title has not yet been discovered.",
   "gui.legacy.tab.journal": "Journal",
   "gui.legacy.tab.journey": "Journey",
-  "gui.legacy.journey.header": "%s's Journey",
+  "gui.legacy.journey.header": "Your Journey",
   "gui.legacy.journey.completed": "Completed · Day %s",
   "gui.legacy.journey.open": "Not yet discovered",
   "gui.legacy.journey.category.equipment": "Equipment",

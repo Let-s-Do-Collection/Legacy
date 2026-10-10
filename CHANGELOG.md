@@ -1,3 +1,10 @@
+[1.0.1]
+
+**Fixes**
+
+- Because EMI was grabbing the mouse wheel, the journal couldn't be scrolled anymore. It scrolls again when you hover over it, and EMI works like before everywhere else.
+- The journey page is now simply called "Your Journey", so long player names no longer get cut off.
+
 [1.0.0]
 
 **Initial Release**

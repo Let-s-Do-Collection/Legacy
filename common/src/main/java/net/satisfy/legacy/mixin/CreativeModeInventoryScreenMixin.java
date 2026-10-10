@@ -52,7 +52,8 @@ public abstract class CreativeModeInventoryScreenMixin
             this.legacy$journal.setVisible(false);
         }
         int base = (this.width - this.imageWidth) / 2;
-        this.leftPos = (onInventory && this.legacy$journal.isVisible()) ? base + LEGACY_SHIFT : base;
+        this.leftPos = (onInventory && this.legacy$journal.isVisible())
+                ? JournalPanel.clampHostLeft(base + LEGACY_SHIFT, this.width, this.imageWidth) : base;
     }
 
     @Inject(method = "init", at = @At("TAIL"))

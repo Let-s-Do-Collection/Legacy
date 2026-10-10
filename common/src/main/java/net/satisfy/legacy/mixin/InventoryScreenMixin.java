@@ -48,7 +48,7 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen<Inven
             target = "Lnet/minecraft/client/gui/screens/recipebook/RecipeBookComponent;updateScreenPosition(II)I"))
     private int legacy$journalShift(RecipeBookComponent comp, int width, int imageWidth) {
         if (this.legacy$journal.isVisible() && !comp.isVisible() && !this.widthTooNarrow) {
-            return 177 + (width - imageWidth - 200) / 2;
+            return JournalPanel.clampHostLeft(177 + (width - imageWidth - 200) / 2, width, imageWidth);
         }
         return comp.updateScreenPosition(width, imageWidth);
     }

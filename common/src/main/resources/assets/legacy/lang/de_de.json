@@ -10,7 +10,7 @@
   "gui.legacy.title.undiscovered": "Dieser Titel wurde noch nicht entdeckt.",
   "gui.legacy.tab.journal": "Tagebuch",
   "gui.legacy.tab.journey": "Reise",
-  "gui.legacy.journey.header": "%ss Reise",
+  "gui.legacy.journey.header": "Deine Reise",
   "gui.legacy.journey.completed": "Abgeschlossen · Tag %s",
   "gui.legacy.journey.open": "Noch nicht entdeckt",
   "gui.legacy.journey.category.equipment": "Ausrüstung",

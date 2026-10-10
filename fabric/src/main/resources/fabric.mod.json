@@ -2,11 +2,17 @@
   "schemaVersion": 1,
   "id": "legacy",
   "version": "${version}",
-  "name": "Let's Do: Legacy",
+  "name": "[Let's Do] Legacy",
   "description": "A purely cosmetic, long-term title system. Unlock titles through your activities and wear one above your name.",
   "authors": [
     "satisfy"
   ],
+  "contact": {
+    "homepage": "https://www.lets-do.ch",
+    "wiki": "https://lets-do.ch/wiki/legacy/",
+    "sources": "https://github.com/Let-s-Do-Collection/Legacy",
+    "issues": "https://github.com/satisfyu/Let-s-Do-Hub"
+  },
   "license": "Custom",
   "icon": "pack.png",
   "environment": "*",
@@ -18,12 +24,13 @@
       "net.satisfy.legacy.fabric.client.LegacyClientFabric"
     ]
   },
-  "depends": {
-    "fabric": "*",
-    "minecraft": ">=1.21.1",
-    "architectury": ">=13.0.0"
-  },
   "mixins": [
     "legacy.mixins.json"
-  ]
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "fabric-api": "*",
+    "minecraft": ">=1.21.1 <1.22",
+    "architectury": ">=13.0.8"
+  }
 }

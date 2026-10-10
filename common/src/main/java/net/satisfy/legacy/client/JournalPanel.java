@@ -1,5 +1,6 @@
 package net.satisfy.legacy.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -43,6 +44,21 @@ public class JournalPanel {
     private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath("legacy", "textures/gui/background.png");
     private static final ResourceLocation LENS = ResourceLocation.fromNamespaceAndPath("legacy", "widget/lens");
     private static final int LENS_SIZE = 12;
+    private static final ResourceLocation ROW = sprite("row");
+    private static final ResourceLocation ROW_HOVER = sprite("row_hover");
+    private static final ResourceLocation ROW_OPEN = sprite("row_open");
+    private static final ResourceLocation DIVIDER = sprite("divider");
+    private static final ResourceLocation HEADER_DIVIDER = sprite("header_divider");
+    private static final ResourceLocation ARROW_OPEN = sprite("arrow_open");
+    private static final ResourceLocation ARROW_CLOSED = sprite("arrow_closed");
+    private static final ResourceLocation CHECK = sprite("check");
+    private static final ResourceLocation SLOT = sprite("slot");
+    private static final ResourceLocation SLOT_DIM = sprite("slot_dim");
+    private static final ResourceLocation BAR_BACKGROUND = sprite("bar_background");
+    private static final ResourceLocation BAR_FILL = sprite("bar_fill");
+    private static final ResourceLocation BAR_FILL_NEAR = sprite("bar_fill_near");
+    private static final ResourceLocation BAR_FILL_DONE = sprite("bar_fill_done");
+
     private static final ResourceLocation TAB = ResourceLocation.withDefaultNamespace("recipe_book/tab");
     private static final ResourceLocation TAB_SELECTED = ResourceLocation.withDefaultNamespace("recipe_book/tab_selected");
 
@@ -54,6 +70,11 @@ public class JournalPanel {
     private static final int BG_W = 147;
     private static final int BG_H = 166;
     private static final int TAB_W = 35;
+    public static final int MIN_HOST_LEFT = BG_W + TAB_W + 5;
+
+    public static int clampHostLeft(int leftPos, int screenWidth, int imageWidth) {
+        return Math.min(Math.max(leftPos, MIN_HOST_LEFT), Math.max(leftPos, screenWidth - imageWidth));
+    }
     private static final int TAB_H = 27;
     private static final int ROW_HEIGHT = 19;
     private static final int HISTORY_HEADER = 19;
@@ -274,7 +295,7 @@ public class JournalPanel {
             boolean secret = e.title != null && !e.unlocked && e.title.hidden;
             boolean hov = hovered(mouseX, mouseY, rowY);
             if (hov) {
-                g.fill(contentLeft, rowY, contentRight, rowY + ROW_HEIGHT, 0x33201810);
+                rowSprite(g, ROW, contentLeft, rowY, contentRight - contentLeft, ROW_HEIGHT);
                 if (secret) {
                     tooltip = List.of(
                             Component.literal("???").withStyle(ChatFormatting.DARK_GRAY),
@@ -287,7 +308,7 @@ public class JournalPanel {
             }
             boolean isActive = e.title == null ? (active == null || active.isEmpty()) : e.title.getId().equals(active);
             if (isActive) {
-                g.drawString(font, Component.literal("✔"), contentLeft + 4, rowY + 5, 0x2E8B2E, false);
+                rowSprite(g, CHECK, contentLeft, rowY + 4, 13, 9);
             }
             if (e.title != null && !secret) {
                 g.renderFakeItem(e.title.iconStack(), contentLeft + 14, rowY + 1);
@@ -341,13 +362,11 @@ public class JournalPanel {
             boolean secret = e.title != null && !e.unlocked && e.title.hidden;
             boolean hov = hovered(mouseX, mouseY, rowY);
             if (hov) {
-                g.fill(contentLeft, rowY, contentRight, rowY + ROW_HEIGHT, 0x33201810);
+                rowSprite(g, ROW, contentLeft, rowY, contentRight - contentLeft, ROW_HEIGHT);
                 tooltip = journalTooltip(e, secret);
             }
             if (secret) {
-                g.fill(contentLeft, rowY + 1, contentLeft + 16, rowY + 17, 0xFF0B0B0B);
-                g.fill(contentLeft, rowY + 1, contentLeft + 16, rowY + 2, 0xFF000000);
-                g.fill(contentLeft, rowY + 16, contentLeft + 16, rowY + 17, 0xFF000000);
+                g.blitSprite(SLOT_DIM, contentLeft, rowY + 1, 16, 16);
                 g.drawString(font, Component.literal("?"), contentLeft + 6, rowY + 5, 0xFF3A3A3A, false);
                 g.drawString(font, Component.literal("???").withStyle(ChatFormatting.DARK_GRAY), contentLeft + 20, rowY + 5, 0xFFFFFF, true);
                 continue;
@@ -355,7 +374,7 @@ public class JournalPanel {
             Title t = e.title;
             g.renderFakeItem(t.iconStack(), contentLeft, rowY + 1);
             int nameLeft = contentLeft + 20;
-            int nameRight = e.unlocked ? barX - 11 : barX - 3;
+            int nameRight = e.unlocked ? barX - 17 : barX - 3;
             int nameColor;
             if (e.unlocked) {
                 Integer c = LegacyClientConfig.titleColors ? t.getRarity().getColor().getColor() : null;
@@ -379,14 +398,13 @@ public class JournalPanel {
             float frac = Math.max(0f, Math.min(1f, current / (float) target));
             int barY = rowY + 7;
             if (e.unlocked) {
-                g.drawString(font, Component.literal("✔"), barX - 9, rowY + 5, 0x6DC257, false);
+                rowSprite(g, CHECK, barX - 15, rowY + 4, 13, 9);
             }
-            g.fill(barX - 1, barY - 1, barX + BAR_W + 1, barY + BAR_H + 1, 0xFF2A1F12);
-            g.fill(barX, barY, barX + BAR_W, barY + BAR_H, 0xFF5A4A34);
+            g.blitSprite(BAR_BACKGROUND, barX - 1, barY - 1, BAR_W + 2, BAR_H + 2);
             int fillW = Math.round(BAR_W * frac);
-            int color = e.unlocked ? 0xFF6DC257 : (frac >= 0.9f ? 0xFFB4DE72 : 0xFF8FB35C);
+            ResourceLocation fill = e.unlocked ? BAR_FILL_DONE : (frac >= 0.9f ? BAR_FILL_NEAR : BAR_FILL);
             if (fillW > 0) {
-                g.fill(barX, barY, barX + fillW, barY + BAR_H, color);
+                g.blitSprite(fill, BAR_W, BAR_H, 0, 0, barX, barY, fillW, BAR_H);
             }
         }
         g.disableScissor();
@@ -461,13 +479,29 @@ public class JournalPanel {
         scrollOffset = Math.max(0, Math.min(maxScroll, scrollOffset));
     }
 
+    private static ResourceLocation sprite(String name) {
+        return ResourceLocation.fromNamespaceAndPath("legacy", "journal/" + name);
+    }
+
+    private static void rowSprite(GuiGraphics g, ResourceLocation sprite, int x, int y, int w, int h) {
+        RenderSystem.enableBlend();
+        g.blitSprite(sprite, x, y, w, h);
+    }
+
+    private static void drawArrow(GuiGraphics g, boolean open, int x, int y) {
+        if (open) {
+            g.blitSprite(ARROW_OPEN, x - 1, y, 6, 4);
+        } else {
+            g.blitSprite(ARROW_CLOSED, x, y - 1, 4, 6);
+        }
+    }
+
     private void renderPageHeader(GuiGraphics g, Font font, Component titleText) {
         Component title = titleText.copy().withStyle(ChatFormatting.BOLD);
         int tw = font.width(title);
         int cx = panelX + BG_W / 2;
         g.drawString(font, title, cx - tw / 2, panelY + 13, 0xC8A45A, true);
-        g.fill(contentLeft, panelY + 27, contentRight, panelY + 28, 0x40000000);
-        g.fill(contentLeft, panelY + 28, contentRight, panelY + 29, 0x18FFFFFF);
+        rowSprite(g, HEADER_DIVIDER, contentLeft, panelY + 27, contentRight - contentLeft, 2);
     }
 
     private static final String[] OPTION_KEYS = {
@@ -487,7 +521,7 @@ public class JournalPanel {
             }
             boolean hov = mouseY >= listTop && mouseY < listBottom && mouseX >= contentLeft && mouseX < contentRight && mouseY >= rowY && mouseY < rowY + ROW_HEIGHT;
             if (hov) {
-                g.fill(contentLeft, rowY, contentRight, rowY + ROW_HEIGHT, 0x33201810);
+                rowSprite(g, ROW, contentLeft, rowY, contentRight - contentLeft, ROW_HEIGHT);
                 tooltip = List.of(
                         Component.translatable(OPTION_KEYS[i]).withStyle(ChatFormatting.WHITE),
                         Component.translatable(OPTION_KEYS[i] + ".desc").withStyle(ChatFormatting.GRAY));
@@ -563,9 +597,7 @@ public class JournalPanel {
     }
 
     private void renderJourney(GuiGraphics g, Font font, int mouseX, int mouseY) {
-        String name = Minecraft.getInstance().player != null
-                ? Minecraft.getInstance().player.getGameProfile().getName() : "";
-        renderPageHeader(g, font, Component.translatable("gui.legacy.journey.header", name));
+        renderPageHeader(g, font, Component.translatable("gui.legacy.journey.header"));
 
         List<JourneyRow> rows = buildJourneyRows();
         journeyContentHeight = rows.size() * ROW_HEIGHT;
@@ -591,27 +623,27 @@ public class JournalPanel {
                     boolean hov = mouseX >= contentLeft && mouseX < contentRight
                             && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW_HEIGHT, listBottom);
                     if (hov) {
-                        g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, 0x22FFFFFF);
+                        rowSprite(g, ROW_HOVER, contentLeft, y, contentRight - contentLeft, ROW_HEIGHT);
                     }
-                    g.drawString(font, Component.literal(collapsed ? "▸" : "▾"), contentLeft + 2, y + 6, 0xF0C24E, true);
+                    drawArrow(g, !collapsed, contentLeft + 3, y + 7);
                     g.drawString(font, categoryLabel(row.header()).copy().withStyle(ChatFormatting.BOLD),
                             contentLeft + 12, y + 6, 0xC8A45A, true);
                     int[] c = counts.getOrDefault(row.header(), new int[2]);
                     String count = c[0] + "/" + c[1];
                     g.drawString(font, count, contentRight - 2 - font.width(count), y + 6, 0x8A7A55, true);
-                    g.fill(contentLeft, y + ROW_HEIGHT - 1, contentRight, y + ROW_HEIGHT, 0x30201810);
                 } else {
                     ClientJourneyData.Entry e = row.entry();
                     boolean hov = mouseX >= contentLeft && mouseX < contentRight
                             && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW_HEIGHT, listBottom);
                     if (hov) {
-                        g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, 0x33201810);
+                        rowSprite(g, ROW, contentLeft, y, contentRight - contentLeft, ROW_HEIGHT);
                     }
                     if (e.done()) {
-                        g.drawString(font, Component.literal("✔"), contentLeft + 4, y + 5, 0x2E8B2E, false);
+                        rowSprite(g, CHECK, contentLeft + 3, y + 4, 13, 9);
                     } else {
                         g.drawString(font, Component.literal("☐"), contentLeft + 4, y + 5, 0x585858, false);
                     }
+                    g.blitSprite(e.done() ? SLOT : SLOT_DIM, contentLeft + 16, y + 1, 16, 16);
                     g.renderFakeItem(e.iconStack(), contentLeft + 16, y + 1);
                     if (!e.done()) {
                         g.fill(contentLeft + 16, y + 1, contentLeft + 32, y + 17, 0x80101010);
@@ -708,13 +740,13 @@ public class JournalPanel {
                 boolean hov = mouseX >= contentLeft && mouseX < contentRight
                         && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW_HEIGHT, listBottom);
                 if (hov || open) {
-                    g.fill(contentLeft, y, contentRight, y + ROW_HEIGHT, open ? 0x44201810 : 0x33201810);
+                    rowSprite(g, open ? ROW_OPEN : ROW, contentLeft, y, contentRight - contentLeft, ROW_HEIGHT);
                 }
                 g.renderFakeItem(e.iconStack(), contentLeft, y + 1);
                 int nameColor = e.state() == ClientMilestoneData.UNCLAIMED ? 0xFFFFFF : 0xFFC33D;
                 g.drawString(font, trimToWidth(font, Component.translatable(e.nameKey()).getString(), contentRight - 12 - (contentLeft + 20)),
                         contentLeft + 20, y + 5, nameColor, true);
-                g.drawString(font, Component.literal(open ? "▾" : "▸"), contentRight - 10, y + 5, 0xF0C24E, true);
+                drawArrow(g, open, contentRight - 9, y + 7);
             }
             y += ROW_HEIGHT;
             if (open) {
@@ -752,7 +784,7 @@ public class JournalPanel {
             y += 3;
         }
         if (draw) {
-            g.fill(contentLeft, y, contentRight, y + 1, 0x50201810);
+            rowSprite(g, DIVIDER, contentLeft, y, contentRight - contentLeft, 1);
         }
         y += 6;
         if (draw) {
@@ -818,16 +850,16 @@ public class JournalPanel {
                 boolean hov = mouseX >= contentLeft && mouseX < contentRight
                         && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + HISTORY_HEADER, listBottom);
                 if (hov || open) {
-                    g.fill(contentLeft, y, contentRight, y + HISTORY_HEADER, open ? 0x44201810 : 0x33201810);
+                    rowSprite(g, open ? ROW_OPEN : ROW, contentLeft, y, contentRight - contentLeft, HISTORY_HEADER);
                 }
                 if (i > 0) {
-                    g.fill(contentLeft + 2, y, contentRight - 2, y + 1, 0x2AFFFFFF);
+                    rowSprite(g, DIVIDER, contentLeft + 2, y, contentRight - contentLeft - 4, 1);
                 }
                 g.renderFakeItem(e.iconStack(), contentLeft, y + 1);
                 int nameColor = st == ClientMilestoneData.CLAIMED ? 0xFFC33D
                         : st == ClientMilestoneData.PRE_EXISTING ? 0x9A9A9A : 0x6E6E6E;
                 g.drawString(font, Component.translatable("history.legacy." + e.id()), contentLeft + 20, y + 5, nameColor, false);
-                g.drawString(font, Component.literal(open ? "▾" : "▸"), contentRight - 10, y + 5, 0xF0C24E, true);
+                drawArrow(g, open, contentRight - 9, y + 7);
             }
             y += HISTORY_HEADER;
             if (open) {
@@ -878,7 +910,7 @@ public class JournalPanel {
         }
         int y = listTop - scrollOffset + boundaryIndex * ROW_HEIGHT - 1;
         if (y > listTop && y < listBottom) {
-            g.fill(contentLeft, y, contentRight, y + 1, 0x50201810);
+            rowSprite(g, DIVIDER, contentLeft, y, contentRight - contentLeft, 1);
         }
     }
 

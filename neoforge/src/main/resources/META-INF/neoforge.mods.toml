@@ -1,6 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
 license = "Custom"
+issueTrackerURL = "https://github.com/satisfyu/Let-s-Do-Hub"
 
 [[mixins]]
 config = "legacy.mixins.json"
@@ -8,30 +9,36 @@ config = "legacy.mixins.json"
 [[mods]]
 modId = "legacy"
 version = "${version}"
-displayName = "Let's Do: Legacy"
+displayName = "[Let's Do] Legacy"
 authors = "satisfy"
+logoFile = "pack.png"
+displayURL = "https://www.lets-do.ch"
 description = '''
 A purely cosmetic, long-term title system. Unlock titles through your activities and wear one above your name.
+
+Website: https://www.lets-do.ch
+Wiki: https://lets-do.ch/wiki/legacy/
+Source: https://github.com/Let-s-Do-Collection/Legacy
+Issues: https://github.com/satisfyu/Let-s-Do-Hub
 '''
-logoFile = "pack.png"
 
 [[dependencies.legacy]]
 modId = "neoforge"
-mandatory = true
-versionRange = "[21.1.0,)"
+type = "required"
+versionRange = "[21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.legacy]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.21.1,)"
+type = "required"
+versionRange = "[1.21.1,1.22)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.legacy]]
 modId = "architectury"
-mandatory = true
-versionRange = "[13.0.0,)"
+type = "required"
+versionRange = "[13.0.8,)"
 ordering = "AFTER"
 side = "BOTH"

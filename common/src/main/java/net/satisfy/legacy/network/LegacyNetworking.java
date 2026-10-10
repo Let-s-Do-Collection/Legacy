@@ -19,6 +19,7 @@ import net.satisfy.legacy.core.milestone.Milestone;
 import net.satisfy.legacy.core.milestone.MilestoneManager;
 import net.satisfy.legacy.core.milestone.MilestoneRecord;
 import net.satisfy.legacy.core.title.Placement;
+import net.satisfy.legacy.client.LegacyClient;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleForm;
 import net.satisfy.legacy.core.title.TitleManager;
@@ -90,11 +91,7 @@ public final class LegacyNetworking {
                 title.milestone = buffer.readBoolean();
                 titles.add(title);
             }
-            context.queue(() -> {
-                if (Minecraft.getInstance().getSingleplayerServer() == null) {
-                    TitleManager.INSTANCE.replaceAll(titles);
-                }
-            });
+            context.queue(() -> LegacyClient.applyRemoteRegistry(titles));
         });
 
         NetworkManager.registerReceiver(NetworkManager.s2c(), SELF_SYNC, (buffer, context) -> {

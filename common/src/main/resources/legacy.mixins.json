@@ -12,6 +12,7 @@
     "EntityRendererMixin",
     "InventoryScreenMixin",
     "LivingEntityRendererMixin",
+    "MouseHandlerMixin",
     "ScreenMixin"
   ],
   "injectors": {
