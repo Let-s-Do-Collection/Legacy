@@ -1,3 +1,10 @@
+[1.0.2]
+
+**Fixed**
+* The game no longer crashes on startup with NeoForge
+
+***
+
 [1.0.1]
 
 **Fixed**

@@ -50,6 +50,11 @@ repositories {
 processResources {
     inputs.property "version", project.version
 
+    from(project(":common").file("src/main/resources/legacy.mixins.json")) {
+        filter { line -> line.contains("\"refmap\"") ? null : line }
+        rename { "legacy-neoforge.mixins.json" }
+    }
+
     filesMatching("META-INF/neoforge.mods.toml") {
         expand "version": project.version
     }
@@ -61,6 +66,8 @@ shadowJar {
 
     configurations = [project.configurations.shadowCommon]
     archiveClassifier = "dev-shadow"
+
+    exclude "legacy.mixins.json"
 }
 
 remapJar {

@@ -4,7 +4,7 @@ license = "Custom"
 issueTrackerURL = "https://github.com/satisfyu/Let-s-Do-Hub"
 
 [[mixins]]
-config = "legacy.mixins.json"
+config = "legacy-neoforge.mixins.json"
 
 [[mods]]
 modId = "legacy"
