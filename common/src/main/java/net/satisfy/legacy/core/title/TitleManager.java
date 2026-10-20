@@ -84,6 +84,7 @@ public class TitleManager extends SimpleJsonResourceReloadListener {
             map.putIfAbsent(title.getId(), title);
         }
         this.titles = Collections.unmodifiableMap(map);
+        net.satisfy.legacy.core.trigger.Counters.invalidate();
     }
 
     public boolean has(String id) {

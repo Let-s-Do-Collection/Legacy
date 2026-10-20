@@ -5,6 +5,8 @@
   "icon": "herbalbrews:tea_kettle",
   "rarity": "rare",
   "placement": "prefix",
+  "series": "cooking/tea",
+  "stage": 2,
   "display_priority": 321,
   "required_mods": [
     "herbalbrews"

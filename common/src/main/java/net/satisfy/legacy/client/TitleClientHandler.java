@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.satisfy.legacy.core.title.Placement;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleManager;
+import net.satisfy.legacy.platform.PlatformHelper;
 
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public final class TitleClientHandler {
             return original;
         }
 
-        if (!LegacyClientConfig.showOthersTitles) {
+        if (!PlatformHelper.isOtherPlayersTitlesEnabled()) {
             net.minecraft.client.player.LocalPlayer self = net.minecraft.client.Minecraft.getInstance().player;
             if (self == null || !player.getUUID().equals(self.getUUID())) {
                 return original;
@@ -41,14 +42,15 @@ public final class TitleClientHandler {
         }
 
         Title title = maybeTitle.get();
-        ChatFormatting color = LegacyClientConfig.titleColors ? title.getRarity().getColor() : ChatFormatting.WHITE;
-
-        MutableComponent nameComponent = original.copy().withStyle(color);
+        MutableComponent nameComponent = PlatformHelper.isRarityColorsEnabled()
+                ? title.getRarity().apply(original)
+                : original.copy().withStyle(ChatFormatting.WHITE);
         MutableComponent titleComponent = TitleNames.styled(title, ClientTitleData.getForm(player.getUUID()));
 
         if (title.getPlacement() == Placement.PREFIX) {
             return Component.empty().append(titleComponent).append(Component.literal(" ")).append(nameComponent);
         }
-        return Component.empty().append(nameComponent).append(Component.literal(" ")).append(titleComponent);
+        String separator = titleComponent.getString().startsWith(",") ? "" : " ";
+        return Component.empty().append(nameComponent).append(Component.literal(separator)).append(titleComponent);
     }
 }

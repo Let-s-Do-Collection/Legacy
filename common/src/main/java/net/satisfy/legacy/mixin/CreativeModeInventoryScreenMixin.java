@@ -2,6 +2,8 @@ package net.satisfy.legacy.mixin;
 
 import dev.architectury.platform.Platform;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.network.chat.Component;
@@ -52,8 +54,17 @@ public abstract class CreativeModeInventoryScreenMixin
             this.legacy$journal.setVisible(false);
         }
         int base = (this.width - this.imageWidth) / 2;
-        this.leftPos = (onInventory && this.legacy$journal.isVisible())
+        int target = (onInventory && this.legacy$journal.isVisible())
                 ? JournalPanel.clampHostLeft(base + LEGACY_SHIFT, this.width, this.imageWidth) : base;
+        int delta = target - this.leftPos;
+        this.leftPos = target;
+        if (delta != 0) {
+            for (GuiEventListener child : this.children()) {
+                if (child instanceof AbstractWidget widget) {
+                    widget.setX(widget.getX() + delta);
+                }
+            }
+        }
     }
 
     @Inject(method = "init", at = @At("TAIL"))
@@ -69,7 +80,7 @@ public abstract class CreativeModeInventoryScreenMixin
         if (!legacy$onInventoryTab()) {
             return;
         }
-        this.legacy$journal.render(g, mouseX, mouseY, partialTick, this.font, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+        this.legacy$journal.render(g, mouseX, mouseY, partialTick, this.font, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, this.children());
     }
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
@@ -84,6 +95,20 @@ public abstract class CreativeModeInventoryScreenMixin
             return;
         }
         if (this.legacy$journal.clickContent(mouseX, mouseY, button)) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
+    private void legacy$journalKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+        if (legacy$onInventoryTab() && this.legacy$journal.handleSearchKey(keyCode, scanCode, modifiers)) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(method = "charTyped", at = @At("HEAD"), cancellable = true)
+    private void legacy$journalCharTyped(char codePoint, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+        if (legacy$onInventoryTab() && this.legacy$journal.handleSearchChar(codePoint, modifiers)) {
             cir.setReturnValue(true);
         }
     }

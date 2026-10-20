@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleManager;
+import net.satisfy.legacy.platform.PlatformHelper;
 
 import java.util.Optional;
 
@@ -17,14 +18,13 @@ public final class LegacyToasts {
     }
 
     public static void showUnlock(String titleId) {
-        if (!LegacyClientConfig.titleUnlockToasts) {
+        if (!PlatformHelper.isUnlockToastsEnabled()) {
             return;
         }
         Minecraft minecraft = Minecraft.getInstance();
         Optional<Title> maybeTitle = TitleManager.INSTANCE.get(titleId);
 
-        Component name = maybeTitle.map(Title::styledDisplayName)
-                .map(Component.class::cast)
+        Component name = maybeTitle.<Component>map(title -> TitleNames.styled(title, ClientTitleData.getForm()))
                 .orElse(Component.literal(titleId));
 
         minecraft.getToasts().addToast(new TitleToast(
@@ -35,14 +35,14 @@ public final class LegacyToasts {
 
     public static void showMilestone(String milestoneId, String playerName) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (!LegacyClientConfig.milestoneNotifications
+        if (!PlatformHelper.isMilestoneToastsEnabled()
                 && (minecraft.player == null || !minecraft.player.getGameProfile().getName().equals(playerName))) {
             return;
         }
         ClientMilestoneData.Entry entry = ClientMilestoneData.all().stream()
                 .filter(e -> e.id().equals(milestoneId)).findFirst().orElse(null);
         Component name = entry != null
-                ? Component.translatable(entry.nameKey()).withStyle(entry.rarityValue().getColor())
+                ? entry.rarityValue().apply(Component.translatable(entry.nameKey()))
                 : Component.translatable("milestone.legacy." + milestoneId);
         net.minecraft.world.item.ItemStack icon = entry != null ? entry.iconStack() : net.minecraft.world.item.ItemStack.EMPTY;
 

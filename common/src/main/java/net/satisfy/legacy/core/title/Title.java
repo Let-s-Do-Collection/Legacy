@@ -106,7 +106,7 @@ public class Title {
     }
 
     public MutableComponent styledDisplayName() {
-        return displayName().copy().withStyle(getRarity().getColor());
+        return displayName().copy().withColor(getRarity().baseColor());
     }
 
     public ItemStack iconStack() {

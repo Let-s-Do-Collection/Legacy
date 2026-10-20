@@ -18,7 +18,7 @@ public final class LegacyClient {
     }
 
     public static void init() {
-        LegacyClientConfig.load();
+        LegacyConfigMigration.run();
         ClientPlayerEvent.CLIENT_PLAYER_QUIT.register(player -> resetClientState());
     }
 

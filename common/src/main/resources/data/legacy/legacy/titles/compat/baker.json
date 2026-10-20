@@ -5,6 +5,8 @@
   "icon": "bakery:bread",
   "rarity": "uncommon",
   "placement": "prefix",
+  "series": "cooking/baking",
+  "stage": 1,
   "display_priority": 310,
   "required_mods": [
     "bakery"

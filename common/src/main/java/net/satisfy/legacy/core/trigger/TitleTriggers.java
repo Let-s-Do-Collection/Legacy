@@ -13,8 +13,12 @@ import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleRequirement;
 import org.slf4j.Logger;
 
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 public final class TitleTriggers {
     private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Set<String> WARNED = ConcurrentHashMap.newKeySet();
 
     private TitleTriggers() {
     }
@@ -80,12 +84,16 @@ public final class TitleTriggers {
         }
         StatType<?> statType = BuiltInRegistries.STAT_TYPE.getOptional(typeId).orElse(null);
         if (statType == null) {
-            LOGGER.warn("[{}] Unknown stat_type '{}'", Legacy.MOD_ID, req.statType);
+            if (WARNED.add(req.statType + "|")) {
+                LOGGER.warn("[{}] Unknown stat_type '{}'", Legacy.MOD_ID, req.statType);
+            }
             return false;
         }
         Stat<?> stat = resolveStat(statType, statId);
         if (stat == null) {
-            LOGGER.warn("[{}] Unknown stat '{}' for type '{}'", Legacy.MOD_ID, req.stat, req.statType);
+            if (WARNED.add(req.statType + "|" + req.stat)) {
+                LOGGER.warn("[{}] Unknown stat '{}' for type '{}'", Legacy.MOD_ID, req.stat, req.statType);
+            }
             return false;
         }
         return player.getStats().getValue(stat) >= Math.max(1, req.amount);

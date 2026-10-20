@@ -8,16 +8,21 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.satisfy.foundation.rarity.RarityTooltipFrame;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleForm;
 import net.satisfy.legacy.core.title.TitleManager;
+import net.satisfy.legacy.core.title.TitleRarity;
 import net.satisfy.legacy.network.LegacyNetworking;
+import net.satisfy.legacy.platform.PlatformHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -160,20 +165,37 @@ public class JournalPanel {
         }
     }
 
-    public boolean searchKeyPressed(int keyCode, int scanCode, int modifiers) {
-        return search != null && search.keyPressed(keyCode, scanCode, modifiers);
+    public boolean handleSearchKey(int keyCode, int scanCode, int modifiers) {
+        if (!visible || !isSearchFocused()) {
+            return false;
+        }
+        if (keyCode == 256) {
+            unfocusSearch();
+        } else {
+            search.keyPressed(keyCode, scanCode, modifiers);
+        }
+        return true;
+    }
+
+    public boolean handleSearchChar(char codePoint, int modifiers) {
+        if (!visible || !isSearchFocused()) {
+            return false;
+        }
+        search.charTyped(codePoint, modifiers);
+        return true;
     }
 
     public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick, Font font,
-                       int leftPos, int topPos, int imageWidth, int imageHeight) {
-        this.iconX = leftPos + imageWidth - 22 + LegacyClientConfig.buttonOffsetX;
-        this.iconY = topPos + 4 + LegacyClientConfig.buttonOffsetY;
+                       int leftPos, int topPos, int imageWidth, int imageHeight, List<? extends GuiEventListener> widgets) {
+        this.iconX = leftPos + imageWidth - 22 + PlatformHelper.getJournalButtonOffsetX();
+        this.iconY = topPos + 4 + PlatformHelper.getJournalButtonOffsetY();
+        avoidWidgets(widgets);
         boolean overIcon = isOverButton(mouseX, mouseY);
         g.blitSprite(overIcon || visible ? BUTTON_HL : BUTTON, iconX, iconY, 20, 18);
 
         if (!visible) {
             if (overIcon) {
-                g.renderTooltip(font, Component.translatable("gui.legacy.button"), mouseX, mouseY);
+                framedTooltip(g, font, Component.translatable("gui.legacy.button"), BUTTON_ICON, mouseX, mouseY);
             }
             return;
         }
@@ -223,13 +245,38 @@ public class JournalPanel {
         }
 
         if (overIcon) {
-            g.renderTooltip(font, Component.translatable("gui.legacy.button"), mouseX, mouseY);
+            framedTooltip(g, font, Component.translatable("gui.legacy.button"), BUTTON_ICON, mouseX, mouseY);
         }
         for (int i = 0; i < TAB_KEYS.length; i++) {
             if (overTab(mouseX, mouseY, i)) {
-                g.renderTooltip(font, Component.translatable(TAB_KEYS[i]), mouseX, mouseY);
+                framedTooltip(g, font, Component.translatable(TAB_KEYS[i]), TAB_ICONS[i], mouseX, mouseY);
                 break;
             }
+        }
+    }
+
+    private static final ItemStack[] TAB_ICONS = {
+            new ItemStack(Items.NAME_TAG), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.WRITTEN_BOOK),
+            new ItemStack(Items.NETHER_STAR), new ItemStack(Items.CLOCK), new ItemStack(Items.COMPARATOR)
+    };
+    private static final ItemStack BUTTON_ICON = new ItemStack(Items.WRITABLE_BOOK);
+    private static final ItemStack FILTER_ICON = new ItemStack(Items.HOPPER);
+    private static final ItemStack SECRET_ICON = new ItemStack(Items.PAPER);
+
+    private void avoidWidgets(List<? extends GuiEventListener> widgets) {
+        for (int pass = 0; pass < 4; pass++) {
+            int top = iconY;
+            for (GuiEventListener listener : widgets) {
+                if (listener instanceof AbstractWidget widget && widget != search && widget.visible
+                        && widget.getX() < iconX + 20 && widget.getX() + widget.getWidth() > iconX
+                        && widget.getY() < iconY + 18 && widget.getY() + widget.getHeight() > iconY) {
+                    top = Math.max(top, widget.getY() + widget.getHeight() + 2);
+                }
+            }
+            if (top == iconY) {
+                return;
+            }
+            iconY = top;
         }
     }
 
@@ -239,7 +286,7 @@ public class JournalPanel {
     };
 
     private void renderTabs(GuiGraphics g) {
-        ItemStack[] icons = { new ItemStack(Items.NAME_TAG), new ItemStack(Items.WRITABLE_BOOK), new ItemStack(Items.WRITTEN_BOOK), new ItemStack(Items.NETHER_STAR), new ItemStack(Items.CLOCK), new ItemStack(Items.COMPARATOR) };
+        ItemStack[] icons = TAB_ICONS;
         Tab[] tabs = Tab.values();
         for (int i = 0; i < tabs.length; i++) {
             boolean sel = tab == tabs[i];
@@ -272,7 +319,7 @@ public class JournalPanel {
                 : (hov ? FILTER_OBTAINED_HL : FILTER_OBTAINED);
         g.blitSprite(sprite, filterX, filterY, 26, 16);
         if (hov) {
-            g.renderTooltip(font, Component.translatable(showAll ? "gui.legacy.filter.all" : "gui.legacy.filter.obtained"), mouseX, mouseY);
+            framedTooltip(g, font, Component.translatable(showAll ? "gui.legacy.filter.all" : "gui.legacy.filter.obtained"), FILTER_ICON, mouseX, mouseY);
         }
     }
 
@@ -285,6 +332,7 @@ public class JournalPanel {
         clampScroll();
         String active = ClientTitleData.getActive();
         List<Component> tooltip = null;
+        Entry tooltipEntry = null;
         g.enableScissor(contentLeft, listTop, contentRight, listBottom);
         for (int i = 0; i < entries.size(); i++) {
             int rowY = listTop - scrollOffset + i * ROW_HEIGHT;
@@ -296,11 +344,12 @@ public class JournalPanel {
             boolean hov = hovered(mouseX, mouseY, rowY);
             if (hov) {
                 rowSprite(g, ROW, contentLeft, rowY, contentRight - contentLeft, ROW_HEIGHT);
+                tooltipEntry = e;
                 if (secret) {
                     tooltip = List.of(
                             Component.literal("???").withStyle(ChatFormatting.DARK_GRAY),
                             Component.translatable("gui.legacy.title.undiscovered").withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_GRAY));
-                } else if (e.title != null && !e.unlocked) {
+                } else if (e.title != null) {
                     tooltip = List.of(
                             TitleNames.styled(e.title, ClientTitleData.getForm()),
                             Component.translatable(e.title.getTranslationKey() + ".desc").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
@@ -336,15 +385,14 @@ public class JournalPanel {
             drawGroupDivider(g, firstHiddenIndex);
         }
         g.disableScissor();
-        if (tooltip != null) {
-            g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
-        }
+        renderTitleTooltip(g, font, tooltip, tooltipEntry, mouseX, mouseY);
     }
 
     private void renderJournal(GuiGraphics g, Font font, int mouseX, int mouseY) {
         rebuildEntries();
         clampScroll();
         List<Component> tooltip = null;
+        Entry tooltipEntry = null;
         int barX = contentRight - BAR_W - 2;
         Map<String, Integer> seriesCount = new HashMap<>();
         for (Title a : TitleManager.INSTANCE.all()) {
@@ -364,6 +412,7 @@ public class JournalPanel {
             if (hov) {
                 rowSprite(g, ROW, contentLeft, rowY, contentRight - contentLeft, ROW_HEIGHT);
                 tooltip = journalTooltip(e, secret);
+                tooltipEntry = e;
             }
             if (secret) {
                 g.blitSprite(SLOT_DIM, contentLeft, rowY + 1, 16, 16);
@@ -375,20 +424,19 @@ public class JournalPanel {
             g.renderFakeItem(t.iconStack(), contentLeft, rowY + 1);
             int nameLeft = contentLeft + 20;
             int nameRight = e.unlocked ? barX - 17 : barX - 3;
-            int nameColor;
-            if (e.unlocked) {
-                Integer c = LegacyClientConfig.titleColors ? t.getRarity().getColor().getColor() : null;
-                nameColor = c == null ? 0xFFFFFF : c;
-            } else {
-                nameColor = 0xAAAAAA;
-            }
+            boolean rarityColored = e.unlocked && PlatformHelper.isRarityColorsEnabled();
+            int nameColor = e.unlocked ? 0xFFFFFF : 0xAAAAAA;
             String stageMark = "";
             if (t.series != null && !t.series.isEmpty() && seriesCount.getOrDefault(t.series, 0) >= 2) {
                 stageMark = toRoman(t.stage);
             }
             int markW = stageMark.isEmpty() ? 0 : font.width(stageMark) + 4;
             String name = trimToWidth(font, TitleNames.string(t, ClientTitleData.getForm()), nameRight - nameLeft - markW);
-            g.drawString(font, name, nameLeft, rowY + 5, nameColor, true);
+            if (rarityColored) {
+                g.drawString(font, t.getRarity().apply(Component.literal(name)), nameLeft, rowY + 5, nameColor, true);
+            } else {
+                g.drawString(font, name, nameLeft, rowY + 5, nameColor, true);
+            }
             if (!stageMark.isEmpty()) {
                 g.drawString(font, stageMark, nameLeft + font.width(name) + 4, rowY + 5, 0xC8A45A, true);
             }
@@ -408,9 +456,28 @@ public class JournalPanel {
             }
         }
         g.disableScissor();
-        if (tooltip != null) {
-            g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
+        renderTitleTooltip(g, font, tooltip, tooltipEntry, mouseX, mouseY);
+    }
+
+    private static void renderTitleTooltip(GuiGraphics g, Font font, @Nullable List<Component> tooltip, @Nullable Entry entry,
+                                           int mouseX, int mouseY) {
+        if (tooltip == null || entry == null || entry.title == null) {
+            return;
         }
+        boolean secret = !entry.unlocked && entry.title.hidden;
+        TitleRarity rarity = secret ? TitleRarity.COMMON : entry.title.getRarity();
+        ItemStack icon = secret ? SECRET_ICON : entry.title.iconStack();
+        framedTooltip(g, font, tooltip, rarity, icon, mouseX, mouseY);
+    }
+
+    private static void framedTooltip(GuiGraphics g, Font font, List<Component> lines, TitleRarity rarity, ItemStack icon,
+                                      int mouseX, int mouseY) {
+        RarityTooltipFrame.mark(rarity.foundation(), icon);
+        g.renderComponentTooltip(font, lines, mouseX, mouseY);
+    }
+
+    private static void framedTooltip(GuiGraphics g, Font font, Component line, ItemStack icon, int mouseX, int mouseY) {
+        framedTooltip(g, font, List.of(line), TitleRarity.COMMON, icon, mouseX, mouseY);
     }
 
     private List<Component> journalTooltip(Entry e, boolean secret) {
@@ -534,7 +601,7 @@ public class JournalPanel {
                 value = Component.translatable(fem ? "gui.legacy.option.form.female" : "gui.legacy.option.form.male");
                 color = 0xC8A45A;
             } else if (i >= 6) {
-                int offset = i == 6 ? LegacyClientConfig.buttonOffsetX : LegacyClientConfig.buttonOffsetY;
+                int offset = i == 6 ? PlatformHelper.getJournalButtonOffsetX() : PlatformHelper.getJournalButtonOffsetY();
                 value = Component.literal(offset > 0 ? "+" + offset : String.valueOf(offset));
                 color = 0xC8A45A;
             } else {
@@ -546,24 +613,24 @@ public class JournalPanel {
         }
         g.disableScissor();
         if (tooltip != null) {
-            g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
+            framedTooltip(g, font, tooltip, TitleRarity.COMMON, TAB_ICONS[Tab.OPTIONS.ordinal()], mouseX, mouseY);
         }
     }
 
     private static boolean optionValue(int i) {
         return switch (i) {
-            case 1 -> LegacyClientConfig.showOwnName;
-            case 2 -> LegacyClientConfig.milestoneNotifications;
-            case 3 -> LegacyClientConfig.showOthersTitles;
-            case 4 -> LegacyClientConfig.titleUnlockToasts;
-            case 5 -> LegacyClientConfig.titleColors;
+            case 1 -> PlatformHelper.isOwnNameTagEnabled();
+            case 2 -> PlatformHelper.isMilestoneToastsEnabled();
+            case 3 -> PlatformHelper.isOtherPlayersTitlesEnabled();
+            case 4 -> PlatformHelper.isUnlockToastsEnabled();
+            case 5 -> PlatformHelper.isRarityColorsEnabled();
             default -> false;
         };
     }
 
     private void adjustButtonOffset(int i, int button) {
         int step = net.minecraft.client.gui.screens.Screen.hasShiftDown() ? 10 : 1;
-        int current = i == 6 ? LegacyClientConfig.buttonOffsetX : LegacyClientConfig.buttonOffsetY;
+        int current = i == 6 ? PlatformHelper.getJournalButtonOffsetX() : PlatformHelper.getJournalButtonOffsetY();
         int next = switch (button) {
             case 0 -> current + step;
             case 1 -> current - step;
@@ -571,11 +638,11 @@ public class JournalPanel {
         };
         next = Math.max(-500, Math.min(500, next));
         if (i == 6) {
-            LegacyClientConfig.buttonOffsetX = next;
+            PlatformHelper.setJournalButtonOffsetX(next);
         } else {
-            LegacyClientConfig.buttonOffsetY = next;
+            PlatformHelper.setJournalButtonOffsetY(next);
         }
-        LegacyClientConfig.save();
+        PlatformHelper.saveConfig();
     }
 
     private void toggleOption(int i) {
@@ -585,14 +652,14 @@ public class JournalPanel {
                 ClientTitleData.setFormLocally(next);
                 LegacyNetworking.sendSetForm(next);
             }
-            case 1 -> LegacyClientConfig.showOwnName = !LegacyClientConfig.showOwnName;
-            case 2 -> LegacyClientConfig.milestoneNotifications = !LegacyClientConfig.milestoneNotifications;
-            case 3 -> LegacyClientConfig.showOthersTitles = !LegacyClientConfig.showOthersTitles;
-            case 4 -> LegacyClientConfig.titleUnlockToasts = !LegacyClientConfig.titleUnlockToasts;
-            case 5 -> LegacyClientConfig.titleColors = !LegacyClientConfig.titleColors;
+            case 1 -> PlatformHelper.setOwnNameTagEnabled(!PlatformHelper.isOwnNameTagEnabled());
+            case 2 -> PlatformHelper.setMilestoneToastsEnabled(!PlatformHelper.isMilestoneToastsEnabled());
+            case 3 -> PlatformHelper.setOtherPlayersTitlesEnabled(!PlatformHelper.isOtherPlayersTitlesEnabled());
+            case 4 -> PlatformHelper.setUnlockToastsEnabled(!PlatformHelper.isUnlockToastsEnabled());
+            case 5 -> PlatformHelper.setRarityColorsEnabled(!PlatformHelper.isRarityColorsEnabled());
         }
         if (i != 0) {
-            LegacyClientConfig.save();
+            PlatformHelper.saveConfig();
         }
     }
 
@@ -614,6 +681,7 @@ public class JournalPanel {
         }
 
         List<Component> tooltip = null;
+        ItemStack tooltipIcon = ItemStack.EMPTY;
         g.enableScissor(contentLeft, listTop, contentRight, listBottom);
         int y = listTop - scrollOffset;
         for (JourneyRow row : rows) {
@@ -652,6 +720,7 @@ public class JournalPanel {
                     g.drawString(font, trimToWidth(font, e.titleString(), contentRight - 4 - (contentLeft + 36)),
                             contentLeft + 36, y + 5, color, true);
                     if (hov) {
+                        tooltipIcon = e.iconStack();
                         tooltip = new ArrayList<>();
                         tooltip.add(Component.literal(e.titleString()).withStyle(e.done() ? ChatFormatting.WHITE : ChatFormatting.GRAY));
                         if (!e.descriptionString().isEmpty()) {
@@ -668,7 +737,7 @@ public class JournalPanel {
         }
         g.disableScissor();
         if (tooltip != null) {
-            g.renderComponentTooltip(font, tooltip, mouseX, mouseY);
+            framedTooltip(g, font, tooltip, TitleRarity.COMMON, tooltipIcon, mouseX, mouseY);
         }
     }
 
@@ -730,6 +799,7 @@ public class JournalPanel {
         clampScroll();
 
         milestoneHeaderY = new int[list.size()];
+        ClientMilestoneData.Entry hovered = null;
         g.enableScissor(contentLeft, listTop, contentRight, listBottom);
         int y = listTop - scrollOffset;
         for (int i = 0; i < list.size(); i++) {
@@ -739,6 +809,9 @@ public class JournalPanel {
             if (y + ROW_HEIGHT > listTop && y < listBottom) {
                 boolean hov = mouseX >= contentLeft && mouseX < contentRight
                         && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + ROW_HEIGHT, listBottom);
+                if (hov) {
+                    hovered = e;
+                }
                 if (hov || open) {
                     rowSprite(g, open ? ROW_OPEN : ROW, contentLeft, y, contentRight - contentLeft, ROW_HEIGHT);
                 }
@@ -757,6 +830,27 @@ public class JournalPanel {
             }
         }
         g.disableScissor();
+        renderMilestoneTooltip(g, font, hovered, mouseX, mouseY);
+    }
+
+    private static void renderMilestoneTooltip(GuiGraphics g, Font font, @Nullable ClientMilestoneData.Entry e, int mouseX, int mouseY) {
+        if (e == null) {
+            return;
+        }
+        int st = e.state();
+        List<Component> lines = new ArrayList<>();
+        lines.add(e.rarityValue().apply(Component.translatable(e.nameKey())));
+        if (st == ClientMilestoneData.CLAIMED) {
+            lines.add(Component.translatable("gui.legacy.milestone.status.claimed").withStyle(ChatFormatting.GREEN));
+            if (!e.firstName().isEmpty()) {
+                lines.add(Component.translatable("gui.legacy.milestone.first").append(": " + e.firstName()).withStyle(ChatFormatting.GRAY));
+            }
+        } else if (st == ClientMilestoneData.PRE_EXISTING) {
+            lines.add(Component.translatable("gui.legacy.milestone.status.pre_existing").withStyle(ChatFormatting.GRAY));
+        } else {
+            lines.add(Component.translatable("gui.legacy.milestone.status.unclaimed").withStyle(ChatFormatting.RED));
+        }
+        framedTooltip(g, font, lines, e.rarityValue(), e.iconStack(), mouseX, mouseY);
     }
 
     private int detailBlock(GuiGraphics g, Font font, ClientMilestoneData.Entry e, int startY, boolean draw) {
@@ -838,6 +932,7 @@ public class JournalPanel {
         clampScroll();
         historyHeaderY = new int[list.size()];
         historyOrder = new String[list.size()];
+        ClientMilestoneData.Entry hovered = null;
         g.enableScissor(contentLeft, listTop, contentRight, listBottom);
         int y = listTop - scrollOffset;
         for (int i = 0; i < list.size(); i++) {
@@ -849,6 +944,9 @@ public class JournalPanel {
             if (y + HISTORY_HEADER > listTop && y < listBottom) {
                 boolean hov = mouseX >= contentLeft && mouseX < contentRight
                         && mouseY >= Math.max(y, listTop) && mouseY < Math.min(y + HISTORY_HEADER, listBottom);
+                if (hov) {
+                    hovered = e;
+                }
                 if (hov || open) {
                     rowSprite(g, open ? ROW_OPEN : ROW, contentLeft, y, contentRight - contentLeft, HISTORY_HEADER);
                 }
@@ -870,6 +968,7 @@ public class JournalPanel {
             }
         }
         g.disableScissor();
+        renderMilestoneTooltip(g, font, hovered, mouseX, mouseY);
     }
 
     private int historyDetail(GuiGraphics g, Font font, ClientMilestoneData.Entry e, int startY, boolean draw) {

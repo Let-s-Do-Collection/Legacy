@@ -4,7 +4,7 @@
   "category": "mining",
   "icon": "minecraft:emerald",
   "rarity": "legendary",
-  "placement": "prefix",
+  "placement": "suffix",
   "series": "mining/ore",
   "stage": 3,
   "display_priority": 67,

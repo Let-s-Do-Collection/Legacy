@@ -1,37 +1,47 @@
 package net.satisfy.legacy.core.title;
 
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.satisfy.foundation.rarity.FoundationRarity;
 
 public enum TitleRarity {
     @SerializedName("common")
-    COMMON(ChatFormatting.WHITE),
+    COMMON(FoundationRarity.COMMON),
 
     @SerializedName("uncommon")
-    UNCOMMON(ChatFormatting.GREEN),
+    UNCOMMON(FoundationRarity.UNCOMMON),
 
     @SerializedName("rare")
-    RARE(ChatFormatting.AQUA),
+    RARE(FoundationRarity.RARE),
 
     @SerializedName("epic")
-    EPIC(ChatFormatting.LIGHT_PURPLE),
+    EPIC(FoundationRarity.EPIC),
 
     @SerializedName("legendary")
-    LEGENDARY(ChatFormatting.GOLD),
+    LEGENDARY(FoundationRarity.LEGENDARY),
 
     @SerializedName("mythic")
-    MYTHIC(ChatFormatting.RED);
+    MYTHIC(FoundationRarity.ETERNAL);
 
     private static final TitleRarity[] VALUES = values();
 
-    private final ChatFormatting color;
+    private final FoundationRarity foundation;
 
-    TitleRarity(ChatFormatting color) {
-        this.color = color;
+    TitleRarity(FoundationRarity foundation) {
+        this.foundation = foundation;
     }
 
-    public ChatFormatting getColor() {
-        return color;
+    public FoundationRarity foundation() {
+        return foundation;
+    }
+
+    public int baseColor() {
+        return foundation.baseColor();
+    }
+
+    public MutableComponent apply(Component text) {
+        return foundation.apply(text);
     }
 
     public static TitleRarity byOrdinal(int ordinal) {

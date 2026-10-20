@@ -109,7 +109,7 @@ public final class LegacyCommands {
         source.sendSuccess(() -> Component.literal("[legacy] " + all.size() + " title(s):").withStyle(ChatFormatting.GOLD), false);
         for (Title title : all) {
             source.sendSuccess(() -> Component.literal(" - " + title.getId())
-                    .withStyle(title.getRarity().getColor())
+                    .withColor(title.getRarity().baseColor())
                     .append(Component.literal(" [" + title.getRarity().name().toLowerCase(java.util.Locale.ROOT)
                             + ", " + title.getTrigger().name().toLowerCase(java.util.Locale.ROOT)
                             + (title.hidden ? ", hidden" : "") + "]").withStyle(ChatFormatting.DARK_GRAY)), false);
@@ -123,7 +123,7 @@ public final class LegacyCommands {
             source.sendFailure(Component.literal("[legacy] unknown title id '" + id + "'"));
             return 0;
         }
-        source.sendSuccess(() -> Component.literal("[legacy] " + title.getId()).withStyle(title.getRarity().getColor()), false);
+        source.sendSuccess(() -> Component.literal("[legacy] " + title.getId()).withColor(title.getRarity().baseColor()), false);
         source.sendSuccess(() -> Component.literal("  name: ").append(title.styledDisplayName())
                 .append(Component.literal(" (" + title.getTranslationKey() + ")").withStyle(ChatFormatting.DARK_GRAY)), false);
         source.sendSuccess(() -> Component.literal("  placement: " + title.getPlacement().name().toLowerCase(java.util.Locale.ROOT)

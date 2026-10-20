@@ -1,6 +1,15 @@
 package net.satisfy.legacy.core.trigger;
 
 import net.minecraft.resources.ResourceLocation;
+import net.satisfy.legacy.core.journey.Journey;
+import net.satisfy.legacy.core.journey.JourneyManager;
+import net.satisfy.legacy.core.title.Title;
+import net.satisfy.legacy.core.title.TitleManager;
+import net.satisfy.legacy.core.title.TitleRequirement;
+import net.satisfy.legacy.core.title.TriggerType;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public final class Counters {
     public static final String HARVEST_ANY = "harvest:crops";
@@ -13,7 +22,39 @@ public final class Counters {
     public static final String BIOMES_DISTINCT = "biomes_distinct";
     public static final String STRUCTURES_DISTINCT = "structures_distinct";
 
+    private static volatile Set<String> tracked;
+
     private Counters() {
+    }
+
+    public static void invalidate() {
+        tracked = null;
+    }
+
+    public static boolean isTracked(String key) {
+        Set<String> keys = tracked;
+        if (keys == null) {
+            keys = collectTracked();
+            tracked = keys;
+        }
+        return keys.contains(key);
+    }
+
+    private static Set<String> collectTracked() {
+        Set<String> keys = new HashSet<>();
+        for (Title title : TitleManager.INSTANCE.all()) {
+            addTracked(keys, title.getTrigger(), title.requirement());
+        }
+        for (Journey journey : JourneyManager.INSTANCE.all()) {
+            addTracked(keys, journey.triggerType(), journey.requirement());
+        }
+        return Set.copyOf(keys);
+    }
+
+    private static void addTracked(Set<String> keys, TriggerType type, TitleRequirement req) {
+        if (type == TriggerType.EVENT && req != null && req.counter != null) {
+            keys.add(req.counter);
+        }
     }
 
     public static String harvest(ResourceLocation block) {

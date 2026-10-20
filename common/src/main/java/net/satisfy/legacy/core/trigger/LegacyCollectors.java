@@ -35,6 +35,7 @@ import net.satisfy.legacy.core.data.LegacyTitleSavedData;
 import net.satisfy.legacy.core.data.PlayerTitleData;
 import net.satisfy.legacy.server.MilestoneService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,50 +63,38 @@ public final class LegacyCollectors {
             if (player == null) {
                 return EventResult.pass();
             }
-            boolean crop = isMatureCrop(state);
-            boolean tagged = false;
+            List<String> keys = new ArrayList<>(4);
+            if (isMatureCrop(state)) {
+                keys.add(Counters.harvest(BuiltInRegistries.BLOCK.getKey(state.getBlock())));
+                keys.add(Counters.HARVEST_ANY);
+            }
             for (TagKey<Block> tag : MINE_TAGS) {
                 if (state.is(tag)) {
-                    tagged = true;
-                    break;
+                    keys.add(Counters.mineTag(tag.location()));
                 }
             }
-            if (crop || tagged) {
-                withData(player, data -> {
-                    if (crop) {
-                        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
-                        data.addCounter(Counters.harvest(id), 1);
-                        data.addCounter(Counters.HARVEST_ANY, 1);
-                    }
-                    for (TagKey<Block> tag : MINE_TAGS) {
-                        if (state.is(tag)) {
-                            data.addCounter(Counters.mineTag(tag.location()), 1);
-                        }
-                    }
-                });
-            }
+            count(player, keys, 1);
             return EventResult.pass();
         });
 
         BlockEvent.PLACE.register((level, pos, state, placer) -> {
             if (placer instanceof ServerPlayer player) {
                 Block block = state.getBlock();
-                ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
-                withData(player, data -> {
-                    data.addCounter(Counters.place(id), 1);
-                    if (block instanceof SaplingBlock) {
-                        data.addCounter(Counters.PLACE_SAPLINGS, 1);
-                    }
-                    if (block instanceof CropBlock) {
-                        data.addCounter(Counters.PLACE_CROPS, 1);
-                    }
-                    if (block instanceof BedBlock) {
-                        data.addCounter(Counters.PLACE_BEDS, 1);
-                    }
-                    if (block instanceof AbstractBannerBlock) {
-                        data.addCounter(Counters.PLACE_BANNERS, 1);
-                    }
-                });
+                List<String> keys = new ArrayList<>(2);
+                keys.add(Counters.place(BuiltInRegistries.BLOCK.getKey(block)));
+                if (block instanceof SaplingBlock) {
+                    keys.add(Counters.PLACE_SAPLINGS);
+                }
+                if (block instanceof CropBlock) {
+                    keys.add(Counters.PLACE_CROPS);
+                }
+                if (block instanceof BedBlock) {
+                    keys.add(Counters.PLACE_BEDS);
+                }
+                if (block instanceof AbstractBannerBlock) {
+                    keys.add(Counters.PLACE_BANNERS);
+                }
+                count(player, keys, 1);
             }
             return EventResult.pass();
         });
@@ -115,16 +104,16 @@ public final class LegacyCollectors {
                 ItemStack stack = player.getItemInHand(hand);
                 ServerLevel level = serverPlayer.serverLevel();
                 BlockState state = level.getBlockState(pos);
-                if (stack.is(Items.BONE_MEAL)) {
-                    if (state.getBlock() instanceof BonemealableBlock bonemealable
-                            && bonemealable.isValidBonemealTarget(level, pos, state)) {
-                        withData(serverPlayer, data -> data.addCounter(Counters.BONEMEAL_USED, 1));
-                    }
+                if (stack.is(Items.BONE_MEAL) && Counters.isTracked(Counters.BONEMEAL_USED)
+                        && state.getBlock() instanceof BonemealableBlock bonemealable
+                        && bonemealable.isValidBonemealTarget(level, pos, state)) {
+                    count(serverPlayer, List.of(Counters.BONEMEAL_USED), 1);
                 }
-                if (hand == net.minecraft.world.InteractionHand.MAIN_HAND && !state.isAir()
-                        && tryConsumeUse(serverPlayer, GlobalPos.of(level.dimension(), pos.immutable()))) {
-                    ResourceLocation blockId = BuiltInRegistries.BLOCK.getKey(state.getBlock());
-                    withData(serverPlayer, data -> data.addCounter(Counters.use(blockId), 1));
+                if (hand == net.minecraft.world.InteractionHand.MAIN_HAND && !state.isAir()) {
+                    String key = Counters.use(BuiltInRegistries.BLOCK.getKey(state.getBlock()));
+                    if (Counters.isTracked(key) && tryConsumeUse(serverPlayer, GlobalPos.of(level.dimension(), pos.immutable()))) {
+                        count(serverPlayer, List.of(key), 1);
+                    }
                 }
             }
             return EventResult.pass();
@@ -132,9 +121,8 @@ public final class LegacyCollectors {
 
         PlayerEvent.CRAFT_ITEM.register((player, constructed, inventory) -> {
             if (player instanceof ServerPlayer serverPlayer && !constructed.isEmpty()) {
-                ResourceLocation id = BuiltInRegistries.ITEM.getKey(constructed.getItem());
-                int amount = Math.max(1, constructed.getCount());
-                withData(serverPlayer, data -> data.addCounter(Counters.craft(id), amount));
+                String key = Counters.craft(BuiltInRegistries.ITEM.getKey(constructed.getItem()));
+                count(serverPlayer, List.of(key), Math.max(1, constructed.getCount()));
             }
         });
 
@@ -158,11 +146,10 @@ public final class LegacyCollectors {
         if (stack.isEmpty()) {
             return;
         }
-        ResourceLocation id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        withData(player, data -> {
-            data.addCounter(Counters.consume(id), 1);
-            stack.getTags().forEach(tag -> data.addCounter(Counters.consumeTag(tag.location()), 1));
-        });
+        List<String> keys = new ArrayList<>();
+        keys.add(Counters.consume(BuiltInRegistries.ITEM.getKey(stack.getItem())));
+        stack.getTags().forEach(tag -> keys.add(Counters.consumeTag(tag.location())));
+        count(player, keys, 1);
     }
 
     public static void onJoin(ServerPlayer player, PlayerTitleData data) {
@@ -229,7 +216,7 @@ public final class LegacyCollectors {
     }
 
     private static List<ResourceLocation> biomeFamilies(ResourceLocation id) {
-        List<ResourceLocation> families = new java.util.ArrayList<>(2);
+        List<ResourceLocation> families = new ArrayList<>(2);
         String path = id.getPath();
         if (path.endsWith("ocean")) {
             families.add(ResourceLocation.withDefaultNamespace("ocean"));
@@ -255,6 +242,24 @@ public final class LegacyCollectors {
             return state.getValue(NetherWartBlock.AGE) >= 3;
         }
         return false;
+    }
+
+    private static void count(ServerPlayer player, List<String> keys, int amount) {
+        LegacyTitleSavedData saved = null;
+        PlayerTitleData data = null;
+        for (String key : keys) {
+            if (!Counters.isTracked(key)) {
+                continue;
+            }
+            if (data == null) {
+                saved = LegacyTitleSavedData.get(player.server);
+                data = saved.getOrCreate(player.getUUID());
+            }
+            data.addCounter(key, amount);
+        }
+        if (saved != null) {
+            saved.setDirty();
+        }
     }
 
     private static void withData(ServerPlayer player, Consumer<PlayerTitleData> action) {

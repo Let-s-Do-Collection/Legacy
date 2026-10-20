@@ -5,6 +5,8 @@
   "icon": "herbalbrews:green_tea",
   "rarity": "uncommon",
   "placement": "prefix",
+  "series": "cooking/tea",
+  "stage": 1,
   "display_priority": 320,
   "required_mods": [
     "herbalbrews"

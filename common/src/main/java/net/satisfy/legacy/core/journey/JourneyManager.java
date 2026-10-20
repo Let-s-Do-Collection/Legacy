@@ -55,6 +55,7 @@ public class JourneyManager extends SimpleJsonResourceReloadListener {
             }
         }
         this.journeys = Collections.unmodifiableMap(loaded);
+        net.satisfy.legacy.core.trigger.Counters.invalidate();
         LOGGER.info("[{}] Loaded {} journeys.", Legacy.MOD_ID, loaded.size());
     }
 

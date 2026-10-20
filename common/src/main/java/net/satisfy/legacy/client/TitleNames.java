@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.satisfy.legacy.core.title.Title;
 import net.satisfy.legacy.core.title.TitleForm;
+import net.satisfy.legacy.platform.PlatformHelper;
 
 @Environment(EnvType.CLIENT)
 public final class TitleNames {
@@ -15,7 +16,7 @@ public final class TitleNames {
 
     public static MutableComponent styled(Title title, TitleForm form) {
         MutableComponent name = base(title, form);
-        return LegacyClientConfig.titleColors ? name.withStyle(title.getRarity().getColor()) : name;
+        return PlatformHelper.isRarityColorsEnabled() ? title.getRarity().apply(name) : name;
     }
 
     public static MutableComponent plain(Title title, TitleForm form) {

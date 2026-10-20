@@ -31,6 +31,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    include(modImplementation("net.satisfy.foundation:foundation-fabric:${rootProject.foundation_version}") { transitive = false })
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { exclude group: "net.fabricmc.fabric-api" }
+    modImplementation "com.terraformersmc:modmenu:${rootProject.mod_menu_version}"
     modLocalRuntime "dev.emi:emi-fabric:${rootProject.emi_version}"
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
@@ -99,6 +102,7 @@ modrinth {
     dependencies {
         required.project "architectury-api"
         required.project "fabric-api"
+        required.project "cloth-config"
     }
 }
 
@@ -116,6 +120,7 @@ tasks.register("curseforge1724459", net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.addEnvironment("Client", "Server")
     mainFile.addRequirement("architectury-api")
     mainFile.addRequirement("fabric-api")
+    mainFile.addRequirement("cloth-config")
 }
 
 import groovy.json.JsonOutput

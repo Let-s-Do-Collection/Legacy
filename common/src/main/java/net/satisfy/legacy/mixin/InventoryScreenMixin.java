@@ -66,7 +66,7 @@ public abstract class InventoryScreenMixin extends AbstractContainerScreen<Inven
         if (this.getRecipeBookComponent().isVisible()) {
             this.legacy$journal.setVisible(false);
         }
-        this.legacy$journal.render(g, mouseX, mouseY, partialTick, this.font, this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+        this.legacy$journal.render(g, mouseX, mouseY, partialTick, this.font, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, this.children());
     }
 
     @WrapMethod(method = "renderEntityInInventory")

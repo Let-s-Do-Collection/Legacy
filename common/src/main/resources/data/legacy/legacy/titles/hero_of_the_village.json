@@ -4,7 +4,7 @@
   "category": "village",
   "icon": "minecraft:bell",
   "rarity": "epic",
-  "placement": "prefix",
+  "placement": "suffix",
   "series": "village/raid",
   "stage": 3,
   "display_priority": 207,

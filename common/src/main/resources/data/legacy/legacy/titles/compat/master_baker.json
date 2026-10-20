@@ -5,6 +5,8 @@
   "icon": "bakery:croissant",
   "rarity": "epic",
   "placement": "prefix",
+  "series": "cooking/baking",
+  "stage": 2,
   "display_priority": 311,
   "required_mods": [
     "bakery"
